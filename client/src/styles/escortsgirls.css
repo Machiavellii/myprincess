@@ -1,0 +1,39 @@
+.contact-form-heading {
+    display: grid;
+    grid-template-columns: minmax(20px, 1fr) auto minmax(20px, 1fr);
+    align-items: center;
+    text-align: center;
+    grid-gap: 20px;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 100%;
+}
+
+.contact-form-heading:before,
+.contact-form-heading:after {
+    content: '';
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.no-annoucments-heading {
+    grid-gap: 20px;
+    width: 100%;
+    font-weight: 600;
+    font-size: 100%;
+    margin: 10% 0;
+}
+
+.inactive{
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 50;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 80%;
+    padding: 50% 10px; 
+}

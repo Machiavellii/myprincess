@@ -1,0 +1,13 @@
+.main-color {
+    background-color: #CE0F69;
+    border: 1px solid #CE0F69;
+}
+
+.main-color:hover {
+    background-color: #2B2B2B;
+    border: 1px solid #2B2B2B;
+}
+
+label {
+    font-weight: 600;
+}

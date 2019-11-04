@@ -1,0 +1,69 @@
+strong {
+  line-height: 40px !important;
+}
+
+.badge {
+  background-color: var(--rose-color);
+  color: #fff;
+}
+
+.time {
+  color: #2b2b2b;
+  font-weight: normal;
+  font-size: 150%;
+  line-height: 30px;
+}
+
+.pricing {
+  color: var(--rose-color);
+  font-weight: normal;
+  font-size: 250%;
+}
+
+.description {
+  font-style: italic;
+  color: #86898c;
+}
+
+.full {
+  color: #fff;
+  background-color: var(--rose-color);
+  border: 1px solid var(--rose-color);
+  display: inline-flex;
+  align-items: center;
+}
+
+.full i {
+  color: #fff !important;
+}
+.full:hover i {
+  color: var(--rose-color) !important;
+}
+
+.full:hover {
+  color: var(--rose-color);
+  background-color: #fff;
+  border: 1px solid var(--rose-color);
+}
+
+.empty {
+  color: var(--rose-color);
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.075);
+  display: inline-flex;
+  align-items: center;
+}
+
+.empty:hover {
+  background-color: #484848;
+  color: #fff;
+  border: 1px solid #484848;
+}
+
+.empty:hover i {
+  color: #fff;
+}
+
+.right-icon {
+  margin-left: 0.5rem;
+}

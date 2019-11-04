@@ -1,0 +1,53 @@
+.ck-editor__editable {
+  min-height: 200px !important;
+}
+
+h1 {
+  font-size: 3rem;
+  padding: 3rem;
+  background-color: #f9f9f9;
+}
+.tip {
+  color: #919191;
+}
+
+.dynamic-checkbox {
+  margin: 10px;
+}
+
+.dynamic-checkbox input {
+  transform: scale(1.1);
+}
+
+.dynamic-checkbox:hover,
+.dynamic-checkbox-label:hover {
+  color: var(--rose-color);
+}
+
+.main-theme-btn {
+  background-color: var(--rose-color);
+  border: 1px solid var(--rose-color);
+}
+
+.main-theme-btn:hover {
+  background-color: #2b2b2b;
+  border: 1px solid #2b2b2b;
+}
+
+sup a {
+  color: var(--rose-color);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+sup a:hover {
+  color: #2b2b2b;
+}
+
+@media only screen and (max-width: 576px) {
+  h1 {
+    font-size: 1.5rem;
+    padding: 2rem;
+  }
+}

@@ -1,0 +1,17 @@
+.small-header {
+  background: #2b2b2b;
+  border-bottom: 1px solid #2f2424;
+}
+.small-header > .language {
+  display: flex;
+  justify-content: center;
+}
+.small-header a {
+  color: #333;
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin: 0.2rem;
+}
+.small-header a:hover {
+  color: #000;
+}

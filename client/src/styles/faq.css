@@ -1,0 +1,28 @@
+.email-link {
+  color: var(--rose-color);
+  font-weight: 700;
+}
+
+.email-link:hover {
+  text-decoration: none;
+  color: #2b2b2b;
+}
+
+.jumbotron {
+  background-color: #f9f9f9;
+}
+
+.jumbotron-heading {
+  color: #2b2b2b;
+  font-size: 64px;
+  font-weight: 400;
+}
+
+h6 {
+  font-weight: 700;
+}
+
+.sub-title {
+  color: #919191;
+  font-weight: 100;
+}

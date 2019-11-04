@@ -1,0 +1,148 @@
+.holder-line {
+  display: flex;
+  margin-bottom: 3rem;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+.holder-line h4 {
+  margin: 0 0.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.sep-holder {
+  height: 1px;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-width: 10%;
+}
+.line {
+  border-color: #ebebeb;
+  height: 1px;
+  border-top: 1px solid #ebebeb;
+  display: block;
+  position: relative;
+  top: 1px;
+  width: 100%;
+}
+
+/* LANDING CONTENT */
+.content {
+  width: 100%;
+  height: 20rem;
+  margin-bottom: 2rem;
+}
+
+@media only screen and (max-width: 764px) {
+  .content {
+    margin-bottom: 1rem;
+  }
+}
+
+.contentHolder {
+  position: relative;
+  height: 100%;
+}
+
+.contentHolder img {
+  height: 100%;
+}
+
+.links {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  padding: 0.7rem;
+  background: #00000047;
+}
+.links:hover {
+  color: #fab171;
+}
+
+.link-name {
+  display: block;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.top-holder {
+  position: absolute;
+  color: #fff;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin-top: 0.3rem;
+  width: 100%;
+  text-align: center;
+}
+
+.bottom-holder {
+  position: absolute;
+  width: 100%;
+  bottom: -3%;
+}
+
+/* PAGINATION */
+.pagination {
+  justify-content: center;
+  margin-bottom: 5rem;
+}
+.page-link {
+  border: unset;
+  color: #999;
+}
+
+/* LANDING CANTONS */
+.cantons {
+  background-color: #fafafa;
+}
+
+.cantons .col-sm-12 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.canton span {
+  margin-top: 0.5rem;
+  display: block;
+  width: 100%;
+}
+
+.custom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+@media only screen and (max-width: 780px) {
+  .custom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    align-items: center;
+  }
+}
+
+/* LANDING DESCRIBE */
+.landingDescribe {
+  font-size: 0.7rem;
+  margin-bottom: 3rem;
+}
+.landingDescribe a {
+  color: var(--rose-color);
+  font-size: 1rem;
+}
+
+.holder-links > a {
+  display: block;
+  color: var(--rose-color);
+  margin-bottom: 1rem;
+}
+
+.holder-links > a:hover {
+  color: #333;
+}

@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
+
+:root {
+  --rose-color: #ce0f69;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.py-1 {
+  padding: 0 1rem;
+}
+.btn-rose-back {
+  background-color: var(--rose-color);
+  color: #fff;
+}
+img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.header {
+  background: #383838;
+  color: #fff;
+  justify-content: center;
+  display: flex;
+  padding: 2rem 0;
+  font-size: 1.2rem;
+}
+
+.btn-form {
+  background-color: var(--rose-color);
+  color: #fff;
+}
+
+.pagination > .page-item {
+  cursor: pointer;
+}

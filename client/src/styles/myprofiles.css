@@ -1,0 +1,122 @@
+.my-profile > .heading {
+  font-weight: 700;
+}
+
+.my-profile > .btn-filter,
+.btn-filter:hover {
+  background-color: #fcbf2f;
+  border-color: #fcbf2f;
+  color: #000;
+}
+
+.my-profile > .btn-profile,
+.btn-profile:hover {
+  background-color: #ce0f69;
+  border-color: #ce0f69;
+  color: #fff;
+}
+
+.my-profile > .profile-status {
+  background-color: #16a44e;
+  color: #fff;
+}
+
+.my-profile .profile-status i {
+  color: #fff;
+}
+
+.my-profile .expiry-date {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.my-profile .girl-name {
+  color: #ce0f69;
+  font-weight: 700;
+}
+
+.my-profile .position-text span {
+  font-size: 200%;
+  letter-spacing: 5px;
+  color: #fcbf2f;
+}
+
+.my-profile .btn-boost,
+.btn-boost:hover {
+  background-color: #fcbf2f;
+  color: #000;
+  border-color: #fcbf2f;
+}
+
+.my-profile .free-boost {
+  color: #fcbf2f;
+  font-weight: 700;
+}
+
+.my-profile > .manage-profile {
+  color: #ce0f69;
+  font-weight: 700;
+}
+
+.my-profile .btn-outline,
+.btn-outline:hover {
+  border: 1px solid #ce0f69;
+  color: #ce0f69;
+}
+
+.my-profile > .btn-myprofile:hover {
+  width: 40%;
+  font-size: 90%;
+  background-color: #ce0f69;
+  border-color: #ce0f69;
+  color: #fff;
+}
+
+.my-profile .border-between > [class*='col-']:before {
+  background: #969292;
+  bottom: 0;
+  content: ' ';
+  left: 10%;
+  position: absolute;
+  width: 1px;
+  top: 0;
+}
+
+.my-profile > .border-between > [class*='col-']:first-child:before {
+  display: none;
+}
+
+@media only screen and (max-width: 1200px) {
+  .my-profile > .btn-block {
+    font-size: 70%;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .my-profile > .img-fluid {
+    height: 100% !important;
+  }
+  .my-profile > .btn-boost {
+    font-size: 100%;
+  }
+  .my-profile > .btn-block {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .my-profile > .girl-name {
+    margin-top: 10px;
+  }
+  .my-profile > .btn-boost,
+  .free-boost {
+    font-size: 150%;
+  }
+  .my-profile > .btn-block {
+    font-size: 100%;
+    margin-top: 20px !important;
+  }
+  .my-profile > .border-between > [class*='col-']:before {
+    display: none;
+  }
+}

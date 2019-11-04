@@ -1,0 +1,65 @@
+.btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+.btn {
+  font-size: 1.1rem;
+}
+
+.btn:focus {
+  outline: unset;
+  box-shadow: unset;
+}
+.search .card {
+  cursor: pointer;
+  height: 25rem;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  color: var(--rose-color);
+  font-size: 2rem;
+  margin-bottom: 0;
+  margin-top: 1rem;
+}
+
+.card-text {
+  color: #86898c;
+  margin-right: 0.3rem;
+  margin-bottom: 1.5rem;
+}
+.search-card a {
+  color: #86898c;
+  font-size: 0.9rem;
+}
+
+.card-body i {
+  color: var(--rose-color);
+  font-size: 1.5rem;
+}
+
+.search .card-img-top {
+  height: 50%;
+}
+
+select {
+  margin-bottom: 1rem;
+}
+
+.form-control:focus {
+  background-color: #ecdbdb;
+  box-shadow: unset;
+}
+
+@media only screen and (min-width: 992px) {
+  .form-select {
+    display: flex;
+    margin-top: 3rem;
+  }
+
+  .form-control {
+    margin-right: 0.5rem;
+  }
+}
