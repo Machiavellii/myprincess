@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import FsLightbox from 'fslightbox-react';
+// import FsLightbox from 'fslightbox-react';
 
 import img1 from '../../../../../../../img/girls/girl/1.jpeg';
 import img2 from '../../../../../../../img/girls/girl/2.jpeg';
@@ -42,10 +42,10 @@ const Gallery = ({ profile }) => {
           <img src={img8} alt="" />
         </div>
       </div>
-      <FsLightbox
+      {/* <FsLightbox
         toggler={toggler}
         sources={[img1, img2, img3, img4, img5, img6, img7, img8]}
-      />
+      /> */}
     </div>
   );
 };
