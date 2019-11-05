@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import FsLightbox from 'fslightbox-react';
+// import FsLightbox from 'fslightbox-react';
 
 const Carousel = ({ photos }) => {
   let [leftArrow] = useState('');
