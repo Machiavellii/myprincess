@@ -109,6 +109,13 @@ const EditAdForm = ({
       website: loading || !profile.website ? ' ' : profile.website,
       is_active: loading || !profile.is_active ? ' ' : profile.is_active
     });
+
+    setCoverphoto({
+      cover_photo: loading || !profile.cover_photo ? '' : profile.cover_photo
+    });
+    setGalleryphoto({
+      photos: loading || !profile.photos ? '' : profile.photos
+    });
   }, [loading, getCurrentProfile]);
 
   const {
@@ -168,6 +175,21 @@ const EditAdForm = ({
     });
   };
 
+  const onClickImg = photo => {
+    const imgs = profile.photos.map(img =>
+      img === photo ? profile.photos.splice(photo, 1) : photos
+    );
+    setGalleryphoto(imgs);
+
+    // if (photo === profile.cover_photo) {
+    //   document.querySelector('.closeHolder').remove()
+    //   // profile.cover_photo = '';
+    //   console.log(cover_photo);
+    // }
+
+    // console.log(profile.photos);
+  };
+
   const onSubmit = e => {
     e.preventDefault();
     let formCover = new FormData();
@@ -188,7 +210,7 @@ const EditAdForm = ({
     <Fragment>
       <h1 className="text-center">Post an ad - 7 days</h1>
       <form
-        className="container mb-5"
+        className="container mb-5 edit-form"
         onSubmit={onSubmit}
         encType="multipart/form-data"
       >
@@ -397,19 +419,44 @@ const EditAdForm = ({
           onChange={onChange}
           labels={coverLabel}
         />
+        <div className="holder-img">
+          <div className='closeHolder'>
+            {/* <button
+              type="button"
+              className="close"
+              onClick={e => onClickImg(profile.cover_photo)}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button> */}
+            <img src={profile.cover_photo} alt="" />
+          </div>
+        </div>
         <p className="text-center">
-          <small className="tip">Add a cover photo</small>
+          <small className="tip">Add new cover photo</small>
         </p>
 
-        <input type="file" name="photos" onChange={onChange} multiple />
-
-        {/* <InputGroup
+        <input
           type="file"
           name="photos"
           onChange={onChange}
-          labels={galleryLabel}
           multiple
-        /> */}
+          className="mb-1"
+        />
+        <div className="holder-gallery">
+          {profile.photos.map((photo, i) => (
+            <div key={i}>
+              <button
+                type="button"
+                className="close"
+                onClick={e => onClickImg(photo)}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <img src={photo} alt="" />
+            </div>
+          ))}
+        </div>
+
         <p className="text-center">
           <small className="tip">
             The first picture will be displayed as the hand.

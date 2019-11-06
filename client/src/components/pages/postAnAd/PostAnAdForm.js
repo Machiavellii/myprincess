@@ -160,6 +160,7 @@ const PostAnAdForm = ({
     createProfile(formData, history);
   };
 
+
   return (
     <Fragment>
       <h1 className="text-center">Post an ad - 7 days</h1>
@@ -402,19 +403,32 @@ const PostAnAdForm = ({
           onChange={onChange}
           labels={coverLabel}
         />
+        <div className="holder-img">
+          {cover_photo === null ? '' : (
+          <div>
+          <img
+            src={URL.createObjectURL(cover_photo)}
+            alt=""
+          />
+          </div>
+          )}
+        </div>
         <p className="text-center">
           <small className="tip">Add a cover photo</small>
         </p>
 
-        <input type="file" name="photos" onChange={onChange} multiple />
+        <input type="file" name="photos" onChange={onChange} multiple className='mb-1' />
 
-        {/* <InputGroup
-          type="file"
-          name="photos"
-          onChange={onChange}
-          labels={galleryLabel}
-          multiple
-        /> */}
+        <div className="holder-gallery">
+          {photos === ''
+            ? ''
+            : Object.keys(photos).map(photo => (
+                <div key={photo}>
+                  <img src={URL.createObjectURL(photos[photo])} alt="" />
+                </div>
+              ))}
+        </div>
+
         <p className="text-center">
           <small className="tip">
             The first picture will be displayed as the hand.

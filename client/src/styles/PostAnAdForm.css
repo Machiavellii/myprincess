@@ -45,6 +45,23 @@ sup a:hover {
   color: #2b2b2b;
 }
 
+form .holder-img > div {
+  width: 10rem;
+  margin-bottom: 1rem;
+}
+
+form .holder-gallery {
+  display: flex;
+  justify-content: space-between;
+}
+form .holder-gallery > div {
+  width: 7rem;
+  height: 7rem;
+}
+form .holder-gallery > div > img {
+  height: 100%;
+}
+
 @media only screen and (max-width: 576px) {
   h1 {
     font-size: 1.5rem;
