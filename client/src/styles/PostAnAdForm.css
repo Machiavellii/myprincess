@@ -53,6 +53,7 @@ form .holder-img > div {
 form .holder-gallery {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2rem;
 }
 form .holder-gallery > div {
   width: 7rem;

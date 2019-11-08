@@ -44,9 +44,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         profile: null,
-        loading: false,
-        profileFilter: [],
-        searchPage: []
+        loading: false
       };
 
     case FILTER_PROFILE:

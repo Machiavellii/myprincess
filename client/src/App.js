@@ -23,9 +23,13 @@ import PostAnAdForm from './components/pages/postAnAd/PostAnAdForm';
 import EditAdForm from './components/pages/postAnAd/EditAdForm';
 import Search from './components/pages/search/Search';
 import EscortsGirls from './components/pages/EscortsGirls';
-import MyProfiles from './components/pages/my-profiles/MyProfiles'
-
+import MyProfiles from './components/pages/my-profiles/MyProfiles';
 import Alert from './components/layout/Alert';
+import Dashboard from './components/dashboard/Dashboard';
+import UploadCover from './components/pages/postAnAd/UploadCover';
+import UploadGallery from './components/pages/postAnAd/UploadGallery';
+import PrivateRoute from './components/routing/PrivateRoute';
+
 import { loadUser } from './actions/auth';
 
 if (localStorage.token) {
@@ -44,19 +48,32 @@ const App = () => {
           <MiniHeader />
           <Navbar />
           <Alert />
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/faq" component={Faq} />
-          <Route exact path="/contact" component={Contact} />
-          <Route exact path="/postanad" component={Postanad} />
-          <Route exact path="/postanadform" component={PostAnAdForm} />
-          <Route exact path="/search" component={Search} />
-          <Route exact path="/profile/user/:id" component={DescribeContent} />
-          <Route exact path="/links" component={Links} />
-          <Route exact path="/escorts-girls/:canton" component={EscortsGirls} />
-          <Route exact path="/my-profiles" component={MyProfiles} />
-          <Route exact path="/edit-profile" component={EditAdForm} />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/faq" component={Faq} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/postanad" component={Postanad} />
+            <PrivateRoute exact path="/postanadform" component={PostAnAdForm} />
+            <Route exact path="/search" component={Search} />
+            <Route exact path="/profile/user/:id" component={DescribeContent} />
+            <Route exact path="/links" component={Links} />
+            <Route
+              exact
+              path="/escorts-girls/:canton"
+              component={EscortsGirls}
+            />
+            <Route exact path="/my-profiles" component={MyProfiles} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            <PrivateRoute exact path="/edit-profile" component={EditAdForm} />
+            <PrivateRoute exact path="/upload-cover" component={UploadCover} />
+            <PrivateRoute
+              exact
+              path="/upload-gallery"
+              component={UploadGallery}
+            />
+          </Switch>
           <Footer />
         </div>
       </Router>

@@ -288,7 +288,7 @@ router.delete('/', auth, async (req, res) => {
     // Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
     // Remove User
-    // await User.findOneAndRemove({ _id: req.user.id });
+    await User.findOneAndRemove({ _id: req.user.id });
 
     res.json({ msg: 'User Deleted' });
   } catch (err) {
@@ -356,7 +356,7 @@ router.post(
 
       const photoUrls = reqFiles.map((item, index) => {
         const photoLink = path.join(item.destination, item.filename);
-        return photoLink
+        return photoLink;
       });
 
       const profile = await Profile.findOne({
@@ -368,7 +368,7 @@ router.post(
           console.log('error', err);
         });
       }
-      
+
       const photo = await Profile.findOne({
         user: req.user.id
       });

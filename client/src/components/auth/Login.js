@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { login } from '../../actions/auth';
 
 const Login = ({ isAuthenticated, login }) => {
@@ -22,12 +22,12 @@ const Login = ({ isAuthenticated, login }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (
     <div className="container">
-      <form className="p-5" onSubmit={e => onSubmit(e)}>
+      <form className="px-3" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
           <label htmlFor="email">Email Address *</label>
           <input
@@ -55,6 +55,9 @@ const Login = ({ isAuthenticated, login }) => {
           Log in
         </button>
       </form>
+      <p>
+        Don't have an account? <Link to="/register">Sign Up</Link>
+      </p>
     </div>
   );
 };

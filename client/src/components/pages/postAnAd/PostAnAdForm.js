@@ -78,8 +78,8 @@ const PostAnAdForm = ({
     errors: ''
   });
 
-  const [cover_photo, setCoverphoto] = useState(null);
-  const [photos, setGalleryphoto] = useState('');
+  // const [cover_photo, setCoverphoto] = useState(null);
+  // const [photos, setGalleryphoto] = useState('');
 
   const {
     gender,
@@ -111,12 +111,12 @@ const PostAnAdForm = ({
   }, [error]);
 
   const onChange = e => {
-    if (e.target.name === 'cover_photo') {
-      setCoverphoto(e.target.files[0]);
-    }
-    if (e.target.name === 'photos') {
-      setGalleryphoto(e.target.files);
-    }
+    // if (e.target.name === 'cover_photo') {
+    //   setCoverphoto(e.target.files[0]);
+    // }
+    // if (e.target.name === 'photos') {
+    //   setGalleryphoto(e.target.files);
+    // }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -146,20 +146,19 @@ const PostAnAdForm = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    let formCover = new FormData();
-    formCover.append('cover_photo', cover_photo);
+    // let formCover = new FormData();
+    // formCover.append('cover_photo', cover_photo);
 
-    let formGallery = new FormData();
+    // let formGallery = new FormData();
 
-    for (const key of Object.keys(photos)) {
-      formGallery.append('photos', photos[key]);
-    }
+    // for (const key of Object.keys(photos)) {
+    //   formGallery.append('photos', photos[key]);
+    // }
 
-    uploadGallery(formGallery);
-    uploadCover(formCover);
+    // uploadGallery(formGallery);
+    // uploadCover(formCover);
     createProfile(formData, history);
   };
-
 
   return (
     <Fragment>
@@ -169,7 +168,7 @@ const PostAnAdForm = ({
         onSubmit={onSubmit}
         encType="multipart/form-data"
       >
-        {!isAuthenticated.token ? (
+        {/* {!isAuthenticated.token ? (
           <div className="card mb-4 mt-5">
             <div className="card-body">
               <h5 className="card-title">Already have an account?</h5>
@@ -194,7 +193,7 @@ const PostAnAdForm = ({
               </div>
             </div>
           </div>
-        ) : null}
+        ) : null} */}
 
         <div className="form-group">
           <p>Job Activity</p>
@@ -397,27 +396,32 @@ const PostAnAdForm = ({
           value={zip}
           error={errors}
         />
-        <InputGroup
+        {/* <InputGroup
           type="file"
           name="cover_photo"
           onChange={onChange}
           labels={coverLabel}
         />
         <div className="holder-img">
-          {cover_photo === null ? '' : (
-          <div>
-          <img
-            src={URL.createObjectURL(cover_photo)}
-            alt=""
-          />
-          </div>
+          {cover_photo === null ? (
+            ''
+          ) : (
+            <div>
+              <img src={URL.createObjectURL(cover_photo)} alt="" />
+            </div>
           )}
         </div>
         <p className="text-center">
           <small className="tip">Add a cover photo</small>
         </p>
 
-        <input type="file" name="photos" onChange={onChange} multiple className='mb-1' />
+        <input
+          type="file"
+          name="photos"
+          onChange={onChange}
+          multiple
+          className="mb-1"
+        />
 
         <div className="holder-gallery">
           {photos === ''
@@ -433,7 +437,7 @@ const PostAnAdForm = ({
           <small className="tip">
             The first picture will be displayed as the hand.
           </small>
-        </p>
+        </p> */}
 
         <TextAreaGroup
           placeholder="21:00 - 05:00"

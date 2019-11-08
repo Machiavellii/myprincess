@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { register } from '../../actions/auth';
 
 const Register = ({ setAlert, isAuthenticated, register }) => {
@@ -29,12 +29,12 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (
     <div className="container">
-      <form className="p-5" onSubmit={e => onSubmit(e)}>
+      <form className="px-3" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
           <label htmlFor="email">Nickname *</label>
           <input
@@ -88,6 +88,9 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
         </button>
         {/* <imput type="submit" value="Register"  /> */}
       </form>
+      <p>
+        Already have an account? <Link to="/login">Sign In</Link>
+      </p>
     </div>
   );
 };

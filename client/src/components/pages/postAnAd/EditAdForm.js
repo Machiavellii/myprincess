@@ -3,12 +3,7 @@ import '../../../styles/PostAnAdForm.css';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import {
-  createProfile,
-  uploadCover,
-  uploadGallery,
-  getCurrentProfile
-} from '../../../actions/profile';
+import { createProfile, getCurrentProfile } from '../../../actions/profile';
 
 import {
   spokenLanguageList,
@@ -40,8 +35,6 @@ import {
   cantonLabel,
   cityLabel,
   cityzipLabel,
-  coverLabel,
-  // galleryLabel,
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
@@ -51,8 +44,6 @@ import {
 const EditAdForm = ({
   createProfile,
   history,
-  uploadCover,
-  uploadGallery,
   getCurrentProfile,
   profile: { profile, loading }
 }) => {
@@ -78,9 +69,6 @@ const EditAdForm = ({
     type: '',
     errors: ''
   });
-
-  const [cover_photo, setCoverphoto] = useState(null);
-  const [photos, setGalleryphoto] = useState('');
 
   useEffect(() => {
     getCurrentProfile();
@@ -109,13 +97,6 @@ const EditAdForm = ({
       website: loading || !profile.website ? ' ' : profile.website,
       is_active: loading || !profile.is_active ? ' ' : profile.is_active
     });
-
-    setCoverphoto({
-      cover_photo: loading || !profile.cover_photo ? '' : profile.cover_photo
-    });
-    setGalleryphoto({
-      photos: loading || !profile.photos ? '' : profile.photos
-    });
   }, [loading, getCurrentProfile]);
 
   const {
@@ -142,12 +123,6 @@ const EditAdForm = ({
   } = formData;
 
   const onChange = e => {
-    if (e.target.name === 'cover_photo') {
-      setCoverphoto(e.target.files[0]);
-    }
-    if (e.target.name === 'photos') {
-      setGalleryphoto(e.target.files);
-    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -175,34 +150,8 @@ const EditAdForm = ({
     });
   };
 
-  const onClickImg = photo => {
-    const imgs = profile.photos.map(img =>
-      img === photo ? profile.photos.splice(photo, 1) : photos
-    );
-    setGalleryphoto(imgs);
-
-    // if (photo === profile.cover_photo) {
-    //   document.querySelector('.closeHolder').remove()
-    //   // profile.cover_photo = '';
-    //   console.log(cover_photo);
-    // }
-
-    // console.log(profile.photos);
-  };
-
   const onSubmit = e => {
     e.preventDefault();
-    let formCover = new FormData();
-    formCover.append('cover_photo', cover_photo);
-
-    let formGallery = new FormData();
-
-    for (const key of Object.keys(photos)) {
-      formGallery.append('photos', photos[key]);
-    }
-
-    uploadGallery(formGallery);
-    uploadCover(formCover);
     createProfile(formData, history, true);
   };
 
@@ -413,55 +362,6 @@ const EditAdForm = ({
           value={zip}
           error={errors}
         />
-        <InputGroup
-          type="file"
-          name="cover_photo"
-          onChange={onChange}
-          labels={coverLabel}
-        />
-        <div className="holder-img">
-          <div className='closeHolder'>
-            {/* <button
-              type="button"
-              className="close"
-              onClick={e => onClickImg(profile.cover_photo)}
-            >
-              <span aria-hidden="true">&times;</span>
-            </button> */}
-            <img src={profile.cover_photo} alt="" />
-          </div>
-        </div>
-        <p className="text-center">
-          <small className="tip">Add new cover photo</small>
-        </p>
-
-        <input
-          type="file"
-          name="photos"
-          onChange={onChange}
-          multiple
-          className="mb-1"
-        />
-        <div className="holder-gallery">
-          {profile.photos.map((photo, i) => (
-            <div key={i}>
-              <button
-                type="button"
-                className="close"
-                onClick={e => onClickImg(photo)}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <img src={photo} alt="" />
-            </div>
-          ))}
-        </div>
-
-        <p className="text-center">
-          <small className="tip">
-            The first picture will be displayed as the hand.
-          </small>
-        </p>
 
         <TextAreaGroup
           placeholder="21:00 - 05:00"
@@ -478,7 +378,6 @@ const EditAdForm = ({
           value={rate}
           onChange={onChange}
           // error={error}
-
           labels={rateLabel}
         />
         <InputGroup
@@ -514,5 +413,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createProfile, uploadCover, uploadGallery, getCurrentProfile }
+  { createProfile, getCurrentProfile }
 )(withRouter(EditAdForm));

@@ -31,13 +31,6 @@ const DescribeContent = ({
             <Link to="/" className="btn btn-light">
               Back
             </Link>
-            {auth.isAuthenticated &&
-              auth.loading === false &&
-              auth.user._id === profile.user._id && (
-                <Link to="/edit-profile" className="btn btn-dark">
-                  Edit Profile
-                </Link>
-              )}
           </div>
           <Carousel photos={profile.photos} />
           <div className="holder">

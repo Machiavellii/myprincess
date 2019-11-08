@@ -81,18 +81,7 @@ export const cityzipLabel = [
     text: 'City Zip  *'
   }
 ];
-export const coverLabel = [
-  {
-    htmlFor: 'coverPicture ',
-    text: 'Cover Picture '
-  }
-];
-export const galleryLabel = [
-  {
-    htmlFor: 'gallery ',
-    text: 'Upload your photographs (max. 10)'
-  }
-];
+
 export const businesshoursLabel = [
   {
     htmlFor: 'business_hours ',

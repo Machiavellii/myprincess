@@ -94,11 +94,18 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout, filterFunc }) => {
                   </NavLink>
                 </li>
                 {isAuthenticated ? (
-                  <li className="nav-item">
-                    <Link to="/" onClick={logout} className="nav-link">
-                      Logout
-                    </Link>
-                  </li>
+                  <Fragment>
+                    <li className="nav-item">
+                      <Link to="/" onClick={logout} className="nav-link">
+                        Logout
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/dashboard" className="nav-link">
+                        Dashboard
+                      </Link>
+                    </li>
+                  </Fragment>
                 ) : (
                   <Fragment>
                     <li className="nav-item">
