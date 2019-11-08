@@ -19,7 +19,7 @@ const Describe = ({ profile }) => {
       ))}
 
       <h6 className="mt-4">Minimun rate:</h6>
-      <p>From CHF {rate}.-</p>
+      <p>From CHF {rate}</p>
     </div>
   );
 };

@@ -51,8 +51,6 @@ export const getProfileById = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
 
-    console.log(res.data);
-
     dispatch({
       type: GET_PROFILE,
       payload: res.data
@@ -88,10 +86,6 @@ export const createProfile = (
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 
     history.push('/dashboard');
-    // if (edit) {
-    // } else {
-    //   history.push('/upload-cover');
-    // }
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -130,8 +124,6 @@ export const uploadCover = (formFile, history) => async dispatch => {
     dispatch(setAlert('Profile Photo Added', 'success'));
 
     history.push('/upload-gallery');
-    // if (edit) {
-    // }
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -160,8 +152,6 @@ export const uploadGallery = (formFile, history, edit) => async dispatch => {
     });
 
     history.push('/');
-    // if(edit){
-    // }
   } catch (err) {
     const errors = err.response.data.errors;
 

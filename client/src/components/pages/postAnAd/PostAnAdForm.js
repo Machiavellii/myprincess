@@ -39,8 +39,6 @@ import {
   cantonLabel,
   cityLabel,
   cityzipLabel,
-  coverLabel,
-  // galleryLabel,
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,

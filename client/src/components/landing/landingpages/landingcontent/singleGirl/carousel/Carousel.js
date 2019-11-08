@@ -21,8 +21,6 @@ const Carousel = ({ photos }) => {
     setToggler(!togg);
   };
 
-  console.log(photos.length);
-
   return (
     <Fragment>
       {photos.length < 1 ? (
