@@ -61,7 +61,10 @@ const UploadCover = ({
           </div>
         )}
 
-        <button type="submit" className="btn btn-primary  main-theme-btn mb-1">
+        <button
+          type="submit"
+          className="btn btn-primary btn-block main-theme-btn mb-1"
+        >
           Submit
         </button>
       </form>
