@@ -1,12 +1,8 @@
 import React, { useState, Fragment } from 'react';
 
-// import FsLightbox from 'fslightbox-react';
-
 const Carousel = ({ photos }) => {
   let [leftArrow] = useState('');
   let [rightArrow] = useState('');
-  const [togg, setToggler] = useState(false);
-  const [photoGallery, setPhotos] = useState('');
 
   rightArrow = () => {
     document.getElementById('move').scrollLeft += 250;
@@ -14,11 +10,6 @@ const Carousel = ({ photos }) => {
 
   leftArrow = () => {
     document.getElementById('move').scrollLeft -= 150;
-  };
-
-  const toggler = photo => {
-    setPhotos(photo);
-    setToggler(!togg);
   };
 
   return (
@@ -29,13 +20,20 @@ const Carousel = ({ photos }) => {
         <div className="carousel-holder">
           <div className="carousel-gallery" id="move">
             {photos.map((photo, i) => (
-              <img
+              <a
                 key={i}
-                src={`${window.location.origin}/${photo}`}
-                alt=""
-                className="img-fluid"
-                onClick={e => toggler(photo)}
-              />
+                href={`${window.location.origin}/${photo}`}
+                data-toggle="lightbox"
+                data-gallery="img-gallery"
+                data-height="564"
+                data-width="564"
+              >
+                <img
+                  src={`${window.location.origin}/${photo}`}
+                  alt=""
+                  className="img-fluid"
+                />
+              </a>
             ))}
           </div>
           <div className="leftArrow arrow" onClick={leftArrow}>
@@ -44,10 +42,6 @@ const Carousel = ({ photos }) => {
           <div className="rightArrow arrow" onClick={rightArrow}>
             <i className="fas fa-arrow-right"></i>
           </div>
-          {/* <FsLightbox
-      toggler={toggler}
-      sources={[`${window.location.origin}/${photoGallery}`]}
-    /> */}
         </div>
       )}
     </Fragment>

@@ -6,11 +6,12 @@
   display: flex;
   overflow-y: hidden;
   overflow-x: scroll;
+  overflow-x: hidden;
 }
 
 .carousel-gallery .img-fluid {
-  max-width: 50%;
   width: auto;
+  max-width: unset;
   height: 27rem;
 }
 
@@ -40,6 +41,34 @@
 }
 .btn-holder a {
   font-size: 0.9rem;
+}
+
+.ekko-lightbox-nav-overlay a:first-child {
+  position: absolute;
+  top: 50%;
+  font-size: 2rem;
+  left: 0;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+
+.ekko-lightbox-nav-overlay a {
+  color: #8f89a2;
+}
+
+.ekko-lightbox-nav-overlay a:hover {
+  text-decoration: none;
+}
+
+.ekko-lightbox-nav-overlay a:nth-child(2) {
+  right: 0;
+  position: absolute;
+  top: 50%;
+  font-size: 2rem;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
 }
 
 /* DECRIBE GIRL */
