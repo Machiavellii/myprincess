@@ -4,15 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 import { uploadGallery, getCurrentProfile } from '../../../actions/profile';
 
-// const onClickImg = photo => {
-//   const imgs = profile.photos.map(img =>
-//     img === photo ? profile.photos.splice(photo, 1) : photos
-//   );
-//   setGalleryphoto(imgs);
-
-//   // console.log(profile.photos);
-// };
-
 const UploadGallery = ({
   uploadGallery,
   history,
@@ -44,9 +35,18 @@ const UploadGallery = ({
     uploadGallery(formGallery, history, true);
   };
 
+  const onClickImg = photo => {
+    const imgs = profile.photos.map(img =>
+      img === photo ? profile.photos.splice(photo, 1) : photos
+    );
+    setGalleryphoto(imgs);
+
+    // console.log(profile.photos);
+  };
+
   return (
     <div className="container">
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="p-5">
         <input
           type="file"
           name="photos"
@@ -62,7 +62,7 @@ const UploadGallery = ({
                   <button
                     type="button"
                     className="close"
-                    // onClick={e => onClickImg(photo)}
+                    onClick={e => onClickImg(photo)}
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>

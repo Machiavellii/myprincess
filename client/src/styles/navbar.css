@@ -120,7 +120,7 @@ button:focus {
   .navbar {
     padding: 0;
   }
-  .navbar .container {
+  .navbar > .container {
     margin-left: 0;
     margin-right: 0;
     max-width: 100%;

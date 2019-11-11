@@ -57,7 +57,7 @@ const Dashboard = ({
         </Fragment>
       ) : (
         <Fragment>
-          <div className="container m-5">
+          <div className="container m-5 dashboard-create">
             <p>You have not yet setup a profile, please add some info</p>
             <Link to="/postanad" className="btn btn-primary my-3">
               Create Profile

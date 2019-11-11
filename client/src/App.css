@@ -62,3 +62,8 @@ img {
 .pagination > .page-item {
   cursor: pointer;
 }
+
+.upload-cover > form > .form-control {
+  border: unset;
+  padding: 0;
+}

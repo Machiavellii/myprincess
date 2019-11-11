@@ -46,7 +46,10 @@ const Content = ({ profile }) => {
                 </Link>
                 <div className="bottom-holder">
                   <h5>
-                    <Link to="/" className="links link-name">
+                    <Link
+                      to={`/profile/user/${profile.user._id}`}
+                      className="links link-name"
+                    >
                       {' '}
                       {profile.user.nickname}
                     </Link>

@@ -50,6 +50,10 @@ form .holder-img > div {
   margin-bottom: 1rem;
 }
 
+.dashboard-create {
+  width: unset;
+}
+
 form .holder-gallery {
   display: flex;
   justify-content: space-between;

@@ -33,13 +33,13 @@ const UploadCover = ({
   };
 
   return (
-    <div className="container">
-      <form onSubmit={onSubmit}>
+    <div className="container upload-cover">
+      <form onSubmit={onSubmit} className="p-5">
         <input
           type="file"
           name="cover_photo"
           onChange={onChange}
-          className="mb-1"
+          className="form-control mb-1"
         />
 
         {profile.cover_photo === undefined ? (
@@ -61,10 +61,7 @@ const UploadCover = ({
           </div>
         )}
 
-        <button
-          type="submit"
-          className="btn btn-primary  btn-block main-theme-btn mb-1"
-        >
+        <button type="submit" className="btn btn-primary  main-theme-btn mb-1">
           Submit
         </button>
       </form>
