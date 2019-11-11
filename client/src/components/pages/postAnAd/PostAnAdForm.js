@@ -155,7 +155,8 @@ const PostAnAdForm = ({
 
     // uploadGallery(formGallery);
     // uploadCover(formCover);
-    createProfile(formData, history);
+    console.log(formData)
+    // createProfile(formData, history);
   };
 
   return (
