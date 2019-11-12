@@ -126,8 +126,32 @@ const EditAdForm = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const getCheckStatus = (value, type) => {
+    let list = null;
+
+    if (type === 'languages') {
+      list = languages;
+    }
+
+    if (type === 'services') {
+      list = services;
+    }
+
+    if (value === is_active) {
+      return true;
+    }
+
+    if (list) {
+      for (let i = 0; i < list.length; i++) {
+        if (list[i] === value) {
+          return true;
+        }
+      }
+    }
+  };
+
   const onCheckBox = (e, item) => {
-    if (languages.indexOf(e.target.value) < 1 && e.target.checked) {
+    if (e.target.checked) {
       languages.push(item);
     }
 
@@ -173,7 +197,7 @@ const EditAdForm = ({
               id="active"
               value={true}
               onChange={onChange}
-              // checked={profile.is_active}
+              checked={getCheckStatus(true)}
             />
             <label className="form-check-label" htmlFor="active">
               active
@@ -187,7 +211,7 @@ const EditAdForm = ({
               id="inactive"
               value={false}
               onChange={onChange}
-              // checked={!profile.is_active}
+              checked={getCheckStatus(false)}
             />
             <label className="form-check-label" htmlFor="inactive">
               inactive
@@ -222,9 +246,9 @@ const EditAdForm = ({
                   type="checkbox"
                   id="item"
                   value={item}
-                  onChange={e => onCheckBox(e, item)}
                   name="languages"
-                  // checked={}
+                  onChange={e => onCheckBox(e, item)}
+                  checked={getCheckStatus(item, 'languages')}
                 />
                 <label
                   className="form-check-label dynamic-checkbox-label ml-2"
@@ -275,6 +299,7 @@ const EditAdForm = ({
                   value={service}
                   name="services"
                   onChange={e => onCheckBoxServ(e, service)}
+                  checked={getCheckStatus(service, 'services')}
                 />
                 <label
                   className="form-check-label dynamic-checkbox-label ml-2"
