@@ -42,7 +42,8 @@ import {
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
-  websiteLabel
+  websiteLabel,
+  coverLabel
 } from '../../common/consts';
 
 const PostAnAdForm = ({
@@ -76,8 +77,8 @@ const PostAnAdForm = ({
     errors: ''
   });
 
-  // const [cover_photo, setCoverphoto] = useState(null);
-  // const [photos, setGalleryphoto] = useState('');
+  const [cover_photo, setCoverphoto] = useState(null);
+  const [photos, setGalleryphoto] = useState('');
 
   const {
     gender,
@@ -109,12 +110,12 @@ const PostAnAdForm = ({
   }, [error]);
 
   const onChange = e => {
-    // if (e.target.name === 'cover_photo') {
-    //   setCoverphoto(e.target.files[0]);
-    // }
-    // if (e.target.name === 'photos') {
-    //   setGalleryphoto(e.target.files);
-    // }
+    if (e.target.name === 'cover_photo') {
+      setCoverphoto(e.target.files[0]);
+    }
+    if (e.target.name === 'photos') {
+      setGalleryphoto(e.target.files);
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -144,17 +145,17 @@ const PostAnAdForm = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    // let formCover = new FormData();
-    // formCover.append('cover_photo', cover_photo);
+    let formCover = new FormData();
+    formCover.append('cover_photo', cover_photo);
 
-    // let formGallery = new FormData();
+    let formGallery = new FormData();
 
-    // for (const key of Object.keys(photos)) {
-    //   formGallery.append('photos', photos[key]);
-    // }
+    for (const key of Object.keys(photos)) {
+      formGallery.append('photos', photos[key]);
+    }
 
-    // uploadGallery(formGallery);
-    // uploadCover(formCover);
+    uploadGallery(formGallery);
+    uploadCover(formCover);
     // console.log(formData)
     createProfile(formData, history);
   };
@@ -395,7 +396,7 @@ const PostAnAdForm = ({
           value={zip}
           error={errors}
         />
-        {/* <InputGroup
+        <InputGroup
           type="file"
           name="cover_photo"
           onChange={onChange}
@@ -436,7 +437,7 @@ const PostAnAdForm = ({
           <small className="tip">
             The first picture will be displayed as the hand.
           </small>
-        </p> */}
+        </p>
 
         <TextAreaGroup
           placeholder="21:00 - 05:00"

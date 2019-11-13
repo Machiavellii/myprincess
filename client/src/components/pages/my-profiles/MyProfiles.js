@@ -3,7 +3,6 @@ import '../../../styles/myprofiles.css';
 import Spinner from '../../layout/Spinner';
 import { connect } from 'react-redux';
 // import { getProfileById } from '../../../actions/profile';
-// import { loadUser } from '../../../actions/auth';
 
 const MyProfiles = ({ profile: { profile, loading } }) => {
   return (

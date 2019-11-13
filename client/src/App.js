@@ -26,8 +26,8 @@ import EscortsGirls from './components/pages/EscortsGirls';
 import MyProfiles from './components/pages/my-profiles/MyProfiles';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
-import UploadCover from './components/pages/postAnAd/UploadCover';
-import UploadGallery from './components/pages/postAnAd/UploadGallery';
+// import UploadCover from './components/pages/postAnAd/UploadCover';
+// import UploadGallery from './components/pages/postAnAd/UploadGallery';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 import { loadUser } from './actions/auth';
@@ -67,12 +67,12 @@ const App = () => {
             <Route exact path="/my-profiles" component={MyProfiles} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/edit-profile" component={EditAdForm} />
-            <PrivateRoute exact path="/upload-cover" component={UploadCover} />
+            {/* <PrivateRoute exact path="/upload-cover" component={UploadCover} />
             <PrivateRoute
               exact
               path="/upload-gallery"
               component={UploadGallery}
-            />
+            /> */}
           </Switch>
           <Footer />
         </div>

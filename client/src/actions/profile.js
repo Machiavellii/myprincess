@@ -86,22 +86,27 @@ export const createProfile = (
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 
     history.push('/dashboard');
+    window.location.reload();
   } catch (err) {
     const errors = err.response.data.errors;
 
+    // if (errors) {
+    //   errors.forEach(error =>
+    //     dispatch({
+    //       type: PROFILE_ERROR,
+    //       payload: error.msg
+    //     })
+    //   );
+    // }
+
     if (errors) {
-      errors.forEach(error =>
-        dispatch({
-          type: PROFILE_ERROR,
-          payload: error.msg
-        })
-      );
+      errors.forEach(error => dispatch(setAlert(error.mesg, 'danger')));
     }
 
-    // dispatch({
-    //   type: PROFILE_ERROR,
-    //   payload: { msg: err.response.statusText, status: err.response.status }
-    // });
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
   }
 };
 
@@ -123,7 +128,7 @@ export const uploadCover = (formFile, history) => async dispatch => {
 
     dispatch(setAlert('Profile Photo Added', 'success'));
 
-    history.push('/upload-gallery');
+    // history.push('/upload-gallery');
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -151,7 +156,7 @@ export const uploadGallery = (formFile, history, edit) => async dispatch => {
       payload: res.data
     });
 
-    history.push('/');
+    // history.push('/');
   } catch (err) {
     const errors = err.response.data.errors;
 
