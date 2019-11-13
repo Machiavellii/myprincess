@@ -313,6 +313,7 @@ router.post('/upload-cover', auth, async (req, res) => {
       var file = req.file;
 
       const coverUrl = path.join(file.destination, file.filename);
+
       const profile = await Profile.findOne({
         user: mongoose.Types.ObjectId(req.user._id)
       });

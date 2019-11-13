@@ -158,6 +158,8 @@ const PostAnAdForm = ({
     uploadCover(formCover);
     // console.log(formData)
     createProfile(formData, history);
+
+
   };
 
   return (
@@ -166,7 +168,7 @@ const PostAnAdForm = ({
       <form
         className="container mb-5"
         onSubmit={onSubmit}
-        encType="multipart/form-data"
+        // encType="multipart/form-data"
       >
         {/* {!isAuthenticated.token ? (
           <div className="card mb-4 mt-5">

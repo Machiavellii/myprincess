@@ -122,7 +122,7 @@ export const uploadCover = (formFile, history) => async dispatch => {
     const res = await axios.post('api/profile/upload-cover', formFile, config);
 
     dispatch({
-      type: UPDATE_PROFILE,
+      type: GET_PROFILE,
       payload: res.data
     });
 
@@ -152,7 +152,7 @@ export const uploadGallery = (formFile, history, edit) => async dispatch => {
     );
 
     dispatch({
-      type: UPDATE_PROFILE,
+      type: GET_PROFILE,
       payload: res.data
     });
 

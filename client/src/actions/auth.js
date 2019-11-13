@@ -7,9 +7,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   USER_LOADED,
-  AUTH_ERROR
-
-  // CLEAR_PROFILE
+  AUTH_ERROR,
+  CLEAR_PROFILE
 } from './type';
 
 import setAuthToken from '../utills/setAuthToken';
@@ -98,5 +97,6 @@ export const loadUser = () => async dispatch => {
 
 // LOG OUT
 export const logout = () => dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };
