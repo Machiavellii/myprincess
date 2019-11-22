@@ -100,7 +100,7 @@ export const createProfile = (
     // }
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.mesg, 'danger')));
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
@@ -205,7 +205,7 @@ export const deleteAccount = () => async dispatch => {
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED });
 
-      dispatch(setAlert('Your account has been permanantly deleted'));
+      dispatch(setAlert('Your account has been permanantly deleted', 'danger'));
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,

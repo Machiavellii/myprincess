@@ -103,6 +103,7 @@ const PostAnAdForm = ({
   } = formData;
 
   useEffect(() => {
+    console.log(error);
     if (error.error.length > 1) {
       setFormData({ ...formData, errors: error.error });
       setTimeout(() => setFormData({ ...formData, errors: '' }), 5000);
@@ -158,8 +159,6 @@ const PostAnAdForm = ({
     uploadCover(formCover);
     // console.log(formData)
     createProfile(formData, history);
-
-
   };
 
   return (
@@ -245,7 +244,7 @@ const PostAnAdForm = ({
 
         <div className="form-group">
           <label htmlFor=" Spoken languages" className="form-check-label">
-            Spoken languages
+            Spoken languages *
           </label>
           <br />
           {spokenLanguageList.map((item, index) => {

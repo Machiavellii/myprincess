@@ -476,6 +476,11 @@ const EditAdForm = ({
                 </div>
               ))}
         </div>
+        <p className="text-center">
+          <small className="tip">
+            You need upload new gallery before finish editing profile!
+          </small>
+        </p>
 
         <TextAreaGroup
           placeholder="21:00 - 05:00"
