@@ -1,16 +1,16 @@
-import React, { Fragment, useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import '../../styles/navbar.css';
-import Logo from '../../img/logo.png';
+import React, { Fragment, useState } from "react";
+import { NavLink, Link } from "react-router-dom";
+import "../../styles/navbar.css";
+import Logo from "../../img/logo.png";
 
-import { connect } from 'react-redux';
-import { logout } from '../../actions/auth';
-import { filterFunc } from '../../actions/profile';
+import { connect } from "react-redux";
+import { logout } from "../../actions/auth";
+import { filterFunc } from "../../actions/profile";
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout, filterFunc }) => {
   let [showHide, setShow] = useState(false);
-  let [showInput] = useState('');
-  const [filter, setFilter] = useState('');
+  let [showInput] = useState("");
+  const [filter, setFilter] = useState("");
 
   showInput = () => {
     setShow((showHide = !showHide));
@@ -53,7 +53,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout, filterFunc }) => {
                   <i className="fas fa-search" />
                 </Link>
                 <a href="#!" className="small-size" onClick={showInput}>
-                  <i className={`fas fa-search ${showHide ? 'opct' : ''}`} />
+                  <i className={`fas fa-search ${showHide ? "opct" : ""}`} />
                 </a>
               </div>
             </div>
@@ -154,7 +154,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { logout, filterFunc }
-)(Navbar);
+export default connect(mapStateToProps, { logout, filterFunc })(Navbar);

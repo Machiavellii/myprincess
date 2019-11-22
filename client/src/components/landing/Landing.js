@@ -1,14 +1,14 @@
-import React, { Fragment, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getProfiles } from '../../actions/profile';
-import PropTypes from 'prop-types';
+import React, { Fragment, useEffect } from "react";
+import { connect } from "react-redux";
+import { getProfiles } from "../../actions/profile";
+import PropTypes from "prop-types";
 
-import '../../styles/landing.css';
-import Content from './landingpages/Content';
+import "../../styles/landing.css";
+import Content from "./landingpages/Content";
 // import LatestAds from './landingpages/landingcontent/LatestAds';
-import LandingCanton from './landingpages/LandingCanton';
-import LandingDescribe from './landingpages/LandingDescribe';
-import Spinner from '../layout/Spinner';
+import LandingCanton from "./landingpages/LandingCanton";
+import LandingDescribe from "./landingpages/LandingDescribe";
+import Spinner from "../layout/Spinner";
 
 // import { useTranslation } from 'react-i18next';
 
@@ -76,7 +76,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfiles }
-)(Landing);
+export default connect(mapStateToProps, { getProfiles })(Landing);

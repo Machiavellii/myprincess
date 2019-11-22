@@ -1,17 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../../../styles/PricingCard.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "../../../styles/PricingCard.css";
 
 const PricingCard = props => {
   return (
     <div className="card mb-5">
       <div className="card-body text-center">
-        <span className="badge badge-secondary mt-2 mb-3 p-2 badge">
+        <span className="badge badge-secondary mt-2 mb-3 p-2 ">
           {props.badge}
         </span>
         <h6 className="card-title pb-3 time">{props.time}</h6>
         <h3 className="card-title pricing">
-          {props.price} <sup>{props.currency}</sup>{' '}
+          {props.price} <sup>{props.currency}</sup>{" "}
         </h3>
         <p className="card-text description">Quick and easy registration</p>
         <strong>{props.extra}</strong> <br />
@@ -25,7 +25,7 @@ const PricingCard = props => {
         <br />
         <Link
           to="/postanadform"
-          className={'btn ' + (props.buttonStyle ? 'full' : 'empty')}
+          className={"btn " + (props.buttonStyle ? "full" : "empty")}
         >
           Start
           <i className="fas fa-caret-right right-icon" />

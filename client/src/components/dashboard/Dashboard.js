@@ -1,16 +1,16 @@
-import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
-import DashboardAction from './DashboardActions';
+import React, { Fragment, useEffect } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Spinner from "../layout/Spinner";
+import DashboardAction from "./DashboardActions";
 
-import Carousel from '../landing/landingpages/landingcontent/singleGirl/carousel/Carousel';
-import Header from '../landing/landingpages/landingcontent/singleGirl/describeGirl/componentGirls/HeaderGirl';
-import DescribeGirl from '../landing/landingpages/landingcontent/singleGirl/describeGirl/Girl';
-import GalleryHolder from '../landing/landingpages/landingcontent/singleGirl/gallery/GalleryHolder';
+import Carousel from "../landing/landingpages/landingcontent/singleGirl/carousel/Carousel";
+import Header from "../landing/landingpages/landingcontent/singleGirl/describeGirl/componentGirls/HeaderGirl";
+import DescribeGirl from "../landing/landingpages/landingcontent/singleGirl/describeGirl/Girl";
+import GalleryHolder from "../landing/landingpages/landingcontent/singleGirl/gallery/GalleryHolder";
 
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import { getCurrentProfile, deleteAccount } from "../../actions/profile";
 
 const Dashboard = ({
   getCurrentProfile,
@@ -21,6 +21,8 @@ const Dashboard = ({
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
+
+  console.log(profile);
 
   return loading && profile === null ? (
     <Spinner />
@@ -79,7 +81,6 @@ const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth
 });
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile, deleteAccount }
-)(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+  Dashboard
+);

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap");
 
 :root {
   --rose-color: #ce0f69;
@@ -11,7 +11,7 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 a {
@@ -66,4 +66,22 @@ img {
 .upload-cover > form > .form-control {
   border: unset;
   padding: 0;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header .btn {
+  padding: 0.2rem 0.5rem;
+}
+
+.card-title {
+  margin-top: unset !important;
+  margin-bottom: 1rem !important;
+}
+.card-text {
+  margin-bottom: 1rem !important;
 }

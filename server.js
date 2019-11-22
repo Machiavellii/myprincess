@@ -15,6 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/profile', require('./routes/api/profiles'));
+app.use("/api/admin", require("./routes/api/admin"));
+
 
 app.use('/static/images', express.static('static/images'));
 
