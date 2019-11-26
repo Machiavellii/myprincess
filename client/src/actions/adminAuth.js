@@ -50,7 +50,7 @@ export const loadAdmin = () => async dispatch => {
   }
 
   try {
-    const res = await axios.get("/api/admin");
+    const res = await axios.get("/api/auth/admin");
 
     dispatch({
       type: ADMIN_LOADED,
