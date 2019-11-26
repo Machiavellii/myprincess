@@ -44,8 +44,8 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-if (localStorage.token) {
-  setAdminToken(localStorage.token);
+if (localStorage.tokenAdmin) {
+  setAdminToken(localStorage.tokenAdmin);
 }
 
 const App = () => {

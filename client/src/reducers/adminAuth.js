@@ -3,11 +3,11 @@ import {
   AUTH_ADMIN_ERROR,
   LOGIN_ADMIN_SUCCESS,
   LOGIN_ADMIN_FAIL,
-  LOGOUT,
+  LOGOUT
 } from "../actions/type";
 
 const initialState = {
-  token: localStorage.getItem("token"),
+  tokenAdmin: localStorage.getItem("tokenAdmin"),
   authenticatedAdmin: null,
   loading: true,
   admin: null
@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
         admin: payload
       };
     case LOGIN_ADMIN_SUCCESS:
-      localStorage.setItem("token", payload.token);
+      localStorage.setItem("tokenAdmin", payload.tokenAdmin);
       return {
         ...state,
         ...payload,
@@ -35,7 +35,7 @@ export default function(state = initialState, action) {
     case AUTH_ADMIN_ERROR:
     case LOGIN_ADMIN_FAIL:
     case LOGOUT:
-      localStorage.removeItem("token");
+      localStorage.removeItem("tokenAdmin");
       return {
         ...state,
         token: null,

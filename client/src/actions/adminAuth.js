@@ -45,8 +45,8 @@ export const loginAdmin = (username, password) => async dispatch => {
 
 // LOAD ADMIN
 export const loadAdmin = () => async dispatch => {
-  if (localStorage.token) {
-    setAdminToken(localStorage.token);
+  if (localStorage.tokenAdmin) {
+    setAdminToken(localStorage.tokenAdmin);
   }
 
   try {

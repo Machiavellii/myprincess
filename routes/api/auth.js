@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
+const authAdmin = require("../../middleware/authAdmin");
 
 const User = require("../../models/User");
 const Admin = require("../../models/Admin");
@@ -13,6 +14,20 @@ router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server Error");
+  }
+});
+
+// @route    POST api/auth/admin
+// @desc     Authenticate admin & get token
+// @access   Private
+router.get("/admin", authAdmin, async (req, res) => {
+  try {
+    const admin = await Admin.findById(req.admin.id).select("-password");
+
+    res.json(admin);
   } catch (err) {
     console.error(err.message);
     res.status(500).json("Server Error");
@@ -121,9 +136,9 @@ router.post(
         payload,
         config.get("jwtSecret"),
         { expiresIn: 3600 },
-        (err, token) => {
+        (err, tokenAdmin) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ tokenAdmin });
         }
       );
     } catch (err) {
