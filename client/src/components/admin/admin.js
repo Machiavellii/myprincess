@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { logout } from "../../actions/adminAuth";
+import { deleteAccountAdmin } from "../../actions/adminControl";
 import { getProfiles } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
-// import Modal from "./deleteAdmin";
 
-const Admin = ({ logout, getProfiles, profile }) => {
+const Admin = ({ logout, getProfiles, profile, deleteAccountAdmin }) => {
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
@@ -47,9 +47,16 @@ const Admin = ({ logout, getProfiles, profile }) => {
                   </span>
                 </div>
                 <div className="btn-holder">
-                  <Link to="!#" className="btn btn-danger">
-                    <i className="fas fa-user-minus" /> Delete Profile
+                  <Link to="/editAdmin" className="btn btn-primary mr-1">
+                    <i className="fas fa-user-edit" /> Edit Profile
                   </Link>
+                  <button
+                    type="button"
+                    className="btn btn-danger "
+                    onClick={() => deleteAccountAdmin(profile.user._id)}
+                  >
+                    <i className="fas fa-user-minus" /> Delete Profile
+                  </button>
                 </div>
               </div>
               <div className="row">
@@ -90,4 +97,8 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { logout, getProfiles })(Admin);
+export default connect(mapStateToProps, {
+  logout,
+  getProfiles,
+  deleteAccountAdmin
+})(Admin);

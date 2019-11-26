@@ -5,8 +5,12 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
 
+const authAdmin = require("../../middleware/authAdmin");
+
 // Admin Model
 const Admin = require("../../models/Admin");
+const User = require("../../models/User");
+const Profile = require("../../models/profile");
 
 // @route    GET api/admin
 // @desc     GET Admin
@@ -85,5 +89,61 @@ router.post(
     }
   }
 );
+
+// @route    GET api/admin/users/:id
+// @desc     GET Users
+// @access   Private
+router.get("/users/:id", authAdmin, async (req, res) => {
+  try {
+    // const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.params.id);
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server Error");
+  }
+});
+
+// @route    GET api/admin/user/:id
+// @desc     Get current user profile
+// @access   Private
+router.get("/user/:id", authAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const profile = await Profile.findOne({
+      user
+    });
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    DELETE api/admin
+// @desc     Delete profile & user
+// @access   Private
+router.delete("/:id", authAdmin, async (req, res) => {
+  try {
+    // Remove profile
+    await Profile.findOneAndRemove({ user: req.params.id });
+
+    // Remove User
+    await User.findOneAndRemove({ _id: req.params.id });
+
+    // console.log()
+
+    res.json({ msg: "User Deleted" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;

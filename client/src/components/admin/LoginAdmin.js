@@ -21,7 +21,6 @@ const LoginAdmin = ({ authenticatedAdmin, loginAdmin }) => {
     loginAdmin(username, password);
   };
 
-  console.log(authenticatedAdmin);
   if (authenticatedAdmin) {
     return <Redirect to="/superadmin" />;
   }

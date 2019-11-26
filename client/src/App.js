@@ -31,7 +31,7 @@ import EscortsGirls from "./components/pages/EscortsGirls";
 import Alert from "./components/layout/Alert";
 import Dashboard from "./components/dashboard/Dashboard";
 import Admin from "./components/admin/admin";
-import DeleteProfile from "./components/admin/deleteAdmin";
+import EditAdmin from "./components/admin/editAdmin";
 // import UploadCover from './components/pages/postAnAd/UploadCover';
 // import UploadGallery from './components/pages/postAnAd/UploadGallery';
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -81,7 +81,7 @@ const App = () => {
             />
 
             <AdminRoute exact path="/superadmin" component={Admin} />
-            <AdminRoute exact path="/deleteProfile" component={DeleteProfile} />
+            <AdminRoute exact path="/editAdmine" component={EditAdmin} />
 
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/edit-profile" component={EditAdForm} />

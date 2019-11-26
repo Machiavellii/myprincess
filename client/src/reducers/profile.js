@@ -5,8 +5,9 @@ import {
   UPDATE_PROFILE,
   FILTER_PROFILE,
   SEARCHPAGE_FILTER,
-  CLEAR_PROFILE
-} from '../actions/type';
+  CLEAR_PROFILE,
+  ACCOUNT_DELETED_ADMIN
+} from "../actions/type";
 
 const initialState = {
   profile: null,
@@ -46,7 +47,11 @@ export default function(state = initialState, action) {
         profile: null,
         loading: false
       };
-
+    case ACCOUNT_DELETED_ADMIN:
+      return {
+        ...state,
+        profiles: state.profiles.filter(profile => profile.user._id !== payload)
+      };
     case FILTER_PROFILE:
       return {
         ...state,
@@ -69,12 +74,12 @@ export default function(state = initialState, action) {
           });
 
           if (
-            typeof profile.canton === 'string' &&
+            typeof profile.canton === "string" &&
             profile.canton.toLowerCase().includes(payload.canton.toLowerCase())
           ) {
             return profile;
           } else if (
-            typeof profile.canton === 'string' &&
+            typeof profile.canton === "string" &&
             profile.canton
               .toLowerCase()
               .includes(payload.canton.toLowerCase()) &&
@@ -84,7 +89,7 @@ export default function(state = initialState, action) {
           ) {
             return profile;
           } else if (
-            typeof profile.canton === 'string' &&
+            typeof profile.canton === "string" &&
             profile.canton
               .toLowerCase()
               .includes(payload.canton.toLowerCase()) &&

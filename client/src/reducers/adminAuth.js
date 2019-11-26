@@ -42,7 +42,6 @@ export default function(state = initialState, action) {
         authenticatedAdmin: false,
         loading: false
       };
-
     default:
       return state;
   }
