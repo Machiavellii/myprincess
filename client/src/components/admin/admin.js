@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -7,13 +7,31 @@ import { logout } from "../../actions/adminAuth";
 import { deleteAccountAdmin } from "../../actions/adminControl";
 import { getProfiles } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
+import { filterFunc } from "../../actions/profile";
 
-const Admin = ({ logout, getProfiles, profile, deleteAccountAdmin }) => {
+const Admin = ({
+  logout,
+  getProfiles,
+  profile,
+  deleteAccountAdmin,
+  filterFunc
+}) => {
+  const [filter, setFilter] = useState("");
+
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
 
+  const onChange = e => {
+    setFilter(e.target.value);
+    filterFunc(filter);
+  };
+
   const { profiles } = profile;
+
+  const filterGirls =
+    profile.profileFilter.length >= 1 ? profile.profileFilter : profiles;
+
   return (
     <Fragment>
       {profile.profiles.length < 1 ? (
@@ -23,11 +41,13 @@ const Admin = ({ logout, getProfiles, profile, deleteAccountAdmin }) => {
           <div className="input-group mb-3">
             <input
               type="text"
+              value={filter}
               className="form-control mt-2"
               placeholder="Search by names"
+              onChange={e => onChange(e)}
             />
           </div>
-          {profiles.map(profile => (
+          {filterGirls.map(profile => (
             <div className="card mb-3" key={profile._id}>
               <div className="card-header">
                 <div className="expire-holder">
@@ -103,5 +123,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   logout,
   getProfiles,
-  deleteAccountAdmin
+  deleteAccountAdmin,
+  filterFunc
 })(Admin);
