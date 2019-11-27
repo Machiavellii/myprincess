@@ -177,6 +177,7 @@ const EditAdmin = ({
     // uploadCover(formCover);
 
     // createProfile(formData, history, true);
+    window.confirm("Isn't working yet!!!!");
   };
 
   return (
