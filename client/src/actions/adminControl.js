@@ -1,6 +1,27 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { CLEAR_PROFILE, PROFILE_ERROR, ACCOUNT_DELETED_ADMIN } from "./type";
+import {
+  CLEAR_PROFILE,
+  PROFILE_ERROR,
+  ACCOUNT_DELETED_ADMIN,
+  GET_PROFILE_ADMIN
+} from "./type";
+
+export const getCurrentProfileAdmin = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/admin/profile/${id}`);
+
+    dispatch({
+      type: GET_PROFILE_ADMIN,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
 
 // Delete account & profile
 export const deleteAccountAdmin = id => async dispatch => {

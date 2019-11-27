@@ -47,7 +47,10 @@ const Admin = ({ logout, getProfiles, profile, deleteAccountAdmin }) => {
                   </span>
                 </div>
                 <div className="btn-holder">
-                  <Link to="/editAdmin" className="btn btn-primary mr-1">
+                  <Link
+                    to={`/editprofileAdmin/${profile.user._id}`}
+                    className="btn btn-primary mr-1"
+                  >
                     <i className="fas fa-user-edit" /> Edit Profile
                   </Link>
                   <button

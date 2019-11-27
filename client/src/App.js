@@ -81,7 +81,11 @@ const App = () => {
             />
 
             <AdminRoute exact path="/superadmin" component={Admin} />
-            <AdminRoute exact path="/editAdmine" component={EditAdmin} />
+            <AdminRoute
+              exact
+              path="/editprofileAdmin/:id"
+              component={EditAdmin}
+            />
 
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/edit-profile" component={EditAdForm} />

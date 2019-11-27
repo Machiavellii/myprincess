@@ -519,7 +519,7 @@ const EditAdForm = ({
           type="submit"
           className="btn btn-primary btn-lg btn-block main-theme-btn"
         >
-          Submit
+          Edit Profile
         </button>
       </form>
     </Fragment>

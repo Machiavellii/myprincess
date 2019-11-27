@@ -6,7 +6,9 @@ import {
   FILTER_PROFILE,
   SEARCHPAGE_FILTER,
   CLEAR_PROFILE,
-  ACCOUNT_DELETED_ADMIN
+  ACCOUNT_DELETED_ADMIN,
+  GET_PROFILE_ADMIN,
+  UPDATE_PROFILE_ADMIN
 } from "../actions/type";
 
 const initialState = {
@@ -52,6 +54,14 @@ export default function(state = initialState, action) {
         ...state,
         profiles: state.profiles.filter(profile => profile.user._id !== payload)
       };
+    case GET_PROFILE_ADMIN:
+    case UPDATE_PROFILE_ADMIN:
+      return {
+        ...state,
+        profile: payload,
+        loading: false
+      };
+
     case FILTER_PROFILE:
       return {
         ...state,

@@ -105,15 +105,14 @@ router.get("/users/:id", authAdmin, async (req, res) => {
   }
 });
 
-// @route    GET api/admin/user/:id
+// @route    GET api/admin/profile/:id
 // @desc     Get current user profile
 // @access   Private
-router.get("/user/:id", authAdmin, async (req, res) => {
+router.get("/profile/:id", authAdmin, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
     const profile = await Profile.findOne({
-      user
-    });
+      user: req.params.id
+    }).populate("user", ["nickname"]);
 
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile for this user" });
