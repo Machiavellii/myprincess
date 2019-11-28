@@ -1,15 +1,6 @@
-import React from 'react';
-import classnames from 'classnames';
+import React from "react";
 
-const InputGroup = ({
-  name,
-  value,
-  placeholder,
-  type,
-  onChange,
-  error,
-  labels
-}) => {
+const InputGroup = ({ name, value, placeholder, type, onChange, labels }) => {
   const labelText = labels.map((label, index) => (
     <label htmlFor={label.htmlFor} key={index}>
       {label.text}
@@ -21,20 +12,17 @@ const InputGroup = ({
       <input
         type={type}
         name={name}
-        className={classnames('form-control', {
-          'is-invalid': error
-        })}
+        className="form-control"
         placeholder={placeholder}
         value={value}
         onChange={onChange}
       />
-      {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );
 };
 
 InputGroup.defaultProps = {
-  type: 'text'
+  type: "text"
 };
 
 export default InputGroup;

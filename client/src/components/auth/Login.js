@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import { Redirect, Link } from 'react-router-dom';
-import { login } from '../../actions/auth';
+import { Redirect, Link } from "react-router-dom";
+import { login } from "../../actions/auth";
+import { emailLabel, passwordLabel } from "../common/consts";
+
+import InputGroup from "../common/InputGroup";
 
 const Login = ({ isAuthenticated, login }) => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   });
 
   const { email, password } = formData;
@@ -28,29 +31,24 @@ const Login = ({ isAuthenticated, login }) => {
   return (
     <div className="container">
       <form className="px-3" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <label htmlFor="email">Email Address *</label>
-          <input
-            type="email"
-            className="form-control"
-            name="email"
-            placeholder="Enter Email"
-            value={email}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password *</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            placeholder="Enter Password"
-            minLength="6"
-            value={password}
-            onChange={e => onChange(e)}
-          />
-        </div>
+        <InputGroup
+          type="email"
+          name="email"
+          placeholder={"Enter Email"}
+          onChange={onChange}
+          labels={emailLabel}
+          value={email}
+        />
+        <InputGroup
+          type="password"
+          name="password"
+          placeholder={"Enter Password"}
+          onChange={onChange}
+          labels={passwordLabel}
+          minLength="6"
+          value={password}
+        />
+
         <button type="submit" className="btn btn-form">
           Log in
         </button>
@@ -71,7 +69,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-  mapStateToProps,
-  { login }
-)(Login);
+export default connect(mapStateToProps, { login })(Login);

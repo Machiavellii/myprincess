@@ -1,14 +1,14 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import '../../../styles/PostAnAdForm.css';
+import React, { Fragment, useState, useEffect } from "react";
+import "../../../styles/PostAnAdForm.css";
 
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   createProfile,
   getCurrentProfile,
   uploadCover,
   uploadGallery
-} from '../../../actions/profile';
+} from "../../../actions/profile";
 
 import {
   spokenLanguageList,
@@ -21,11 +21,11 @@ import {
   genderList,
   sexual_orientationList,
   typeList
-} from '../../../constants/data.json';
+} from "../../../constants/data.json";
 
-import InputGroup from '../../common/InputGroup';
-import SelectListGroup from '../../common/SelectListGroup';
-import TextAreaGroup from '../../common/TextAreaGroup';
+import InputGroup from "../../common/InputGroup";
+import SelectListGroup from "../../common/SelectListGroup";
+import TextAreaGroup from "../../common/TextAreaGroup";
 import {
   // nickname,
   typeLabel,
@@ -45,7 +45,7 @@ import {
   phonenumberLabel,
   websiteLabel,
   coverLabel
-} from '../../common/consts';
+} from "../../common/consts";
 
 const EditAdForm = ({
   createProfile,
@@ -56,63 +56,63 @@ const EditAdForm = ({
   profile: { profile, loading }
 }) => {
   const [formData, setFormData] = useState({
-    gender: '',
-    sexual_orientation: '',
-    phone: '',
-    category: '',
+    gender: "",
+    sexual_orientation: "",
+    phone: "",
+    category: "",
     services: [],
-    age: '',
-    origin: '',
-    description: '',
-    city: '',
-    canton: '',
-    zip: '',
-    is_active: '',
+    age: "",
+    origin: "",
+    description: "",
+    city: "",
+    canton: "",
+    zip: "",
+    is_active: "",
     languages: [],
-    silhouette: '',
-    rate: '',
-    slogan: '',
-    hours: '',
-    website: '',
-    type: '',
-    errors: ''
+    silhouette: "",
+    rate: "",
+    slogan: "",
+    hours: "",
+    website: "",
+    type: "",
+    errors: ""
   });
 
   const [cover_photo, setCoverphoto] = useState(null);
-  const [photos, setGalleryphoto] = useState('');
+  const [photos, setGalleryphoto] = useState("");
 
   useEffect(() => {
     getCurrentProfile();
 
     setFormData({
-      gender: loading || !profile.gender ? ' ' : profile.gender,
+      gender: loading || !profile.gender ? " " : profile.gender,
       sexual_orientation:
         loading || !profile.sexual_orientation
-          ? ' '
+          ? " "
           : profile.sexual_orientation,
-      phone: loading || !profile.phone ? ' ' : profile.phone,
-      category: loading || !profile.category ? ' ' : profile.category,
-      services: loading || !profile.services ? ' ' : profile.services,
-      age: loading || !profile.age ? ' ' : profile.age,
-      type: loading || !profile.type ? ' ' : profile.type,
-      origin: loading || !profile.origin ? ' ' : profile.origin,
-      description: loading || !profile.description ? ' ' : profile.description,
-      city: loading || !profile.city ? ' ' : profile.city,
-      canton: loading || !profile.canton ? ' ' : profile.canton,
-      zip: loading || !profile.zip ? ' ' : profile.zip,
-      languages: loading || !profile.languages ? ' ' : profile.languages,
-      silhouette: loading || !profile.silhouette ? ' ' : profile.silhouette,
-      rate: loading || !profile.rate ? ' ' : profile.rate,
-      slogan: loading || !profile.slogan ? ' ' : profile.slogan,
-      hours: loading || !profile.hours ? ' ' : profile.hours,
-      website: loading || !profile.website ? ' ' : profile.website,
-      is_active: loading || !profile.is_active ? ' ' : profile.is_active
+      phone: loading || !profile.phone ? " " : profile.phone,
+      category: loading || !profile.category ? " " : profile.category,
+      services: loading || !profile.services ? " " : profile.services,
+      age: loading || !profile.age ? " " : profile.age,
+      type: loading || !profile.type ? " " : profile.type,
+      origin: loading || !profile.origin ? " " : profile.origin,
+      description: loading || !profile.description ? " " : profile.description,
+      city: loading || !profile.city ? " " : profile.city,
+      canton: loading || !profile.canton ? " " : profile.canton,
+      zip: loading || !profile.zip ? " " : profile.zip,
+      languages: loading || !profile.languages ? " " : profile.languages,
+      silhouette: loading || !profile.silhouette ? " " : profile.silhouette,
+      rate: loading || !profile.rate ? " " : profile.rate,
+      slogan: loading || !profile.slogan ? " " : profile.slogan,
+      hours: loading || !profile.hours ? " " : profile.hours,
+      website: loading || !profile.website ? " " : profile.website,
+      is_active: loading || !profile.is_active ? " " : profile.is_active
     });
     setCoverphoto({
-      cover_photo: loading || !profile.cover_photo ? ' ' : profile.cover_photo
+      cover_photo: loading || !profile.cover_photo ? " " : profile.cover_photo
     });
     setGalleryphoto({
-      photos: loading || !profile.photos ? ' ' : profile.photos
+      photos: loading || !profile.photos ? " " : profile.photos
     });
   }, [loading, getCurrentProfile]);
 
@@ -140,24 +140,39 @@ const EditAdForm = ({
   } = formData;
 
   const onChange = e => {
-    if (e.target.name === 'cover_photo') {
+    if (e.target.name === "cover_photo") {
       setCoverphoto(e.target.files[0]);
     }
-    if (e.target.name === 'photos') {
+    if (e.target.name === "photos") {
       setGalleryphoto(e.target.files);
     }
 
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const onCheckBox = (e, item) => {
+    console.log(e.target.checked);
+    if (e.target.checked) {
+      languages.push(item);
+    }
+
+    languages.map((lang, i) => {
+      if (!e.target.checked) {
+        return e.target.value === lang ? languages.splice(i, 1) : languages;
+      }
+    });
+  };
+
   const getCheckStatus = (value, type) => {
     let list = null;
 
-    if (type === 'languages') {
+    // console.log(value)
+
+    if (type === "languages") {
       list = languages;
     }
 
-    if (type === 'services') {
+    if (type === "services") {
       list = services;
     }
 
@@ -172,18 +187,6 @@ const EditAdForm = ({
         }
       }
     }
-  };
-
-  const onCheckBox = (e, item) => {
-    if (e.target.checked) {
-      languages.push(item);
-    }
-
-    languages.map((lang, i) => {
-      if (!e.target.checked) {
-        return e.target.value === lang ? languages.splice(i, 1) : languages;
-      }
-    });
   };
 
   const onCheckBoxServ = (e, service) => {
@@ -211,12 +214,12 @@ const EditAdForm = ({
     e.preventDefault();
 
     let formCover = new FormData();
-    formCover.append('cover_photo', cover_photo);
+    formCover.append("cover_photo", cover_photo);
 
     let formGallery = new FormData();
 
     for (const key of Object.keys(photos)) {
-      formGallery.append('photos', photos[key]);
+      formGallery.append("photos", photos[key]);
     }
 
     uploadGallery(formGallery);
@@ -242,7 +245,7 @@ const EditAdForm = ({
               name="is_active"
               id="active"
               value={true}
-              onChange={onChange}
+              onChange={e => onChange(e)}
               checked={getCheckStatus(true)}
             />
             <label className="form-check-label" htmlFor="active">
@@ -256,7 +259,7 @@ const EditAdForm = ({
               name="is_active"
               id="inactive"
               value={false}
-              onChange={onChange}
+              onChange={e => onChange(e)}
               checked={getCheckStatus(false)}
             />
             <label className="form-check-label" htmlFor="inactive">
@@ -294,7 +297,7 @@ const EditAdForm = ({
                   value={item}
                   name="languages"
                   onChange={e => onCheckBox(e, item)}
-                  checked={getCheckStatus(item, 'languages')}
+                  checked={getCheckStatus(item, "languages")}
                 />
                 <label
                   className="form-check-label dynamic-checkbox-label ml-2"
@@ -312,7 +315,7 @@ const EditAdForm = ({
 
         <InputGroup
           name="slogan"
-          placeholder={'Slogan'}
+          placeholder={"Slogan"}
           onChange={onChange}
           labels={sloganLabel}
           value={slogan}
@@ -345,7 +348,7 @@ const EditAdForm = ({
                   value={service}
                   name="services"
                   onChange={e => onCheckBoxServ(e, service)}
-                  checked={getCheckStatus(service, 'services')}
+                  checked={getCheckStatus(service, "services")}
                 />
                 <label
                   className="form-check-label dynamic-checkbox-label ml-2"
@@ -376,7 +379,7 @@ const EditAdForm = ({
         />
         <InputGroup
           name="age"
-          placeholder={'18'}
+          placeholder={"18"}
           onChange={onChange}
           labels={ageLabel}
           value={age}
@@ -427,7 +430,7 @@ const EditAdForm = ({
         />
         <InputGroup
           name="zip"
-          placeholder={'8000'}
+          placeholder={"8000"}
           onChange={onChange}
           labels={cityzipLabel}
           value={zip}
@@ -442,7 +445,7 @@ const EditAdForm = ({
         />
         <div className="holder-img">
           {cover_photo === null ? (
-            ''
+            ""
           ) : (
             <div>
               <img src={profile.cover_photo} alt="" />
@@ -462,7 +465,7 @@ const EditAdForm = ({
         />
         <div className="holder-gallery">
           {photos.length < 1 || undefined
-            ? ''
+            ? ""
             : profile.photos.map((photo, i) => (
                 <div key={i}>
                   <button
@@ -501,7 +504,7 @@ const EditAdForm = ({
         />
         <InputGroup
           name="phone"
-          placeholder={'+41 79 000 00 00'}
+          placeholder={"+41 79 000 00 00"}
           onChange={onChange}
           labels={phonenumberLabel}
           value={phone}
@@ -509,7 +512,7 @@ const EditAdForm = ({
         />
         <InputGroup
           name="website"
-          placeholder={'https://www.site.com'}
+          placeholder={"https://www.site.com"}
           onChange={onChange}
           labels={websiteLabel}
           value={website}
@@ -530,7 +533,9 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile, getCurrentProfile, uploadCover, uploadGallery }
-)(withRouter(EditAdForm));
+export default connect(mapStateToProps, {
+  createProfile,
+  getCurrentProfile,
+  uploadCover,
+  uploadGallery
+})(withRouter(EditAdForm));

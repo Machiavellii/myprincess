@@ -97,6 +97,9 @@ router.post(
       .isEmpty(),
     check("origin", "Origin is required")
       .not()
+      .isEmpty(),
+    check("cover_photo", "Profile Picture is required")
+      .not()
       .isEmpty()
   ],
   async (req, res) => {
@@ -302,7 +305,7 @@ router.post("/upload-cover", auth, async (req, res) => {
       } else if (err) {
         return res.status(500).json(err);
       }
-      var file = req.file;
+      let file = req.file;
 
       const coverUrl = path.join(file.destination, file.filename);
 

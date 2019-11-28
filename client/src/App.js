@@ -60,7 +60,7 @@ const App = () => {
         <div className="App">
           <MiniHeader />
           <Navbar />
-          {/* <Alert /> */}
+          <Alert />
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/login" component={Login} />

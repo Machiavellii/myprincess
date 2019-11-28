@@ -88,16 +88,6 @@ export const createProfile = (
     window.location.reload();
   } catch (err) {
     const errors = err.response.data.errors;
-
-    // if (errors) {
-    //   errors.forEach(error =>
-    //     dispatch({
-    //       type: PROFILE_ERROR,
-    //       payload: error.msg
-    //     })
-    //   );
-    // }
-
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
     }
@@ -157,20 +147,11 @@ export const uploadGallery = (formFile, history, edit) => async dispatch => {
 
     // history.push('/');
   } catch (err) {
-    const errors = err.response.data.errors;
-
+    // const errors = err.response.data.errors;
+    console.log(err);
     // if (errors) {
-    //   errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    //   errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
     // }
-
-    if (errors) {
-      errors.forEach(error =>
-        dispatch({
-          type: PROFILE_ERROR,
-          payload: error.msg
-        })
-      );
-    }
   }
 };
 

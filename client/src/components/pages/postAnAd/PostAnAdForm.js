@@ -1,13 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import '../../../styles/PostAnAdForm.css';
+import React, { Fragment, useState, useEffect } from "react";
+import "../../../styles/PostAnAdForm.css";
 
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   createProfile,
   uploadCover,
   uploadGallery
-} from '../../../actions/profile';
+} from "../../../actions/profile";
 
 import {
   spokenLanguageList,
@@ -20,11 +20,11 @@ import {
   genderList,
   sexual_orientationList,
   typeList
-} from '../../../constants/data.json';
+} from "../../../constants/data.json";
 
-import InputGroup from '../../common/InputGroup';
-import SelectListGroup from '../../common/SelectListGroup';
-import TextAreaGroup from '../../common/TextAreaGroup';
+import InputGroup from "../../common/InputGroup";
+import SelectListGroup from "../../common/SelectListGroup";
+import TextAreaGroup from "../../common/TextAreaGroup";
 import {
   // nickname,
   typeLabel,
@@ -44,7 +44,7 @@ import {
   phonenumberLabel,
   websiteLabel,
   coverLabel
-} from '../../common/consts';
+} from "../../common/consts";
 
 const PostAnAdForm = ({
   createProfile,
@@ -55,30 +55,29 @@ const PostAnAdForm = ({
   profile: error
 }) => {
   const [formData, setFormData] = useState({
-    gender: '',
-    sexual_orientation: '',
-    phone: '',
-    category: '',
+    gender: "",
+    sexual_orientation: "",
+    phone: "",
+    category: "",
     services: [],
-    age: '',
-    origin: '',
-    description: '',
-    city: '',
-    canton: '',
-    zip: '',
-    is_active: '',
+    age: "",
+    origin: "",
+    description: "",
+    city: "",
+    canton: "",
+    zip: "",
+    is_active: "",
     languages: [],
-    silhouette: '',
-    rate: '',
-    slogan: '',
-    hours: '',
-    website: '',
-    type: '',
-    errors: ''
+    silhouette: "",
+    rate: "",
+    slogan: "",
+    hours: "",
+    website: "",
+    type: ""
   });
 
   const [cover_photo, setCoverphoto] = useState(null);
-  const [photos, setGalleryphoto] = useState('');
+  const [photos, setGalleryphoto] = useState("");
 
   const {
     gender,
@@ -98,23 +97,21 @@ const PostAnAdForm = ({
     slogan,
     hours,
     website,
-    type,
-    errors
+    type
   } = formData;
 
   useEffect(() => {
-    console.log(error);
     if (error.error.length > 1) {
-      setFormData({ ...formData, errors: error.error });
-      setTimeout(() => setFormData({ ...formData, errors: '' }), 5000);
+      setFormData({ ...formData });
+      setTimeout(() => setFormData({ ...formData }), 5000);
     }
   }, [error]);
 
   const onChange = e => {
-    if (e.target.name === 'cover_photo') {
+    if (e.target.name === "cover_photo") {
       setCoverphoto(e.target.files[0]);
     }
-    if (e.target.name === 'photos') {
+    if (e.target.name === "photos") {
       setGalleryphoto(e.target.files);
     }
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -147,12 +144,12 @@ const PostAnAdForm = ({
   const onSubmit = e => {
     e.preventDefault();
     let formCover = new FormData();
-    formCover.append('cover_photo', cover_photo);
+    formCover.append("cover_photo", cover_photo);
 
     let formGallery = new FormData();
 
     for (const key of Object.keys(photos)) {
-      formGallery.append('photos', photos[key]);
+      formGallery.append("photos", photos[key]);
     }
 
     uploadGallery(formGallery);
@@ -237,7 +234,6 @@ const PostAnAdForm = ({
           name="type"
           value={type}
           onChange={onChange}
-          error={errors}
           options={typeList}
           labels={typeLabel}
         />
@@ -277,18 +273,16 @@ const PostAnAdForm = ({
 
         <InputGroup
           name="slogan"
-          placeholder={'Slogan'}
+          placeholder={"Slogan"}
           onChange={onChange}
           labels={sloganLabel}
           value={slogan}
-          error={errors}
         />
 
         <SelectListGroup
           name="gender"
           value={gender}
           onChange={onChange}
-          error={errors}
           options={genderList}
           labels={genderLabel}
         />
@@ -326,7 +320,6 @@ const PostAnAdForm = ({
           name="category"
           value={category}
           onChange={onChange}
-          error={errors}
           options={categoryList}
           labels={categoryLabel}
         />
@@ -334,23 +327,20 @@ const PostAnAdForm = ({
           name="sexual_orientation"
           value={sexual_orientation}
           onChange={onChange}
-          error={errors}
           options={sexual_orientationList}
           labels={sexualOrientationLabel}
         />
         <InputGroup
           name="age"
-          placeholder={'18'}
+          placeholder={"18"}
           onChange={onChange}
           labels={ageLabel}
           value={age}
-          error={errors}
         />
         <SelectListGroup
           name="silhouette"
           value={silhouette}
           onChange={onChange}
-          error={errors}
           options={silhouetteList}
           labels={silhouetteLabel}
         />
@@ -358,7 +348,6 @@ const PostAnAdForm = ({
           name="origin"
           value={origin}
           onChange={onChange}
-          error={errors}
           options={originList}
           labels={originLabel}
         />
@@ -377,7 +366,6 @@ const PostAnAdForm = ({
           name="canton"
           value={canton}
           onChange={onChange}
-          error={errors}
           options={cantonsList}
           labels={cantonLabel}
         />
@@ -385,17 +373,15 @@ const PostAnAdForm = ({
           name="city"
           value={city}
           onChange={onChange}
-          error={errors}
           options={cityList}
           labels={cityLabel}
         />
         <InputGroup
           name="zip"
-          placeholder={'8000'}
+          placeholder={"8000"}
           onChange={onChange}
           labels={cityzipLabel}
           value={zip}
-          error={errors}
         />
         <InputGroup
           type="file"
@@ -405,7 +391,7 @@ const PostAnAdForm = ({
         />
         <div className="holder-img">
           {cover_photo === null ? (
-            ''
+            ""
           ) : (
             <div>
               <img src={URL.createObjectURL(cover_photo)} alt="" />
@@ -425,8 +411,8 @@ const PostAnAdForm = ({
         />
 
         <div className="holder-gallery">
-          {photos === ''
-            ? ''
+          {photos === ""
+            ? ""
             : Object.keys(photos).map(photo => (
                 <div key={photo}>
                   <img src={URL.createObjectURL(photos[photo])} alt="" />
@@ -460,19 +446,17 @@ const PostAnAdForm = ({
         />
         <InputGroup
           name="phone"
-          placeholder={'+41 79 000 00 00'}
+          placeholder={"+41 79 000 00 00"}
           onChange={onChange}
           labels={phonenumberLabel}
           value={phone}
-          error={errors}
         />
         <InputGroup
           name="website"
-          placeholder={'https://www.site.com'}
+          placeholder={"https://www.site.com"}
           onChange={onChange}
           labels={websiteLabel}
           value={website}
-          error={errors}
         />
         <button
           type="submit"
@@ -490,7 +474,8 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile, uploadCover, uploadGallery }
-)(withRouter(PostAnAdForm));
+export default connect(mapStateToProps, {
+  createProfile,
+  uploadCover,
+  uploadGallery
+})(withRouter(PostAnAdForm));

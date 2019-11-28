@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { setAlert } from '../../actions/alert';
-import { Redirect, Link } from 'react-router-dom';
-import { register } from '../../actions/auth';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert";
+import { Redirect, Link } from "react-router-dom";
+import { register } from "../../actions/auth";
+
+import {
+  emailLabel,
+  passwordLabel,
+  nicknameRegister,
+  passwordConfirmLabel
+} from "../common/consts";
+import InputGroup from "../common/InputGroup";
 
 const Register = ({ setAlert, isAuthenticated, register }) => {
   const [formData, setFormData] = useState({
-    nickname: '',
-    email: '',
-    password: '',
-    password2: ''
+    nickname: "",
+    email: "",
+    password: "",
+    password2: ""
   });
 
   const { nickname, email, password, password2 } = formData;
@@ -22,7 +30,7 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
     e.preventDefault();
 
     if (password !== password2) {
-      setAlert('Passwords do not match', 'danger');
+      setAlert("Passwords do not match", "danger");
     } else {
       register({ nickname, email, password });
     }
@@ -35,55 +43,42 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
   return (
     <div className="container">
       <form className="px-3" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <label htmlFor="email">Nickname *</label>
-          <input
-            type="text"
-            className="form-control"
-            name="nickname"
-            placeholder="Enter Nickname"
-            value={nickname}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email Address *</label>
-          <input
-            type="text"
-            className="form-control"
-            name="email"
-            placeholder="Enter Email"
-            value={email}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password *</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            minLength="6"
-            placeholder="Enter Password"
-            value={password}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Confirm Password *</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password2"
-            minLength="6"
-            placeholder="Confirm Password"
-            value={password2}
-            onChange={e => onChange(e)}
-          />
-        </div>
+        <InputGroup
+          name="nickname"
+          placeholder={"Enter Nickname"}
+          onChange={onChange}
+          labels={nicknameRegister}
+          value={nickname}
+          required
+        />
+        <InputGroup
+          type="email"
+          name="email"
+          placeholder={"Enter Email"}
+          onChange={onChange}
+          labels={emailLabel}
+          value={email}
+        />
+        <InputGroup
+          type="password"
+          name="password"
+          placeholder={"Enter Password"}
+          onChange={onChange}
+          labels={passwordLabel}
+          minLength="6"
+          value={password}
+        />
+        <InputGroup
+          type="password"
+          name="password2"
+          placeholder={"Confirm Password"}
+          onChange={onChange}
+          labels={passwordConfirmLabel}
+          minLength="6"
+          value={password2}
+        />
         <button type="submit" className="btn btn-form">
-          {' '}
+          {" "}
           Register
         </button>
         {/* <imput type="submit" value="Register"  /> */}
@@ -105,7 +100,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-  mapStateToProps,
-  { register, setAlert }
-)(Register);
+export default connect(mapStateToProps, { register, setAlert })(Register);
