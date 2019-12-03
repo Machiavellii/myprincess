@@ -1,8 +1,7 @@
 import React, { useEffect, Fragment, useState } from "react";
-import { useParams } from "react-router";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { getCurrentProfileAdmin } from "../../actions/adminControl";
+import { withRouter, Link } from "react-router-dom";
+import { editProfile } from "../../actions/adminControl";
 import Spinner from "../layout/Spinner";
 
 import {
@@ -39,16 +38,11 @@ import {
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
-  websiteLabel,
-  coverLabel
+  websiteLabel
+  // coverLabel
 } from "../common/consts";
 
-const EditAdmin = ({
-  getCurrentProfileAdmin,
-  profile: { profile, loading }
-}) => {
-  const idd = useParams();
-  const { id } = idd;
+const EditAdmin = ({ editProfile, history, profile: { profile, loading } }) => {
   const [formData, setFormData] = useState({
     gender: "",
     sexual_orientation: "",
@@ -68,16 +62,14 @@ const EditAdmin = ({
     slogan: "",
     hours: "",
     website: "",
-    type: "",
-    errors: ""
+    type: ""
   });
 
-  // const [cover_photo, setCoverphoto] = useState(null);
-  // const [photos, setGalleryphoto] = useState('');
-
   useEffect(() => {
-    getCurrentProfileAdmin(id);
-  }, [getCurrentProfileAdmin]);
+    if (profile !== null) {
+      setFormData(profile);
+    }
+  }, [profile]);
 
   const {
     gender,
@@ -97,19 +89,15 @@ const EditAdmin = ({
     slogan,
     hours,
     website,
-    type,
-    is_active,
-    errors
+    type
+    // is_active
   } = formData;
 
-  const onChange = e => {
-    // if (e.target.name === 'cover_photo') {
-    //   setCoverphoto(e.target.files[0]);
-    // }
-    // if (e.target.name === 'photos') {
-    //   setGalleryphoto(e.target.files);
-    // }
+  // setFormData({
+  //   gender: !profile ? "" : profile.gender
+  // });
 
+  const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -164,28 +152,21 @@ const EditAdmin = ({
   const onSubmit = e => {
     e.preventDefault();
 
-    // let formCover = new FormData();
-    // formCover.append('cover_photo', cover_photo);
-
-    // let formGallery = new FormData();
-
-    // for (const key of Object.keys(photos)) {
-    //   formGallery.append('photos', photos[key]);
-    // }
-
-    // uploadGallery(formGallery);
-    // uploadCover(formCover);
-
-    // createProfile(formData, history, true);
-    window.confirm("Isn't working yet!!!!");
+    editProfile(formData, history);
+    console.log(formData);
   };
 
   return (
     <Fragment>
-      {profile === null ? (
+      {profile === undefined ? (
         <Spinner />
       ) : (
         <Fragment>
+          <div className="container">
+            <Link to="/superadmin" className="btn btn-light">
+              Back
+            </Link>
+          </div>
           <h1 className="text-center">Post an ad - 7 days</h1>
           <form
             className="container mb-5 edit-form"
@@ -228,9 +209,8 @@ const EditAdmin = ({
 
             <SelectListGroup
               name="type"
-              value={profile.type}
+              value={type}
               onChange={onChange}
-              error={errors}
               options={typeList}
               labels={typeLabel}
             />
@@ -274,15 +254,13 @@ const EditAdmin = ({
               placeholder={"Slogan"}
               onChange={onChange}
               labels={sloganLabel}
-              value={profile.slogan}
-              error={errors}
+              value={slogan}
             />
 
             <SelectListGroup
               name="gender"
-              value={profile.gender}
+              value={gender}
               onChange={onChange}
-              error={errors}
               options={genderList}
               labels={genderLabel}
             />
@@ -319,17 +297,15 @@ const EditAdmin = ({
 
             <SelectListGroup
               name="category"
-              value={profile.category}
+              value={category}
               onChange={onChange}
-              error={errors}
               options={categoryList}
               labels={categoryLabel}
             />
             <SelectListGroup
               name="sexual_orientation"
-              value={profile.sexual_orientation}
+              value={sexual_orientation}
               onChange={onChange}
-              error={errors}
               options={sexual_orientationList}
               labels={sexualOrientationLabel}
             />
@@ -338,22 +314,19 @@ const EditAdmin = ({
               placeholder={"18"}
               onChange={onChange}
               labels={ageLabel}
-              value={profile.age}
-              error={errors}
+              value={age}
             />
             <SelectListGroup
               name="silhouette"
-              value={profile.silhouette}
+              value={silhouette}
               onChange={onChange}
-              error={errors}
               options={silhouetteList}
               labels={silhouetteLabel}
             />
             <SelectListGroup
               name="origin"
-              value={profile.origin}
+              value={origin}
               onChange={onChange}
-              error={errors}
               options={originList}
               labels={originLabel}
             />
@@ -361,7 +334,7 @@ const EditAdmin = ({
             <TextAreaGroup
               placeholder="Short Bio "
               name="description"
-              value={profile.description}
+              value={description}
               onChange={onChange}
               // error={error}
               info="Tell us a little about yourself"
@@ -370,17 +343,15 @@ const EditAdmin = ({
 
             <SelectListGroup
               name="canton"
-              value={profile.canton}
+              value={canton}
               onChange={onChange}
-              error={errors}
               options={cantonsList}
               labels={cantonLabel}
             />
             <SelectListGroup
               name="city"
-              value={profile.city}
+              value={city}
               onChange={onChange}
-              error={errors}
               options={cityList}
               labels={cityLabel}
             />
@@ -389,8 +360,7 @@ const EditAdmin = ({
               placeholder={"8000"}
               onChange={onChange}
               labels={cityzipLabel}
-              value={profile.zip}
-              error={errors}
+              value={zip}
             />
 
             {/* <InputGroup
@@ -404,7 +374,7 @@ const EditAdmin = ({
               ''
             ) : (
               <div>
-                <img src={profile.cover_photo} alt="" />
+                <img src={cover_photo} alt="" />
               </div>
             )}
           </div>
@@ -422,7 +392,7 @@ const EditAdmin = ({
           <div className="holder-gallery">
             {photos.length < 1 || undefined
               ? ''
-              : profile.photos.map((photo, i) => (
+              : photos.map((photo, i) => (
                   <div key={i}>
                     <button
                       type="button"
@@ -444,7 +414,7 @@ const EditAdmin = ({
             <TextAreaGroup
               placeholder="21:00 - 05:00"
               name="hours"
-              value={profile.hours}
+              value={hours}
               onChange={onChange}
               // error={error}
               labels={businesshoursLabel}
@@ -453,7 +423,7 @@ const EditAdmin = ({
             <TextAreaGroup
               placeholder="200CHF"
               name="rate"
-              value={profile.rate}
+              value={rate}
               onChange={onChange}
               // error={error}
               labels={rateLabel}
@@ -463,16 +433,14 @@ const EditAdmin = ({
               placeholder={"+41 79 000 00 00"}
               onChange={onChange}
               labels={phonenumberLabel}
-              value={profile.phone}
-              error={errors}
+              value={phone}
             />
             <InputGroup
               name="website"
               placeholder={"https://www.site.com"}
               onChange={onChange}
               labels={websiteLabel}
-              value={profile.website}
-              error={errors}
+              value={website}
             />
             <button
               type="submit"
@@ -491,6 +459,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfileAdmin })(
-  withRouter(EditAdmin)
-);
+export default connect(mapStateToProps, {
+  editProfile
+})(withRouter(EditAdmin));

@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { logout } from "../../actions/adminAuth";
-import { deleteAccountAdmin } from "../../actions/adminControl";
+import {
+  deleteAccountAdmin,
+  getCurrentProfileAdmin1
+} from "../../actions/adminControl";
 import { getProfiles } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import { filterFunc } from "../../actions/profile";
@@ -14,7 +17,8 @@ const Admin = ({
   getProfiles,
   profile,
   deleteAccountAdmin,
-  filterFunc
+  filterFunc,
+  getCurrentProfileAdmin1
 }) => {
   const [filter, setFilter] = useState("");
 
@@ -68,8 +72,10 @@ const Admin = ({
                 </div>
                 <div className="btn-holder">
                   <Link
-                    to={`/editprofileAdmin/${profile.user._id}`}
+                    // to={`/editprofileAdmin/${profile.user._id}`}
+                    to="/editprofileAdmin"
                     className="btn btn-primary mr-1"
+                    onClick={() => getCurrentProfileAdmin1(profile)}
                   >
                     <i className="fas fa-user-edit" /> Edit Profile
                   </Link>
@@ -124,5 +130,6 @@ export default connect(mapStateToProps, {
   logout,
   getProfiles,
   deleteAccountAdmin,
-  filterFunc
+  filterFunc,
+  getCurrentProfileAdmin1
 })(Admin);

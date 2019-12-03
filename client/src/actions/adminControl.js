@@ -4,7 +4,8 @@ import {
   CLEAR_PROFILE,
   PROFILE_ERROR,
   ACCOUNT_DELETED_ADMIN,
-  GET_PROFILE_ADMIN
+  GET_PROFILE_ADMIN,
+  UPDATE_PROFILE_ADMIN
 } from "./type";
 
 export const getCurrentProfileAdmin = id => async dispatch => {
@@ -16,6 +17,46 @@ export const getCurrentProfileAdmin = id => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+//Get Current User
+export const getCurrentProfileAdmin1 = profile => async dispatch => {
+  dispatch({
+    type: GET_PROFILE_ADMIN,
+    payload: profile
+  });
+};
+
+// EDIT PROFIL
+export const editProfile = (formData, history) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const res = await axios.post("/api/admin/edit", formData, config);
+
+    dispatch({
+      type: UPDATE_PROFILE_ADMIN,
+      payload: res.data
+    });
+
+    dispatch(setAlert("Profile Updated", "success"));
+
+    history.push("/superadmin");
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

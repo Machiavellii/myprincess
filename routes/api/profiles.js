@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 const auth = require("../../middleware/auth");
+const authAdmin = require("../../middleware/authAdmin");
 const { check, validationResult } = require("express-validator");
 
 const Profile = require("../../models/profile");
@@ -67,7 +68,6 @@ router.post(
     check("type", "Account type is required")
       .not()
       .isEmpty(),
-
     check("canton", "Canton is required")
       .not()
       .isEmpty(),
