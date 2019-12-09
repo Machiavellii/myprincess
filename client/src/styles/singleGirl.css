@@ -130,6 +130,14 @@
   padding: 2rem;
 }
 
+.whatsapp {
+  display: flex;
+}
+.whatsapp img {
+  width: 1.3rem;
+  margin-top: -0.5rem;
+}
+
 .list-holder {
   /* display: flex;
   justify-content: space-around; */
@@ -200,8 +208,8 @@
 } */
 
 .stars-inner::before {
-  content: '\f005 \f005 \f005 \f005 \f005';
-  font-family: 'Font Awesome 5 Free';
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
   color: #ce0f69;
   font-size: 1.2rem;

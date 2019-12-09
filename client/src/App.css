@@ -10,6 +10,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
 }
@@ -19,6 +23,9 @@ a {
 }
 a:hover {
   text-decoration: none;
+}
+.a-rose {
+  color: #ce0f69 !important;
 }
 .mb-1 {
   margin-bottom: 1rem;

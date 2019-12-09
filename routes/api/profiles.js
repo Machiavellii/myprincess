@@ -312,6 +312,7 @@ router.post("/upload-cover", auth, async (req, res) => {
       const profile = await Profile.findOne({
         user: mongoose.Types.ObjectId(req.user._id)
       });
+
       if (profile) {
         const coverUrl = profile.coverUrl;
         fs.unlink(coverUrl, err => {

@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
 const View = ({ profile }) => {
   return (
-    <div className="view-holder">
+    <div className="view-holder" id="viewHolder">
       <p>view</p>
 
       <div className="form-group">
-        <label htmlFor="" style={{ display: 'block' }}>
+        <label htmlFor="" style={{ display: "block" }}>
           Write your review below *
         </label>
         <textarea
@@ -18,7 +18,7 @@ const View = ({ profile }) => {
         ></textarea>
       </div>
       <div className="form-group">
-        <input type="checkbox" name="" id="" />{' '}
+        <input type="checkbox" name="" id="" />{" "}
         <label className="input-label">
           Remember my name, my email and my website in the browser for my next
           comment.
