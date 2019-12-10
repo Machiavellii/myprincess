@@ -61,7 +61,6 @@ export default function(state = initialState, action) {
         profile: payload,
         loading: false
       };
-
     case FILTER_PROFILE:
       return {
         ...state,

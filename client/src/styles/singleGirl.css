@@ -152,6 +152,35 @@
   color: #ce0f69;
   margin-right: 0.5rem;
 }
+
+/* OPINIONS HOLDER */
+.opinions {
+  border: 1px solid #e2d2d2;
+  border-left: unset;
+  border-right: unset;
+}
+
+.opinions > h1 {
+  font-size: unset;
+  padding: 1rem;
+  font-weight: 600;
+}
+.opinions-content {
+  display: flex;
+}
+.opinions-content img {
+  width: 3rem;
+}
+
+.rating-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+.rating-text span {
+  font-size: 0.9rem;
+}
+
 /* VIEW PART */
 .view-holder {
   background: #fff;
@@ -184,28 +213,49 @@
 }
 
 /* RATING STYLING */
+
+.stars-holder {
+  display: unset;
+}
+.stars-holder span {
+  display: unset;
+}
+.stars {
+  color: #6b5d5d;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.stars:hover {
+  color: #ce0f69;
+}
+
+.activestars {
+  color: #ce0f69;
+}
+
 .stars-outer {
   position: relative;
   display: inline-block;
   margin-bottom: 1rem;
 }
 
-/* .stars-inner {
+.stars-inner {
   position: absolute;
   top: 0;
   left: 0;
   white-space: nowrap;
   overflow: hidden;
   width: 0;
-} */
+}
 
-/* .stars-outer::before {
-  content: '\f005 \f005 \f005 \f005 \f005';
-  font-family: 'Font Awesome 5 Free';
+.stars-outer::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
   color: #999;
   font-size: 1.2rem;
-} */
+}
 
 .stars-inner::before {
   content: "\f005 \f005 \f005 \f005 \f005";

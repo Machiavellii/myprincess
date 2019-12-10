@@ -2,7 +2,6 @@ import React from "react";
 import whatsapp from "../../../../../../../img/whatsapp.png";
 
 const Aboutgirl = ({ profile }) => {
-  console.log(profile);
   return (
     <div className="aboutGirl">
       <div className="whatsapp">

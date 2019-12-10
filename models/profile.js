@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProfileSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: "user"
   },
   gender: {
     type: String,
@@ -116,11 +116,15 @@ const ProfileSchema = new Schema({
   website: {
     type: String
   },
+  date: {
+    type: Date,
+    default: Date.now
+  },
 
   // U kontroleru sabrati sve vrijednosti koje su dodate u niz i podijeliti sa array length =>
-  rating: {
-    type: [Number]
-  },
+  // rating: {
+  //   type: [Number]
+  // },
 
   opinions: [
     {
@@ -133,15 +137,18 @@ const ProfileSchema = new Schema({
         required: true
       },
       name: {
+        type: String
+      },
+      text: {
         type: String,
         required: true
       },
-      email: {
-        type: String,
-        required: true
+      date: {
+        type: Date,
+        default: Date.now
       }
     }
   ]
 });
 
-module.exports = Profile = mongoose.model('profile', ProfileSchema);
+module.exports = Profile = mongoose.model("profile", ProfileSchema);

@@ -1,4 +1,4 @@
-router.post('/upload-gallery', auth, async (req, res) => {
+router.post("/upload-gallery", auth, async (req, res) => {
   try {
     uploadGallery(req, res, async function(err) {
       if (err instanceof multer.MulterError) {
@@ -25,7 +25,7 @@ router.post('/upload-gallery', auth, async (req, res) => {
       if (profile) {
         const photoUrls = profile.photoUrls;
         fs.unlink(photoUrls, err => {
-          console.log('error', err);
+          console.log("error", err);
         });
       }
       const photo = await Profile.findOne({
@@ -68,12 +68,61 @@ router.post('/upload-gallery', auth, async (req, res) => {
       // return res.status(200).json({ photos: photoUrls });
     });
 
-    console.log('gallery uploaded');
+    console.log("gallery uploaded");
     console.log(req.files);
 
     return res.status(200).json();
   } catch (err) {
-    console.log('gallery upload err:', err);
+    console.log("gallery upload err:", err);
   }
   return res.status(500).json();
 });
+
+// @route    PUT api/profile/opinions
+// @desc     Add opinions
+// @access   Private
+router.post(
+  "/opinions",
+  [
+    auth,
+    [
+      check("review", "Review is required")
+        .not()
+        .isEmpty(),
+      check("title", "Title is required")
+        .not()
+        .isEmpty(),
+      check("name", "Name is required")
+        .not()
+        .isEmpty(),
+      check("email", "Please include a valid email").isEmail()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { review, title, name, email, user } = req.body;
+
+    const newOpinion = {
+      review,
+      title,
+      name,
+      email
+    };
+
+    try {
+      const profile = await Profile.findOne({ user: user });
+
+      profile.opinions.unshift(newOpinion);
+
+      await profile.save();
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);

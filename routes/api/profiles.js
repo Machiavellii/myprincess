@@ -133,8 +133,8 @@ router.post(
       hours,
       rate,
       website,
-      ratings, // array
-      opinions
+      ratings // array
+      // opinions
     } = req.body;
 
     const cover_photo = req.file;
@@ -173,9 +173,9 @@ router.post(
     // Array items
     if (photos) profileFields.photos = photos;
 
-    if (opinions) {
-      profileFields.opinions = opinions;
-    }
+    // if (opinions) {
+    //   profileFields.opinions = opinions;
+    // }
     if (favorites) {
       profileFields.favorites = favorites;
     }
@@ -312,7 +312,6 @@ router.post("/upload-cover", auth, async (req, res) => {
       const profile = await Profile.findOne({
         user: mongoose.Types.ObjectId(req.user._id)
       });
-
       if (profile) {
         const coverUrl = profile.coverUrl;
         fs.unlink(coverUrl, err => {
@@ -388,55 +387,6 @@ router.post(
       res.status(200).json({ photos: photoUrls });
     } catch (err) {
       console.log(err);
-    }
-  }
-);
-
-// @route    PUT api/profile/opinions
-// @desc     Add opinions
-// @access   Private
-router.post(
-  "/opinions",
-  [
-    auth,
-    [
-      check("review", "Review is required")
-        .not()
-        .isEmpty(),
-      check("title", "Title is required")
-        .not()
-        .isEmpty(),
-      check("name", "Name is required")
-        .not()
-        .isEmpty(),
-      check("email", "Please include a valid email").isEmail()
-    ]
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    const { review, title, name, email, user } = req.body;
-
-    const newOpinion = {
-      review,
-      title,
-      name,
-      email
-    };
-
-    try {
-      const profile = await Profile.findOne({ user: user });
-
-      profile.opinions.unshift(newOpinion);
-
-      await profile.save();
-      res.json(profile);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server Error");
     }
   }
 );
