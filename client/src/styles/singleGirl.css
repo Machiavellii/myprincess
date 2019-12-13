@@ -167,6 +167,9 @@
 }
 .opinions-content {
   display: flex;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 .opinions-content img {
   width: 3rem;
