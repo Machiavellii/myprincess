@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { logout } from "../../actions/adminAuth";
 import {
   deleteAccountAdmin,
-  getCurrentProfileAdmin
+  getCurrentProfileAdmin1
 } from "../../actions/adminControl";
 import { getProfiles } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
@@ -18,7 +18,7 @@ const Admin = ({
   profile,
   deleteAccountAdmin,
   filterFunc,
-  getCurrentProfileAdmin
+  getCurrentProfileAdmin1
 }) => {
   const [filter, setFilter] = useState("");
 
@@ -74,7 +74,7 @@ const Admin = ({
                   <Link
                     to="/editprofileAdmin"
                     className="btn btn-primary mr-1"
-                    onClick={() => getCurrentProfileAdmin(profile)}
+                    onClick={() => getCurrentProfileAdmin1(profile)}
                   >
                     <i className="fas fa-user-edit" /> Edit Profile
                   </Link>
@@ -130,5 +130,5 @@ export default connect(mapStateToProps, {
   getProfiles,
   deleteAccountAdmin,
   filterFunc,
-  getCurrentProfileAdmin
+  getCurrentProfileAdmin1
 })(Admin);
