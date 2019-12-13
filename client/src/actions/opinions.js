@@ -36,7 +36,6 @@ export const addOpinion = (formData, id) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.log(err);
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, "danger")));

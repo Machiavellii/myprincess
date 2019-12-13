@@ -62,7 +62,7 @@ router.post(
 // @route    GET api/opinion
 // @desc     Get all opinion
 // @access   Private
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const opinion = await Opinions.find().sort({ date: -1 });
     res.json(opinion);

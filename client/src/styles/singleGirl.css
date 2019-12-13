@@ -214,26 +214,6 @@
 
 /* RATING STYLING */
 
-.stars-holder {
-  display: unset;
-}
-.stars-holder span {
-  display: unset;
-}
-.stars {
-  color: #6b5d5d;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.stars:hover {
-  color: #ce0f69;
-}
-
-.activestars {
-  color: #ce0f69;
-}
-
 .stars-outer {
   position: relative;
   display: inline-block;
@@ -249,7 +229,7 @@
   width: 0;
 }
 
-.stars-outer::before {
+.stars-outer:before {
   content: "\f005 \f005 \f005 \f005 \f005";
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
@@ -257,7 +237,7 @@
   font-size: 1.2rem;
 }
 
-.stars-inner::before {
+.stars-inner:before {
   content: "\f005 \f005 \f005 \f005 \f005";
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
@@ -271,6 +251,51 @@
   font-weight: 600;
   font-size: 0.9rem;
   padding: 0.5rem 1rem;
+}
+
+/* STAR RATING CUSTOM */
+.starsMain {
+  position: relative;
+  height: 1.5rem;
+}
+.stars-holder {
+  position: absolute;
+  display: flex;
+  transform: rotateY(180deg);
+}
+.stars-holder input {
+  display: none;
+}
+
+.stars-holder label {
+  cursor: pointer;
+  /* display: block; */
+  width: 1rem;
+  height: 1rem;
+}
+
+.stars-holder label:before {
+  content: "\f005";
+  font-family: fontAwesome;
+  font-size: 1.2rem;
+  color: #999;
+  position: absolute;
+}
+.stars-holder label:after {
+  content: "\f005";
+  font-family: fontAwesome;
+  font-size: 1.2rem;
+  color: #ce0f69;
+  position: absolute;
+  opacity: 0;
+  transition: 0.5s;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.stars-holder label:hover:after,
+.stars-holder label:hover ~ label:after,
+.stars-holder input:checked ~ label:after {
+  opacity: 1;
 }
 
 /*  PHOTO GALLERY DIV */
