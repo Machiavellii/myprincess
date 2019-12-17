@@ -68,7 +68,7 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/faq" component={Faq} />
             <Route exact path="/contact" component={Contact} />
-            <Route exact path="/postanad" component={Postanad} />
+            <PrivateRoute exact path="/postanad" component={Postanad} />
             <PrivateRoute exact path="/postanadform" component={PostAnAdForm} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/profile/user/:id" component={DescribeContent} />

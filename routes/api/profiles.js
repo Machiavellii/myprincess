@@ -151,7 +151,7 @@ router.post(
     if (canton) profileFields.canton = canton;
     if (city) profileFields.city = city;
     if (zip) profileFields.zip = zip;
-    // if (subscription_plan) profileFields.subscription_plan = subscription_plan;
+    if (subscription_plan) profileFields.subscription_plan = subscription_plan;
     if (start_of_subscription)
       profileFields.start_of_subscription = start_of_subscription;
     if (end_of_subscription)
@@ -330,6 +330,38 @@ router.post("/upload-cover", auth, async (req, res) => {
       );
       return res.status(200).json({ cover_photo: coverUrl });
     });
+  } catch (err) {
+    console.log("create dish err:", err);
+    return res.status(500).json();
+  }
+});
+
+// @route    POST api/profile/subscription
+// @desc     Subscription_plan
+// @access   Private
+router.post("/subscription", auth, async (req, res) => {
+  try {
+    const { subscription_plan } = req.body;
+
+    const profile = await Profile.findOne({
+      user: mongoose.Types.ObjectId(req.user._id)
+    });
+
+    if (profile) {
+      profile.subscription_plan;
+    }
+
+    await Profile.findOneAndUpdate(
+      { user: req.user.id },
+      {
+        subscription_plan
+      },
+      {
+        new: true,
+        upsert: true
+      }
+    );
+    return res.status(200).json({ subscription_plan });
   } catch (err) {
     console.log("create dish err:", err);
     return res.status(500).json();

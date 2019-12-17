@@ -293,7 +293,7 @@ const EditAdForm = ({
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  id="item"
+                  id={item}
                   value={item}
                   name="languages"
                   onChange={e => onCheckBox(e, item)}

@@ -99,6 +99,26 @@ export const createProfile = (
   }
 };
 
+// SUBSCRIPTION PLAN
+export const subscribePlan = time => async dispatch => {
+  try {
+    const res = await axios.post("api/profile/subscription", time);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+
+    // history.push('/upload-gallery');
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+  }
+};
+
 // UPLOAD COVER
 export const uploadCover = (formFile, history) => async dispatch => {
   try {

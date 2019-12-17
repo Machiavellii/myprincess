@@ -1,5 +1,5 @@
-import React from 'react';
-import PricingCard from './PricingCard';
+import React from "react";
+import PricingCard from "./PricingCard";
 
 const Postanad = () => {
   return (
@@ -8,12 +8,13 @@ const Postanad = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-4 col-sm-12 col-12">
-            <PricingCard time="7 days" price="Free" />
+            <PricingCard days="7 days" subscription_plan="7" price="Free" />
           </div>
 
           <div className="col-md-4 col-sm-12 col-12">
             <PricingCard
-              time="30 days"
+              subscription_plan="30"
+              days="30 days"
               price="90.00"
               currency="CHF"
               badge="THE MOST POPULAR"
@@ -23,7 +24,8 @@ const Postanad = () => {
 
           <div className="col-md-4 col-sm-12 col-12">
             <PricingCard
-              time="90 days"
+              subscription_plan="90"
+              days="90 days"
               price="240.00"
               currency="CHF"
               extra="Photo shoots offered"

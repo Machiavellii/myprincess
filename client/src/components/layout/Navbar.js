@@ -88,13 +88,13 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout, filterFunc }) => {
                     Contact
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink to="/postanad" className="nav-link rose-border">
-                    Post an ad
-                  </NavLink>
-                </li>
                 {isAuthenticated ? (
                   <Fragment>
+                    <li className="nav-item">
+                      <NavLink to="/postanad" className="nav-link rose-border">
+                        Post an ad
+                      </NavLink>
+                    </li>
                     <li className="nav-item">
                       <Link to="/" onClick={logout} className="nav-link">
                         Logout

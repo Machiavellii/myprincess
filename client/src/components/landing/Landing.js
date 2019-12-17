@@ -40,7 +40,7 @@ const Landing = ({ getProfiles, profile }) => {
               </span>
             </div>
 
-            {profile.profiles.length > 1 ? (
+            {profile.profiles.length > 0 ? (
               <Content profile={profile} />
             ) : (
               <Spinner />

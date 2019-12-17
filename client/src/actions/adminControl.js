@@ -8,21 +8,21 @@ import {
   UPDATE_PROFILE_ADMIN
 } from "./type";
 
-export const getCurrentProfileAdmin = id => async dispatch => {
-  try {
-    const res = await axios.get(`/api/admin/profile/${id}`);
+// export const getCurrentProfileAdmin = id => async dispatch => {
+//   try {
+//     const res = await axios.get(`/api/admin/profile/${id}`);
 
-    dispatch({
-      type: GET_PROFILE_ADMIN,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
+//     dispatch({
+//       type: GET_PROFILE_ADMIN,
+//       payload: res.data
+//     });
+//   } catch (err) {
+//     dispatch({
+//       type: PROFILE_ERROR,
+//       payload: { msg: err.response.statusText, status: err.response.status }
+//     });
+//   }
+// };
 
 //Get Current User
 export const getCurrentProfileAdmin1 = profile => async dispatch => {
@@ -73,7 +73,7 @@ export const deleteAccountAdmin = id => async dispatch => {
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED_ADMIN, payload: id });
 
-      dispatch(setAlert("Your account has been permanantly deleted", "danger"));
+      dispatch(setAlert("This account has been permanantly deleted", "danger"));
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,
