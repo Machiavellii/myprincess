@@ -12,6 +12,7 @@ import { getProfiles } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import { filterFunc } from "../../actions/profile";
 import Moment from "react-moment";
+import * as moment from "moment";
 
 const Admin = ({
   logout,
@@ -65,18 +66,20 @@ const Admin = ({
                     )}{" "}
                   </span>
                   <br />
-                  <span>
+                  <span style={{ fontSize: ".8rem", fontWeight: "800" }}>
                     This profile will be online until
                     <i className="far fa-clock ml-1" />
                     <span className=" ml-1">
-                      {/* <Moment format="YYYY/MM/DD">{profile.date}</Moment> */}
                       <Moment
-                        format="YYYY/MM/DD"
+                        format="DD/MM/YYYY"
                         add={{ days: profile.subscription_plan }}
-                        style={{ fontWeight: "800" }}
                       >
                         {profile.date}
-                      </Moment>
+                      </Moment>{" "}
+                      {/* {moment
+                        .duration(parseInt(profile.subscription_plan), "days")
+                        .asHours()}{" "}
+                      hours */}
                     </span>
                   </span>
                 </div>
