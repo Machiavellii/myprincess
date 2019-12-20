@@ -44,12 +44,12 @@ button:focus {
   background-image: none;
 }
 
-.navbar-toggler[aria-expanded='false'] {
-  background: url('../img/bars-solid.svg') no-repeat center center;
+.navbar-toggler[aria-expanded="false"] {
+  background: url("../img/bars-solid.svg") no-repeat center center;
 }
 
-.navbar-toggler[aria-expanded='true'] {
-  background: url('../img/times-solid.svg') no-repeat center center;
+.navbar-toggler[aria-expanded="true"] {
+  background: url("../img/times-solid.svg") no-repeat center center;
 }
 
 .navbar-brand {
@@ -207,4 +207,10 @@ button:focus {
   .header {
     font-size: 1rem;
   }
+}
+.dropdown-toggle {
+  margin-right: 1rem;
+}
+.dropdown-menu {
+  background-color: #2b2b2b;
 }

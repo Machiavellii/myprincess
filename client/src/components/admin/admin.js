@@ -6,13 +6,13 @@ import { connect } from "react-redux";
 import { logout } from "../../actions/adminAuth";
 import {
   deleteAccountAdmin,
-  getCurrentProfileAdmin1
+  getCurrentProfileAdmin
 } from "../../actions/adminControl";
 import { getProfiles } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import { filterFunc } from "../../actions/profile";
 import Moment from "react-moment";
-import * as moment from "moment";
+// import * as moment from "moment";
 
 const Admin = ({
   logout,
@@ -20,7 +20,7 @@ const Admin = ({
   profile,
   deleteAccountAdmin,
   filterFunc,
-  getCurrentProfileAdmin1
+  getCurrentProfileAdmin
 }) => {
   const [filter, setFilter] = useState("");
 
@@ -87,7 +87,7 @@ const Admin = ({
                   <Link
                     to="/editprofileAdmin"
                     className="btn btn-primary mr-1"
-                    onClick={() => getCurrentProfileAdmin1(profile)}
+                    onClick={() => getCurrentProfileAdmin(profile)}
                   >
                     <i className="fas fa-user-edit" /> Edit Profile
                   </Link>
@@ -143,5 +143,5 @@ export default connect(mapStateToProps, {
   getProfiles,
   deleteAccountAdmin,
   filterFunc,
-  getCurrentProfileAdmin1
+  getCurrentProfileAdmin
 })(Admin);

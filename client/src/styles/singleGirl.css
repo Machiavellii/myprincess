@@ -41,6 +41,7 @@
 }
 .btn-holder a {
   font-size: 0.9rem;
+  margin-left: 1rem;
 }
 
 .ekko-lightbox-nav-overlay a:first-child {

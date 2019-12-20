@@ -301,9 +301,9 @@ const PostAnAdForm = ({
                 <input
                   className="form-check-input"
                   type="checkbox"
+                  id={service}
                   value={service}
                   name="services"
-                  id={service}
                   onChange={e => onCheckBoxServ(e, service)}
                 />
                 <label

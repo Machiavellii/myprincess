@@ -64,15 +64,6 @@ const View = ({ auth: { isAuthenticated }, profile, addOpinion }) => {
         </div> */}
 
             <div className="form-group">
-              {/* <input
-            type="number"
-            id="rating-control"
-            className="form-control"
-            step="0.1"
-            max="5"
-            placeholder="Rate 1 - 5"
-            disabled
-          /> */}
               <div className="starsMain mb-2">
                 <div className="stars-holder">
                   <input

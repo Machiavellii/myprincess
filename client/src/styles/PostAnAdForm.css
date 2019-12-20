@@ -24,6 +24,10 @@ h1 {
   color: var(--rose-color);
 }
 
+.form-check-input:checked + .dynamic-checkbox-label {
+  color: var(--rose-color);
+}
+
 .main-theme-btn {
   background-color: var(--rose-color);
   border: 1px solid var(--rose-color);

@@ -8,24 +8,8 @@ import {
   UPDATE_PROFILE_ADMIN
 } from "./type";
 
-// export const getCurrentProfileAdmin = id => async dispatch => {
-//   try {
-//     const res = await axios.get(`/api/admin/profile/${id}`);
-
-//     dispatch({
-//       type: GET_PROFILE_ADMIN,
-//       payload: res.data
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: PROFILE_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status }
-//     });
-//   }
-// };
-
 //Get Current User
-export const getCurrentProfileAdmin1 = profile => async dispatch => {
+export const getCurrentProfileAdmin = profile => async dispatch => {
   dispatch({
     type: GET_PROFILE_ADMIN,
     payload: profile

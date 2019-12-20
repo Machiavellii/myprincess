@@ -7,7 +7,12 @@ import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
 import { filterFunc } from "../../actions/profile";
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout, filterFunc }) => {
+const Navbar = ({
+  auth: { isAuthenticated, loading, user },
+  logout,
+  filterFunc,
+  profile
+}) => {
   let [showHide, setShow] = useState(false);
   let [showInput] = useState("");
   const [filter, setFilter] = useState("");
@@ -90,21 +95,43 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout, filterFunc }) => {
                 </li>
                 {isAuthenticated ? (
                   <Fragment>
-                    <li className="nav-item">
-                      <NavLink to="/postanad" className="nav-link rose-border">
-                        Post an ad
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/" onClick={logout} className="nav-link">
-                        Logout
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/dashboard" className="nav-link">
-                        Dashboard
-                      </Link>
-                    </li>
+                    <div className="dropdown">
+                      <a
+                        className="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        id="dropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        {user.nickname}
+                      </a>
+
+                      <div
+                        className="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        <li className="nav-item">
+                          <Link to="/dashboard" className="nav-link">
+                            Dashboard
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link to="/" onClick={logout} className="nav-link">
+                            Logout
+                          </Link>
+                        </li>
+                      </div>
+                    </div>
+                    {/* <li className="nav-item">
+                        <NavLink
+                          to="/postanad"
+                          className="nav-link rose-border"
+                        >
+                          Post an ad
+                        </NavLink>
+                      </li> */}
                   </Fragment>
                 ) : (
                   <Fragment>
