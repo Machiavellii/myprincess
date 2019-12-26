@@ -14,6 +14,7 @@ import {
 import InputGroup from "../common/InputGroup";
 
 const Register = ({ setAlert, isAuthenticated, register }) => {
+  let [block, setBlock] = useState("");
   const [formData, setFormData] = useState({
     nickname: "",
     email: "",
@@ -26,13 +27,17 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const onCheckBox = e => {
+    setBlock((block = !block));
+  };
+
   const onSubmit = async e => {
     e.preventDefault();
 
     if (password !== password2) {
       setAlert("Passwords do not match", "danger");
     } else {
-      register({ nickname, email, password });
+      register({ nickname, email, password, block });
     }
   };
 
@@ -77,6 +82,23 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
           minLength="6"
           value={password2}
         />
+        <div className="form-group">
+          <input
+            className="form-group mr-2"
+            type="checkbox"
+            id="terms"
+            value={block}
+            onChange={e => onCheckBox(e)}
+            name="terms"
+            required
+          />
+          <label htmlFor="terms">
+            I agree with{" "}
+            <Link to="/terms" target="_blank">
+              Terms
+            </Link>
+          </label>
+        </div>
         <button type="submit" className="btn btn-form">
           {" "}
           Register

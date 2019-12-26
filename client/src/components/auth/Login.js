@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Redirect, Link } from "react-router-dom";
-import { login } from "../../actions/auth";
+import { login, logout } from "../../actions/auth";
 import { emailLabel, passwordLabel } from "../common/consts";
 
 import InputGroup from "../common/InputGroup";
 
-const Login = ({ isAuthenticated, login }) => {
+const Login = ({ isAuthenticated, login, auth, logout }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -24,9 +24,22 @@ const Login = ({ isAuthenticated, login }) => {
     login(email, password);
   };
 
-  if (isAuthenticated) {
+  const userBlock = auth.user ? auth.user.payload.user.block : "";
+
+  if (userBlock) {
+    logout();
+    return <Redirect to="/blocked" />;
+  } else if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
+
+  // if (isAuthenticated) {
+  //   return <Redirect to="/dashboard" />;
+  // }
+
+  // if (userBlock) {
+  //   return <Redirect to="/" />;
+  // }
 
   return (
     <div className="container">
@@ -66,7 +79,8 @@ Login.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, logout })(Login);

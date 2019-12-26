@@ -38,6 +38,12 @@ const Admin = ({
   const filterGirls =
     profile.profileFilter.length >= 1 ? profile.profileFilter : profiles;
 
+  const onBlock = id => {
+    console.log(id);
+
+    // blockAccount(id)
+  };
+
   return (
     <Fragment>
       {profile.profiles.length < 1 ? (
@@ -82,6 +88,20 @@ const Admin = ({
                       hours */}
                     </span>
                   </span>
+                </div>
+                <div className="block-holder">
+                  <button
+                    type="button"
+                    className="btn btn-danger "
+                    onClick={() => onBlock(profile.user._id)}
+                  >
+                    <i
+                      className={`fas fa-user-${
+                        profile.user.block ? "plus" : "minus"
+                      }`}
+                    />{" "}
+                    {profile.user.block ? "Block" : "Unblock"} Profile
+                  </button>
                 </div>
                 <div className="btn-holder">
                   <Link

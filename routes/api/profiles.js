@@ -223,7 +223,8 @@ router.get("/", async (req, res) => {
   try {
     const profiles = await Profile.find().populate("user", [
       "nickname",
-      "email"
+      "email",
+      "block"
     ]);
     res.json(profiles);
   } catch (err) {

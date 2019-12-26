@@ -97,6 +97,8 @@ const EditAdmin = ({ editProfile, history, profile: { profile, loading } }) => {
   //   gender: !profile ? "" : profile.gender
   // });
 
+  console.log(profile);
+
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
