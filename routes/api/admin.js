@@ -137,7 +137,6 @@ router.post("/edit", authAdmin, async (req, res) => {
     canton,
     city,
     zip,
-    subscription_plan,
     start_of_subscription,
     end_of_subscription,
     favorites, // array

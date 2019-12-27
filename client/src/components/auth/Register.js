@@ -103,7 +103,6 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
           {" "}
           Register
         </button>
-        {/* <imput type="submit" value="Register"  /> */}
       </form>
       <p>
         Already have an account? <Link to="/login">Sign In</Link>

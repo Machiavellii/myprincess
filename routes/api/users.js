@@ -35,10 +35,7 @@ router.post(
     check(
       "password",
       "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 }),
-    check("block", "Terms is required")
-      .not()
-      .isEmpty()
+    ).isLength({ min: 6 })
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -91,5 +88,25 @@ router.post(
     }
   }
 );
+
+// @route    POST api/users/:id
+// @desc     Block Account
+// @access   Private
+router.post("/:id", async (req, res) => {
+  try {
+    const { block } = req.body;
+
+    await User.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: { block } },
+      { new: true, upsert: true }
+    );
+
+    return res.status(200).json({ block });
+  } catch (err) {
+    console.log("create dish err:", err);
+    return res.status(500).json();
+  }
+});
 
 module.exports = router;

@@ -8,7 +8,9 @@ import {
   LOGOUT,
   USER_LOADED,
   AUTH_ERROR,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
+  GET_USERS,
+  USERS_ERROR
 } from "./type";
 
 import setAuthToken from "../utills/setAuthToken";
@@ -96,6 +98,24 @@ export const loadUser = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: AUTH_ERROR
+    });
+  }
+};
+
+// GET USERS
+export const getUsers = () => async dispatch => {
+  try {
+    const res = await axios.get("/api/users");
+
+    dispatch({
+      type: GET_USERS,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: USERS_ERROR,
+      payload: { msg: err.response.statuText, status: err.response.status }
     });
   }
 };

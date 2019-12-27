@@ -26,3 +26,6 @@ export const UPDATE_PROFILE_ADMIN = "UPDATE_PROFILE_ADMIN";
 export const GET_OPINIONS = "GET_OPINIONS";
 export const ADD_OPINIONS = "ADD_OPINIONS";
 export const OPINION_ERROR = "OPINION_ERROR";
+export const BLOCK_ACCOUNT = "BLOCK_ACCOUNT";
+export const GET_USERS = "GET_USERS";
+export const USERS_ERROR = "USERS_ERROR";

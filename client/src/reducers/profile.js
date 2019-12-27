@@ -8,7 +8,8 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED_ADMIN,
   GET_PROFILE_ADMIN,
-  UPDATE_PROFILE_ADMIN
+  UPDATE_PROFILE_ADMIN,
+  BLOCK_ACCOUNT
 } from "../actions/type";
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   loading: true,
   error: {},
   profileFilter: [],
-  searchPage: []
+  searchPage: [],
+  block: {}
 };
 
 export default function(state = initialState, action) {
@@ -53,6 +55,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         profiles: state.profiles.filter(profile => profile.user._id !== payload)
+      };
+    case BLOCK_ACCOUNT:
+      console.log(payload);
+      return {
+        ...state,
+        block: state.profiles.map(profile => profile.user.payload)
       };
     case GET_PROFILE_ADMIN:
     case UPDATE_PROFILE_ADMIN:

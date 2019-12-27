@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 import { logout } from "../../actions/adminAuth";
 import {
   deleteAccountAdmin,
-  getCurrentProfileAdmin
+  getCurrentProfileAdmin,
+  blockAccount
 } from "../../actions/adminControl";
 import { getProfiles } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
@@ -20,9 +21,11 @@ const Admin = ({
   profile,
   deleteAccountAdmin,
   filterFunc,
-  getCurrentProfileAdmin
+  getCurrentProfileAdmin,
+  blockAccount
 }) => {
   const [filter, setFilter] = useState("");
+  const [block, setBlock] = useState(false);
 
   useEffect(() => {
     getProfiles();
@@ -38,12 +41,18 @@ const Admin = ({
   const filterGirls =
     profile.profileFilter.length >= 1 ? profile.profileFilter : profiles;
 
-  const onBlock = id => {
-    console.log(id);
-
-    // blockAccount(id)
+  const onBlock = () => {
+    setBlock(!block);
   };
 
+  const onSubmit = (e, id) => {
+    e.preventDefault();
+
+    console.log(id);
+    blockAccount(id, { block });
+  };
+
+  console.log(profile);
   return (
     <Fragment>
       {profile.profiles.length < 1 ? (
@@ -90,18 +99,29 @@ const Admin = ({
                   </span>
                 </div>
                 <div className="block-holder">
-                  <button
-                    type="button"
-                    className="btn btn-danger "
-                    onClick={() => onBlock(profile.user._id)}
-                  >
-                    <i
-                      className={`fas fa-user-${
-                        profile.user.block ? "plus" : "minus"
+                  <form onSubmit={e => onSubmit(e, profile.user._id)}>
+                    {/* <input
+                      type="text"
+                      value={false}
+                      className={`btn btn-${
+                        profile.user.block ? "danger" : "success"
                       }`}
-                    />{" "}
-                    {profile.user.block ? "Block" : "Unblock"} Profile
-                  </button>
+                    /> */}
+                    <button
+                      type="submit"
+                      className={`btn btn-${
+                        profile.user.block ? "danger" : "success"
+                      }`}
+                      onClick={onBlock}
+                    >
+                      <i
+                        className={`fas fa-user-${
+                          profile.user.block ? "plus" : "minus"
+                        }`}
+                      />{" "}
+                      {profile.user.block ? "Block" : "Unblock"} Profile
+                    </button>
+                  </form>
                 </div>
                 <div className="btn-holder">
                   <Link
@@ -163,5 +183,6 @@ export default connect(mapStateToProps, {
   getProfiles,
   deleteAccountAdmin,
   filterFunc,
-  getCurrentProfileAdmin
+  getCurrentProfileAdmin,
+  blockAccount
 })(Admin);

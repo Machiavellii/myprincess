@@ -6,14 +6,17 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  ACCOUNT_DELETED
+  ACCOUNT_DELETED,
+  BLOCK_ACCOUNT,
+  GET_USERS
 } from "../actions/type";
 
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
   loading: true,
-  user: null
+  user: null,
+  users: []
 };
 
 export default function(state = initialState, action) {
@@ -49,6 +52,11 @@ export default function(state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        users: payload
       };
 
     default:

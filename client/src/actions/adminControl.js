@@ -5,7 +5,8 @@ import {
   PROFILE_ERROR,
   ACCOUNT_DELETED_ADMIN,
   GET_PROFILE_ADMIN,
-  UPDATE_PROFILE_ADMIN
+  UPDATE_PROFILE_ADMIN,
+  BLOCK_ACCOUNT
 } from "./type";
 
 //Get Current User
@@ -45,6 +46,30 @@ export const editProfile = (formData, history) => async dispatch => {
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
+  }
+};
+
+// Block Account
+export const blockAccount = (id, block) => async dispatch => {
+  if (window.confirm("Not finish yet!")) {
+    // try {
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     }
+    //   };
+    //   const res = await axios.post(`/api/users/${id}`, block, config);
+    //   const { data } = res;
+    //   dispatch({
+    //     type: BLOCK_ACCOUNT,
+    //     payload: data
+    //   });
+    // } catch (err) {
+    //   const errors = err.response.data.errors;
+    //   if (errors) {
+    //     errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    //   }
+    // }
   }
 };
 

@@ -39,7 +39,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import AdminRoute from "./components/routing/AdminRoute";
 import Terms from "./components/layout/Terms";
 
-import { loadUser } from "./actions/auth";
+import { loadUser, getUsers } from "./actions/auth";
 import { loadAdmin } from "./actions/adminAuth";
 
 if (localStorage.token) {
@@ -54,6 +54,7 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(loadAdmin());
+    store.dispatch(getUsers());
   }, []);
 
   return (
