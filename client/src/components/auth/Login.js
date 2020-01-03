@@ -26,7 +26,7 @@ const Login = ({ isAuthenticated, login, auth, logout }) => {
 
   const userBlock = auth.user ? auth.user.payload.user.block : "";
 
-  if (userBlock) {
+  if (userBlock === false) {
     logout();
     return <Redirect to="/blocked" />;
   } else if (isAuthenticated) {

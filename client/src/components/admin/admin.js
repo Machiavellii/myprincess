@@ -22,10 +22,11 @@ const Admin = ({
   deleteAccountAdmin,
   filterFunc,
   getCurrentProfileAdmin,
-  blockAccount
+  blockAccount,
+  history
 }) => {
   const [filter, setFilter] = useState("");
-  const [block, setBlock] = useState(false);
+  const [block, setBlock] = useState("");
 
   useEffect(() => {
     getProfiles();
@@ -41,18 +42,15 @@ const Admin = ({
   const filterGirls =
     profile.profileFilter.length >= 1 ? profile.profileFilter : profiles;
 
-  const onBlock = () => {
+  const onBlock = block => {
     setBlock(!block);
   };
 
   const onSubmit = (e, id) => {
     e.preventDefault();
-
-    console.log(id);
-    blockAccount(id, { block });
+    blockAccount(id, { block }, history);
   };
 
-  console.log(profile);
   return (
     <Fragment>
       {profile.profiles.length < 1 ? (
@@ -112,7 +110,7 @@ const Admin = ({
                       className={`btn btn-${
                         profile.user.block ? "danger" : "success"
                       }`}
-                      onClick={onBlock}
+                      onClick={() => onBlock(profile.user.block)}
                     >
                       <i
                         className={`fas fa-user-${

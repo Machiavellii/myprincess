@@ -50,27 +50,30 @@ export const editProfile = (formData, history) => async dispatch => {
 };
 
 // Block Account
-export const blockAccount = (id, block) => async dispatch => {
-  if (window.confirm("Not finish yet!")) {
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     }
-    //   };
-    //   const res = await axios.post(`/api/users/${id}`, block, config);
-    //   const { data } = res;
-    //   dispatch({
-    //     type: BLOCK_ACCOUNT,
-    //     payload: data
-    //   });
-    // } catch (err) {
-    //   const errors = err.response.data.errors;
-    //   if (errors) {
-    //     errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
-    //   }
-    // }
+export const blockAccount = (id, block, history) => async dispatch => {
+  // if (window.confirm("Not finish yet!")) {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const res = await axios.post(`/api/users/${id}`, block, config);
+    const { data } = res;
+    dispatch({
+      type: BLOCK_ACCOUNT,
+      payload: data
+    });
+
+    history.push("/superadminlogin");
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
   }
+  // }
 };
 
 // Delete account & profile

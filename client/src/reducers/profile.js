@@ -57,10 +57,9 @@ export default function(state = initialState, action) {
         profiles: state.profiles.filter(profile => profile.user._id !== payload)
       };
     case BLOCK_ACCOUNT:
-      console.log(payload);
       return {
         ...state,
-        block: state.profiles.map(profile => profile.user.payload)
+        block: state.profiles.map(profile => profile.user.block.payload)
       };
     case GET_PROFILE_ADMIN:
     case UPDATE_PROFILE_ADMIN:
