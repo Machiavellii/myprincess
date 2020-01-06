@@ -33,14 +33,6 @@ const Login = ({ isAuthenticated, login, auth, logout }) => {
     return <Redirect to="/dashboard" />;
   }
 
-  // if (isAuthenticated) {
-  //   return <Redirect to="/dashboard" />;
-  // }
-
-  // if (userBlock) {
-  //   return <Redirect to="/" />;
-  // }
-
   return (
     <div className="container">
       <form className="px-3" onSubmit={e => onSubmit(e)}>
