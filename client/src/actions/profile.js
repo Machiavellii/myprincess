@@ -65,8 +65,8 @@ export const getProfileById = userId => async dispatch => {
 // CREATE PROFIL
 export const createProfile = (
   formData,
-  history
-  // edit = false
+  history,
+  edit = false
 ) => async dispatch => {
   try {
     const config = {
@@ -82,42 +82,9 @@ export const createProfile = (
       payload: res.data
     });
 
-    dispatch(setAlert("Profile Created", "success"));
+    dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", "success"));
 
     history.push("/dashboard");
-    // window.location.reload();
-  } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
-    }
-
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// EDIT PROFIL
-export const editProfile = (formData, history, id) => async dispatch => {
-  try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-
-    const res = await axios.put(`/api/profile/${id}`, formData, config);
-
-    dispatch({
-      type: GET_PROFILE,
-      payload: res.data
-    });
-
-    dispatch(setAlert("Profile Updated", "success"));
-
-    history.push("/");
     // window.location.reload();
   } catch (err) {
     const errors = err.response.data.errors;

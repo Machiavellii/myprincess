@@ -1,15 +1,15 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React, { Fragment, useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import { uploadGallery, getCurrentProfile } from '../../../actions/profile';
+import { uploadGallery, getCurrentProfile } from "../../../actions/profile";
 
 const UploadGallery = ({
   uploadGallery,
   history,
   profile: { profile, loading }
 }) => {
-  const [photos, setGalleryphoto] = useState('');
+  const [photos, setGalleryphoto] = useState("");
 
   useEffect(() => {
     getCurrentProfile();
@@ -29,7 +29,7 @@ const UploadGallery = ({
     let formGallery = new FormData();
 
     for (const key of Object.keys(photos)) {
-      formGallery.append('photos', photos[key]);
+      formGallery.append("photos", photos[key]);
     }
 
     uploadGallery(formGallery, history, true);
@@ -46,6 +46,7 @@ const UploadGallery = ({
 
   return (
     <div className="container">
+      <h4>Upload Gallery</h4>
       <form onSubmit={onSubmit} className="p-5">
         <input
           type="file"
@@ -56,7 +57,7 @@ const UploadGallery = ({
         />
         <div className="holder-gallery">
           {profile.photos === undefined
-            ? ''
+            ? ""
             : profile.photos.map((photo, i) => (
                 <div key={i}>
                   <button
@@ -91,7 +92,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { uploadGallery, getCurrentProfile }
-)(withRouter(UploadGallery));
+export default connect(mapStateToProps, { uploadGallery, getCurrentProfile })(
+  withRouter(UploadGallery)
+);

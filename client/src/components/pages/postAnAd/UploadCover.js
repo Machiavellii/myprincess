@@ -1,8 +1,8 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React, { Fragment, useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import { uploadCover, getCurrentProfile } from '../../../actions/profile';
+import { uploadCover, getCurrentProfile } from "../../../actions/profile";
 
 const UploadCover = ({
   uploadCover,
@@ -27,13 +27,14 @@ const UploadCover = ({
     e.preventDefault();
 
     let formCover = new FormData();
-    formCover.append('cover_photo', cover_photo);
+    formCover.append("cover_photo", cover_photo);
 
     uploadCover(formCover, history, true);
   };
 
   return (
     <div className="container upload-cover">
+      <h4>Upload Gallery</h4>
       <form onSubmit={onSubmit} className="p-5">
         <input
           type="file"
@@ -76,7 +77,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { uploadCover, getCurrentProfile }
-)(withRouter(UploadCover));
+export default connect(mapStateToProps, { uploadCover, getCurrentProfile })(
+  withRouter(UploadCover)
+);

@@ -50,7 +50,6 @@ import {
 } from "../../common/consts";
 
 const EditAdForm = ({
-  editProfile,
   uploadCover,
   uploadGallery,
   createProfile,
@@ -68,10 +67,7 @@ const EditAdForm = ({
     origin: "",
     description: "",
     address: "",
-    // city: "",
-    // canton: "",
-    // zip: "",
-    is_active: "",
+
     languages: [],
     silhouette: "",
     rate: "",
@@ -102,8 +98,7 @@ const EditAdForm = ({
       origin: loading || !profile.origin ? " " : profile.origin,
       description: loading || !profile.description ? " " : profile.description,
       address: loading || !profile.address ? " " : profile.address,
-      // canton: loading || !profile.canton ? " " : profile.canton,
-      // zip: loading || !profile.zip ? " " : profile.zip,
+
       languages: loading || !profile.languages ? " " : profile.languages,
       silhouette: loading || !profile.silhouette ? " " : profile.silhouette,
       rate: loading || !profile.rate ? " " : profile.rate,
@@ -130,8 +125,7 @@ const EditAdForm = ({
     origin,
     description,
     address,
-    // canton,
-    // zip,
+
     languages,
     silhouette,
     rate,
@@ -169,8 +163,6 @@ const EditAdForm = ({
 
   const getCheckStatus = (value, type) => {
     let list = null;
-
-    // console.log(value)
 
     if (type === "languages") {
       list = languages;
@@ -214,12 +206,8 @@ const EditAdForm = ({
     // console.log(profile.photos);
   };
 
-  // console.log(profile);
-
   const onSubmit = e => {
     e.preventDefault();
-
-    const { _id } = profile;
 
     let formCover = new FormData();
     formCover.append("cover_photo", cover_photo);
@@ -233,7 +221,6 @@ const EditAdForm = ({
     // uploadGallery(formGallery);
     // uploadCover(formCover);
     createProfile(formData, history, true);
-    // editProfile(formData, history, _id);
   };
 
   return (
@@ -524,7 +511,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  editProfile,
   getCurrentProfile,
   uploadCover,
   uploadGallery,
