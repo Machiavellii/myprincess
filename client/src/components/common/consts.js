@@ -111,7 +111,12 @@ export const coverLabel = [
     text: "Add new profile photo *"
   }
 ];
-
+export const addressLabel = [
+  {
+    htmlFor: "address ",
+    text: "Address  *"
+  }
+];
 export const businesshoursLabel = [
   {
     htmlFor: "business_hours ",

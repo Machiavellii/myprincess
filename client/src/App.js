@@ -33,8 +33,8 @@ import Alert from "./components/layout/Alert";
 import Dashboard from "./components/dashboard/Dashboard";
 import Admin from "./components/admin/admin";
 import EditAdmin from "./components/admin/editAdmin";
-// import UploadCover from './components/pages/postAnAd/UploadCover';
-// import UploadGallery from './components/pages/postAnAd/UploadGallery';
+import UploadCover from "./components/pages/postAnAd/UploadCover";
+import UploadGallery from "./components/pages/postAnAd/UploadGallery";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import AdminRoute from "./components/routing/AdminRoute";
 import Terms from "./components/layout/Terms";
@@ -90,12 +90,12 @@ const App = () => {
 
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/edit-profile" component={EditAdForm} />
-            {/* <PrivateRoute exact path="/upload-cover" component={UploadCover} />
+            <PrivateRoute exact path="/upload-cover" component={UploadCover} />
             <PrivateRoute
               exact
               path="/upload-gallery"
               component={UploadGallery}
-            /> */}
+            />
           </Switch>
           <Footer />
         </div>

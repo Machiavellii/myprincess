@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "../../../styles/PostAnAdForm.css";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -15,8 +16,8 @@ import {
   servicesList,
   silhouetteList,
   originList,
-  cantonsList,
-  cityList,
+  // cantonsList,
+  // cityList,
   genderList,
   sexual_orientationList,
   typeList
@@ -36,15 +37,18 @@ import {
   silhouetteLabel,
   originLabel,
   descriptionLabel,
-  cantonLabel,
-  cityLabel,
-  cityzipLabel,
+  // cantonLabel,
+  addressLabel,
+  // cityLabel,
+  // cityzipLabel,
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
   websiteLabel,
   coverLabel
 } from "../../common/consts";
+
+import MapboxAutocomplete from "react-mapbox-autocomplete";
 
 const PostAnAdForm = ({
   createProfile,
@@ -63,9 +67,9 @@ const PostAnAdForm = ({
     age: "",
     origin: "",
     description: "",
-    city: "",
-    canton: "",
-    zip: "",
+    address: "",
+    address_results: [],
+    address_isLoading: false,
     is_active: "",
     languages: [],
     silhouette: "",
@@ -88,9 +92,9 @@ const PostAnAdForm = ({
     age,
     origin,
     description,
-    city,
-    canton,
-    zip,
+    address,
+    address_results,
+    address_isLoading,
     languages,
     silhouette,
     rate,
@@ -114,6 +118,7 @@ const PostAnAdForm = ({
     if (e.target.name === "photos") {
       setGalleryphoto(e.target.files);
     }
+
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -152,47 +157,39 @@ const PostAnAdForm = ({
       formGallery.append("photos", photos[key]);
     }
 
-    uploadGallery(formGallery);
-    uploadCover(formCover);
-    // console.log(formData)
+    // uploadGallery(formGallery);
+    // uploadCover(formCover);
+    console.log(formData);
+
     createProfile(formData, history);
   };
 
+  // const suggestionSelect = (result, lat, lng, text) => {
+  //   console.log(result);
+  //   setFormData({ ...formData, address: result });
+  // };
+
   return (
     <Fragment>
-      <h1 className="text-center">Post an ad - 7 days</h1>
+      <h1 className="text-center">168 hours of free Ad.</h1>
+      <blockquote className="blockquote text-center">
+        <p className="mb-0">
+          <strong>Note: </strong> We provide you 168 hours free ad. You can
+          always buy more hours to keep your ad active, and also deactivate your
+          ad and keep remaining hours while your ad is not active.
+        </p>
+        <div className="blockquote-footer">
+          For more information about our offers and pricing{" "}
+          <Link to={"/postanad"}>
+            <cite title="Source Title">click here</cite>
+          </Link>
+        </div>
+      </blockquote>
       <form
         className="container mb-5"
         onSubmit={onSubmit}
         // encType="multipart/form-data"
       >
-        {/* {!isAuthenticated.token ? (
-          <div className="card mb-4 mt-5">
-            <div className="card-body">
-              <h5 className="card-title">Already have an account?</h5>
-              <hr />
-              <p className="card-text">
-                <sup>
-                  <a href="!#">Login</a>
-                </sup>{' '}
-                If you do not-have an account, you can create it by below
-                Reviews entering your e-mail address / username. The account
-                details will be confirmed by email.
-              </p>
-
-              <div className="form-group">
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="Email"
-                  name="email"
-                />
-              </div>
-            </div>
-          </div>
-        ) : null} */}
-
         <div className="form-group">
           <p>Job Activity</p>
           <div className="form-check form-check-inline">
@@ -227,9 +224,6 @@ const PostAnAdForm = ({
             </small>
           </p>
         </div>
-
-        {/* <InputGroup placeholder={'Nickname'} labels={nickname} required /> */}
-
         <SelectListGroup
           name="type"
           value={type}
@@ -363,28 +357,27 @@ const PostAnAdForm = ({
           labels={descriptionLabel}
         />
 
-        <SelectListGroup
-          name="canton"
-          value={canton}
-          onChange={onChange}
-          options={cantonsList}
-          labels={cantonLabel}
-        />
-        <SelectListGroup
-          name="city"
-          value={city}
-          onChange={onChange}
-          options={cityList}
-          labels={cityLabel}
-        />
         <InputGroup
-          name="zip"
-          placeholder={"8000"}
+          name="address"
+          placeholder="Building 36, Rue de Montchoisy, Eaux-Vives, Geneva, 1027, Switzerland"
           onChange={onChange}
-          labels={cityzipLabel}
-          value={zip}
+          labels={addressLabel}
+          value={address}
         />
-        <InputGroup
+        {/* <label htmlFor="Address">Address *</label>
+        <MapboxAutocomplete
+          publicKey="pk.eyJ1Ijoic2VydmFsbGwiLCJhIjoiY2pndjRqejV2MWV1azMzcnRvYWVjazBrNCJ9.4FgwICwFPNnW58okWFoBww"
+          inputClass="form-control"
+          onSuggestionSelect={suggestionSelect}
+          country="ch"
+          placeholder="Rue de Montchoisy, Geneva, 1207"
+          resetSearch={true}
+          onChange={onChange}
+          value={address}
+          name="address"
+        /> */}
+
+        {/* <InputGroup
           type="file"
           name="cover_photo"
           onChange={onChange}
@@ -425,7 +418,7 @@ const PostAnAdForm = ({
           <small className="tip">
             The first picture will be displayed as the hand.
           </small>
-        </p>
+        </p> */}
 
         <TextAreaGroup
           placeholder="21:00 - 05:00"

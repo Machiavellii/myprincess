@@ -4,10 +4,11 @@ import "../../../styles/PostAnAdForm.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {
-  createProfile,
+  editProfile,
   getCurrentProfile,
   uploadCover,
-  uploadGallery
+  uploadGallery,
+  createProfile
 } from "../../../actions/profile";
 
 import {
@@ -37,9 +38,10 @@ import {
   silhouetteLabel,
   originLabel,
   descriptionLabel,
-  cantonLabel,
-  cityLabel,
-  cityzipLabel,
+  // cantonLabel,
+  // cityLabel,
+  // cityzipLabel,
+  addressLabel,
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
@@ -48,9 +50,10 @@ import {
 } from "../../common/consts";
 
 const EditAdForm = ({
-  createProfile,
+  editProfile,
   uploadCover,
   uploadGallery,
+  createProfile,
   history,
   getCurrentProfile,
   profile: { profile, loading }
@@ -64,9 +67,10 @@ const EditAdForm = ({
     age: "",
     origin: "",
     description: "",
-    city: "",
-    canton: "",
-    zip: "",
+    address: "",
+    // city: "",
+    // canton: "",
+    // zip: "",
     is_active: "",
     languages: [],
     silhouette: "",
@@ -97,9 +101,9 @@ const EditAdForm = ({
       type: loading || !profile.type ? " " : profile.type,
       origin: loading || !profile.origin ? " " : profile.origin,
       description: loading || !profile.description ? " " : profile.description,
-      city: loading || !profile.city ? " " : profile.city,
-      canton: loading || !profile.canton ? " " : profile.canton,
-      zip: loading || !profile.zip ? " " : profile.zip,
+      address: loading || !profile.address ? " " : profile.address,
+      // canton: loading || !profile.canton ? " " : profile.canton,
+      // zip: loading || !profile.zip ? " " : profile.zip,
       languages: loading || !profile.languages ? " " : profile.languages,
       silhouette: loading || !profile.silhouette ? " " : profile.silhouette,
       rate: loading || !profile.rate ? " " : profile.rate,
@@ -125,9 +129,9 @@ const EditAdForm = ({
     age,
     origin,
     description,
-    city,
-    canton,
-    zip,
+    address,
+    // canton,
+    // zip,
     languages,
     silhouette,
     rate,
@@ -210,8 +214,12 @@ const EditAdForm = ({
     // console.log(profile.photos);
   };
 
+  // console.log(profile);
+
   const onSubmit = e => {
     e.preventDefault();
+
+    const { _id } = profile;
 
     let formCover = new FormData();
     formCover.append("cover_photo", cover_photo);
@@ -222,10 +230,10 @@ const EditAdForm = ({
       formGallery.append("photos", photos[key]);
     }
 
-    uploadGallery(formGallery);
-    uploadCover(formCover);
-
+    // uploadGallery(formGallery);
+    // uploadCover(formCover);
     createProfile(formData, history, true);
+    // editProfile(formData, history, _id);
   };
 
   return (
@@ -411,33 +419,15 @@ const EditAdForm = ({
           info="Tell us a little about yourself"
           labels={descriptionLabel}
         />
-
-        <SelectListGroup
-          name="canton"
-          value={canton}
-          onChange={onChange}
-          error={errors}
-          options={cantonsList}
-          labels={cantonLabel}
-        />
-        <SelectListGroup
-          name="city"
-          value={city}
-          onChange={onChange}
-          error={errors}
-          options={cityList}
-          labels={cityLabel}
-        />
         <InputGroup
-          name="zip"
-          placeholder={"8000"}
+          name="address"
+          placeholder="Building 36, Rue de Montchoisy, Eaux-Vives, Geneva, 1027, Switzerland"
           onChange={onChange}
-          labels={cityzipLabel}
-          value={zip}
-          error={errors}
+          labels={addressLabel}
+          value={address}
         />
 
-        <InputGroup
+        {/* <InputGroup
           type="file"
           name="cover_photo"
           onChange={onChange}
@@ -483,7 +473,7 @@ const EditAdForm = ({
           <small className="tip">
             You need upload new gallery before finish editing profile!
           </small>
-        </p>
+        </p> */}
 
         <TextAreaGroup
           placeholder="21:00 - 05:00"
@@ -534,8 +524,9 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  createProfile,
+  editProfile,
   getCurrentProfile,
   uploadCover,
-  uploadGallery
+  uploadGallery,
+  createProfile
 })(withRouter(EditAdForm));

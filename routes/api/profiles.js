@@ -11,6 +11,8 @@ const { check, validationResult } = require("express-validator");
 const Profile = require("../../models/profile");
 const User = require("../../models/User");
 
+const geocoder = require("../../utills/geocoder");
+
 /* start upload image logic */
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -68,18 +70,9 @@ router.post(
     check("type", "Account type is required")
       .not()
       .isEmpty(),
-    check("canton", "Canton is required")
+    check("address", "Address is required")
       .not()
       .isEmpty(),
-    check("city", "City is required")
-      .not()
-      .isEmpty(),
-    check("zip", "Zip is required")
-      .not()
-      .isEmpty(),
-    // check('subscription_plan', 'Subscription plan is required')
-    //   .not()
-    //   .isEmpty(),
     check("languages", "Spoken languages are required")
       .not()
       .isEmpty(),
@@ -97,10 +90,10 @@ router.post(
       .isEmpty(),
     check("origin", "Origin is required")
       .not()
-      .isEmpty(),
-    check("cover_photo", "Profile Picture is required")
-      .not()
       .isEmpty()
+    // check("cover_photo", "Profile Picture is required")
+    //   .not()
+    //   .isEmpty()
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -113,9 +106,7 @@ router.post(
       sexual_orientation,
       phone,
       type,
-      canton,
-      city,
-      zip,
+      address,
       subscription_plan,
       start_of_subscription,
       end_of_subscription,
@@ -133,8 +124,8 @@ router.post(
       hours,
       rate,
       website,
-      ratings // array
-      // opinions
+      ratings, // array
+      opinions
     } = req.body;
 
     const cover_photo = req.file;
@@ -147,15 +138,13 @@ router.post(
       profileFields.sexual_orientation = sexual_orientation;
     if (phone) profileFields.phone = phone;
     if (type) profileFields.type = type;
-    // if (country) profileFields.country = country;
-    if (canton) profileFields.canton = canton;
-    if (city) profileFields.city = city;
-    if (zip) profileFields.zip = zip;
+    if (address) profileFields.address = address;
+
     if (subscription_plan) profileFields.subscription_plan = subscription_plan;
-    if (start_of_subscription)
-      profileFields.start_of_subscription = start_of_subscription;
-    if (end_of_subscription)
-      profileFields.end_of_subscription = end_of_subscription;
+    // if (start_of_subscription)
+    //   profileFields.start_of_subscription = start_of_subscription;
+    // if (end_of_subscription)
+    //   profileFields.end_of_subscription = end_of_subscription;
     if (is_active) profileFields.is_active = is_active;
     if (slogan) profileFields.slogan = slogan;
     if (category) profileFields.category = category;
@@ -194,6 +183,24 @@ router.post(
 
       if (profile) {
         //Update
+
+        const locat = await geocoder.geocode(address);
+
+        console.log(locat);
+
+        profileFields.location = {
+          type: "Point",
+          coordinates: [locat[0].longitude, locat[0].latitude],
+          formattedAddress: locat[0].formattedAddress,
+          city: locat[0].city,
+          zipcode: locat[0].zipcode,
+          neighbourhood: locat[0].neighbourhood,
+          country: locat[0].country,
+          streetName: locat[0].streetName,
+          streetNumber: locat[0].streetNumber,
+          countryCode: locat[0].countryCode
+        };
+
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
@@ -293,8 +300,6 @@ router.delete("/", auth, async (req, res) => {
   }
 });
 
-// TODO: upload photo gallery and upload cover photo and check ovo ispod
-
 // @route    POST api/profile/upload-cover
 // @desc     Upload cover photo
 // @access   Private
@@ -313,6 +318,7 @@ router.post("/upload-cover", auth, async (req, res) => {
       const profile = await Profile.findOne({
         user: mongoose.Types.ObjectId(req.user._id)
       });
+
       if (profile) {
         const coverUrl = profile.coverUrl;
         fs.unlink(coverUrl, err => {
@@ -347,6 +353,8 @@ router.post("/subscription", auth, async (req, res) => {
     const profile = await Profile.findOne({
       user: mongoose.Types.ObjectId(req.user._id)
     });
+
+    // const profile = await Profile.findOne({ user: req.user.id });
 
     if (profile) {
       profile.subscription_plan;
@@ -424,7 +432,7 @@ router.post(
   }
 );
 
-// @route    PUT api/profile/rating
+// @route    POST api/profile/rating
 // @desc     Add rating
 // @access   Private
 router.post("/rating", [auth, []], async (req, res) => {
@@ -449,7 +457,7 @@ router.post("/rating", [auth, []], async (req, res) => {
   }
 });
 
-// @route    PUT api/profile/rating
+// @route    POST api/profile/rating
 // @desc     Add rating
 // @access   Private
 router.post("/favorites", [auth, []], async (req, res) => {

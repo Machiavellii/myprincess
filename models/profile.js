@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const geocoder = require("../utills/geocoder");
+
 const ProfileSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -19,28 +21,31 @@ const ProfileSchema = new Schema({
     trim: true,
     required: true
   },
-
-  // User type (should probably be in user) =>
-
   type: {
     type: String,
     required: true
   },
-  // country: {
-  //   type: String,
-  //   required: true
-  // },
-  canton: {
+  address: {
     type: String,
     required: true
   },
-  city: {
-    type: String,
-    required: true
-  },
-  zip: {
-    type: String,
-    required: true
+  location: {
+    type: {
+      type: String,
+      enum: ["Point"]
+    },
+    coordinates: {
+      type: [Number],
+      index: "2dsphere"
+    },
+    formattedAddress: String,
+    countryCode: String,
+    country: String,
+    city: String,
+    streetName: String,
+    streetNumber: String,
+    zipcode: String,
+    neighbourhood: String
   },
   subscription_plan: {
     type: String
@@ -54,20 +59,10 @@ const ProfileSchema = new Schema({
   favorites: {
     type: [String]
   },
-
-  // Profile activity  =>
   is_active: {
     type: Boolean,
     default: false
   },
-
-  /* Ad activity  =>
-    
-    ad_is_active: {
-        type: Boolean,
-        default: true
-    },*/
-
   languages: {
     type: [String],
     required: true
@@ -120,12 +115,6 @@ const ProfileSchema = new Schema({
     type: Date,
     default: Date.now
   },
-
-  // U kontroleru sabrati sve vrijednosti koje su dodate u niz i podijeliti sa array length =>
-  // rating: {
-  //   type: [Number]
-  // },
-
   opinions: [
     {
       review: {
@@ -150,5 +139,54 @@ const ProfileSchema = new Schema({
     }
   ]
 });
+
+// Geocode & create location
+ProfileSchema.pre("save", async function(next) {
+  const loc = await geocoder.geocode(this.address);
+
+  // console.log(loc);
+
+  this.location = {
+    type: "Point",
+    coordinates: [loc[0].longitude, loc[0].latitude],
+    formattedAddress: loc[0].formattedAddress,
+    city: loc[0].city,
+    zipcode: loc[0].zipcode,
+    neighbourhood: loc[0].neighbourhood,
+    country: loc[0].country,
+    streetName: loc[0].streetName,
+    streetNumber: loc[0].streetNumber,
+    countryCode: loc[0].countryCode
+  };
+
+  // Do not save address
+  // this.address = undefined;
+  next();
+});
+
+// ProfileSchema.pre("findOneAndUpdate", async function(next) {
+//   const loc = await geocoder.geocode(this.getUpdate().address);
+//   const profile = await mongoose.models["profile"].findById(this.getQuery());
+
+//   const loc1 = {
+//     type: "Point",
+//     coordinates: [loc[0].longitude, loc[0].latitude],
+//     formattedAddress: loc[0].formattedAddress,
+//     city: loc[0].city,
+//     zipcode: loc[0].zipcode,
+//     neighbourhood: loc[0].neighbourhood,
+//     country: loc[0].country,
+//     streetName: loc[0].streetName,
+//     streetNumber: loc[0].streetNumber,
+//     countryCode: loc[0].countryCode
+//   };
+//   await profile.updateOne({ $set: { location: loc1 } });
+
+//   // console.log(loc);
+
+//   // Do not save address
+//   // this.address = undefined;
+//   // next();
+// });
 
 module.exports = Profile = mongoose.model("profile", ProfileSchema);

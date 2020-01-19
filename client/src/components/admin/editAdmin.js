@@ -32,9 +32,7 @@ import {
   silhouetteLabel,
   originLabel,
   descriptionLabel,
-  cantonLabel,
-  cityLabel,
-  cityzipLabel,
+  addressLabel,
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
@@ -52,9 +50,8 @@ const EditAdmin = ({ editProfile, history, profile: { profile, loading } }) => {
     age: "",
     origin: "",
     description: "",
-    city: "",
-    canton: "",
-    zip: "",
+    address: "",
+
     is_active: "",
     languages: [],
     silhouette: "",
@@ -80,9 +77,8 @@ const EditAdmin = ({ editProfile, history, profile: { profile, loading } }) => {
     age,
     origin,
     description,
-    city,
-    canton,
-    zip,
+    address,
+
     languages,
     silhouette,
     rate,
@@ -343,27 +339,12 @@ const EditAdmin = ({ editProfile, history, profile: { profile, loading } }) => {
               info="Tell us a little about yourself"
               labels={descriptionLabel}
             />
-
-            <SelectListGroup
-              name="canton"
-              value={canton}
-              onChange={onChange}
-              options={cantonsList}
-              labels={cantonLabel}
-            />
-            <SelectListGroup
-              name="city"
-              value={city}
-              onChange={onChange}
-              options={cityList}
-              labels={cityLabel}
-            />
             <InputGroup
-              name="zip"
-              placeholder={"8000"}
+              name="address"
+              placeholder="Building 36, Rue de Montchoisy, Eaux-Vives, Geneva, 1027, Switzerland"
               onChange={onChange}
-              labels={cityzipLabel}
-              value={zip}
+              labels={addressLabel}
+              value={address}
             />
 
             {/* <InputGroup
