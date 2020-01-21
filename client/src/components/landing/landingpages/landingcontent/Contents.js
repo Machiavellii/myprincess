@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from 'react';
-import '../../../../styles/contents.css';
-import { Link } from 'react-router-dom';
-import Pagination from '../../../common/Pagination';
+import React, { Fragment, useState } from "react";
+import "../../../../styles/contents.css";
+import { Link } from "react-router-dom";
+import Pagination from "../../../common/Pagination";
 
 const Contents = ({ profiles: { profile } }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,16 +21,17 @@ const Contents = ({ profiles: { profile } }) => {
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
+  console.log(filter);
   return (
     <Fragment>
       <div className="row">
         {filter.map(profile => (
           <div className="col-sm-6 col-md-4 col-lg-3" key={profile._id}>
-            <article className={'content'}>
+            <article className={"content"}>
               <div className="contentHolder">
                 <div className="top-holder">
                   <Link to="/" className="links">
-                    {profile.canton}
+                    {profile.location.city}
                   </Link>
                 </div>
                 <Link to={`/profile/user/${profile.user._id}`}>
@@ -40,13 +41,13 @@ const Contents = ({ profiles: { profile } }) => {
                       <h6>This announcement is currently inactive</h6>
                     </div>
                   ) : (
-                    <div></div>
+                    ""
                   )}
                 </Link>
                 <div className="bottom-holder">
                   <h5>
                     <Link to="/" className="links link-name">
-                      {' '}
+                      {" "}
                       {profile.user.nickname}
                     </Link>
                   </h5>

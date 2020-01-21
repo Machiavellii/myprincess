@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { Fragment, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 
 const Girls = ({ profiles }) => {
   let [tru, setTru] = useState(false);
@@ -27,10 +27,12 @@ const Girls = ({ profiles }) => {
                 />
                 <div className="card-body">
                   <h5 className="card-title">{profile.user.nickname}</h5>
-                  <p className="card-text">Student hot in {profile.city}</p>
+                  <p className="card-text">
+                    Student hot in {profile.location.city}
+                  </p>
                   <Link to={`/profile/user/${profile.user._id}`}>
-                    <i className="fas fa-map-marker-alt" /> Street Uttins 20,{' '}
-                    {profile.canton}
+                    <i className="fas fa-map-marker-alt" />
+                    {profile.location.formattedAddress}
                   </Link>
                 </div>
               </Fragment>

@@ -72,16 +72,14 @@ export default function(state = initialState, action) {
       console.log(payload);
       return {
         ...state,
-        profileFilter: state.profiles.filter(
-          profile =>
-            profile.user.nickname
-              ? profile.user.nickname.includes(payload)
-              : null
-
-          // if (profile.user.nickname.|| profile.canton === payload) {
-          //   return profile;
-          // }
-        ),
+        profileFilter: state.profiles.filter(profile => {
+          if (
+            profile.user.nickname.toLowerCase().includes(payload) ||
+            profile.location.city.toLowerCase().includes(payload)
+          ) {
+            return profile;
+          }
+        }),
         loading: false
       };
     case SEARCHPAGE_FILTER:

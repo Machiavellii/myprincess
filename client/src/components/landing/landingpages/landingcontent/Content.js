@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 
-import Contents from './Contents';
+import Contents from "./Contents";
 
 const Content = profile => {
   return (
