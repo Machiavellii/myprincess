@@ -14,7 +14,7 @@
 }
 .search .card {
   cursor: pointer;
-  height: 25rem;
+  /* height: 25rem; */
   margin-bottom: 1rem;
 }
 

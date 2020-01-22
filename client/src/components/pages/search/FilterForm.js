@@ -7,7 +7,7 @@ import {
 import { connect } from "react-redux";
 import { filterSearchPage } from "../../../actions/profile";
 
-const FilterForm = ({ filterSearchPage }) => {
+const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
   const [formData, setFormData] = useState({
     canton: "",
     services: [],
@@ -17,6 +17,8 @@ const FilterForm = ({ filterSearchPage }) => {
   useEffect(() => {
     filterSearchPage(formData);
   }, [formData, filterSearchPage]);
+
+  // console.log(profiles);
 
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,10 +49,13 @@ const FilterForm = ({ filterSearchPage }) => {
         name="canton"
       >
         <option value="0"> - Canton - </option>
-        {cantonsList.map((item, index) => {
+
+        {profiles.map((profile, index) => {
           return (
-            <option key={index} value={item}>
-              {item}
+            <option key={index} value={profile.location.canton}>
+              {profile.location.canton === undefined
+                ? ""
+                : profile.location.canton}
             </option>
           );
         })}

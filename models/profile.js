@@ -45,7 +45,7 @@ const ProfileSchema = new Schema({
     streetName: String,
     streetNumber: String,
     zipcode: String,
-    neighbourhood: String
+    canton: String
   },
   subscription_plan: {
     type: String
@@ -150,12 +150,14 @@ ProfileSchema.pre("save", async function(next) {
     formattedAddress: loc[0].formattedAddress,
     city: loc[0].city,
     zipcode: loc[0].zipcode,
-    neighbourhood: loc[0].neighbourhood,
+    canton: loc[0].state,
     country: loc[0].country,
     streetName: loc[0].streetName,
     streetNumber: loc[0].streetNumber,
     countryCode: loc[0].countryCode
   };
+
+  // console.log(loc);
 
   // Do not save address
   // this.address = undefined;

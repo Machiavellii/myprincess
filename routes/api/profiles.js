@@ -186,7 +186,7 @@ router.post(
 
         const locat = await geocoder.geocode(address);
 
-        console.log(locat);
+        // console.log(locat);
 
         profileFields.location = {
           type: "Point",
@@ -194,7 +194,7 @@ router.post(
           formattedAddress: locat[0].formattedAddress,
           city: locat[0].city,
           zipcode: locat[0].zipcode,
-          neighbourhood: locat[0].neighbourhood,
+          canton: locat[0].state,
           country: locat[0].country,
           streetName: locat[0].streetName,
           streetNumber: locat[0].streetNumber,

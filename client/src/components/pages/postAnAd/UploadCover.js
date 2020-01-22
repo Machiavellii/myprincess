@@ -21,6 +21,8 @@ const UploadCover = ({
 
   const onChange = e => {
     setCoverphoto(e.target.files[0]);
+
+    // console.log(e.target.files[0]);
   };
 
   const onSubmit = e => {
