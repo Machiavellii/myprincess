@@ -67,9 +67,9 @@ router.post(
     check("sexual_orientation", "Sexual orientation is required")
       .not()
       .isEmpty(),
-    check("type", "Account type is required")
-      .not()
-      .isEmpty(),
+    // check("type", "Account type is required")
+    //   .not()
+    //   .isEmpty(),
     check("address", "Address is required")
       .not()
       .isEmpty(),
@@ -124,8 +124,8 @@ router.post(
       hours,
       rate,
       website,
-      ratings, // array
-      opinions
+      ratings // array
+      // opinions
     } = req.body;
 
     const cover_photo = req.file;
@@ -354,8 +354,6 @@ router.post("/subscription", auth, async (req, res) => {
       user: mongoose.Types.ObjectId(req.user._id)
     });
 
-    // const profile = await Profile.findOne({ user: req.user.id });
-
     if (profile) {
       profile.subscription_plan;
     }
@@ -431,6 +429,49 @@ router.post(
     }
   }
 );
+
+// @route PUT api/profile/isActive
+// @desc Toggle active hours
+// @access Private
+router.put("/me/isActive", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    profile.is_active = !profile.is_active;
+    profile.save();
+    return res.json(profile.is_active);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+});
+
+router.post("/type", auth, async (req, res) => {
+  try {
+    const { type } = req.body;
+
+    const profile = await Profile.findOne({
+      user: mongoose.Types.ObjectId(req.user._id)
+    });
+
+    if (profile) {
+      profile.type;
+    }
+
+    await Profile.findOneAndUpdate(
+      { user: req.user.id },
+      {
+        type
+      },
+      {
+        new: true,
+        upsert: true
+      }
+    );
+    return res.status(200).json({ type });
+  } catch (err) {
+    console.log("create dish err:", err);
+    return res.status(500).json();
+  }
+});
 
 // @route    POST api/profile/rating
 // @desc     Add rating

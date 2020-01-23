@@ -1,14 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "../../../styles/PostAnAdForm.css";
-import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {
-  createProfile,
-  uploadCover,
-  uploadGallery
-} from "../../../actions/profile";
+import { createProfile } from "../../../actions/profile";
 
 import {
   spokenLanguageList,
@@ -16,8 +11,6 @@ import {
   servicesList,
   silhouetteList,
   originList,
-  // cantonsList,
-  // cityList,
   genderList,
   sexual_orientationList,
   typeList
@@ -27,8 +20,6 @@ import InputGroup from "../../common/InputGroup";
 import SelectListGroup from "../../common/SelectListGroup";
 import TextAreaGroup from "../../common/TextAreaGroup";
 import {
-  // nickname,
-  typeLabel,
   sloganLabel,
   genderLabel,
   categoryLabel,
@@ -37,24 +28,19 @@ import {
   silhouetteLabel,
   originLabel,
   descriptionLabel,
-  // cantonLabel,
   addressLabel,
-  // cityLabel,
-  // cityzipLabel,
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
-  websiteLabel,
-  coverLabel
+  websiteLabel
 } from "../../common/consts";
 
-import MapboxAutocomplete from "react-mapbox-autocomplete";
+// import MapboxAutocomplete from "react-mapbox-autocomplete";
 
 const PostAnAdForm = ({
   createProfile,
   history,
-  uploadCover,
-  uploadGallery,
+
   auth: isAuthenticated,
   profile: error
 }) => {
@@ -68,20 +54,14 @@ const PostAnAdForm = ({
     origin: "",
     description: "",
     address: "",
-    address_results: [],
-    address_isLoading: false,
     is_active: "",
     languages: [],
     silhouette: "",
     rate: "",
     slogan: "",
     hours: "",
-    website: "",
-    type: ""
+    website: ""
   });
-
-  const [cover_photo, setCoverphoto] = useState(null);
-  const [photos, setGalleryphoto] = useState("");
 
   const {
     gender,
@@ -93,15 +73,12 @@ const PostAnAdForm = ({
     origin,
     description,
     address,
-    address_results,
-    address_isLoading,
     languages,
     silhouette,
     rate,
     slogan,
     hours,
-    website,
-    type
+    website
   } = formData;
 
   useEffect(() => {
@@ -112,13 +89,6 @@ const PostAnAdForm = ({
   }, [error]);
 
   const onChange = e => {
-    if (e.target.name === "cover_photo") {
-      setCoverphoto(e.target.files[0]);
-    }
-    if (e.target.name === "photos") {
-      setGalleryphoto(e.target.files);
-    }
-
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -148,19 +118,7 @@ const PostAnAdForm = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    let formCover = new FormData();
-    formCover.append("cover_photo", cover_photo);
-
-    let formGallery = new FormData();
-
-    for (const key of Object.keys(photos)) {
-      formGallery.append("photos", photos[key]);
-    }
-
-    // uploadGallery(formGallery);
-    // uploadCover(formCover);
     console.log(formData);
-
     createProfile(formData, history);
   };
 
@@ -171,25 +129,8 @@ const PostAnAdForm = ({
 
   return (
     <Fragment>
-      <h1 className="text-center">168 hours of free Ad.</h1>
-      <blockquote className="blockquote text-center">
-        <p className="mb-0">
-          <strong>Note: </strong> We provide you 168 hours free ad. You can
-          always buy more hours to keep your ad active, and also deactivate your
-          ad and keep remaining hours while your ad is not active.
-        </p>
-        <div className="blockquote-footer">
-          For more information about our offers and pricing{" "}
-          <Link to={"/postanad"}>
-            <cite title="Source Title">click here</cite>
-          </Link>
-        </div>
-      </blockquote>
-      <form
-        className="container mb-5"
-        onSubmit={onSubmit}
-        // encType="multipart/form-data"
-      >
+      <h1 className="text-center">Post an ad - 7 days</h1>
+      <form className="container mb-5" onSubmit={onSubmit}>
         <div className="form-group">
           <p>Job Activity</p>
           <div className="form-check form-check-inline">
@@ -224,13 +165,6 @@ const PostAnAdForm = ({
             </small>
           </p>
         </div>
-        <SelectListGroup
-          name="type"
-          value={type}
-          onChange={onChange}
-          options={typeList}
-          labels={typeLabel}
-        />
 
         <div className="form-group">
           <label htmlFor=" Spoken languages" className="form-check-label">
@@ -356,14 +290,6 @@ const PostAnAdForm = ({
           info="Tell us a little about yourself"
           labels={descriptionLabel}
         />
-
-        <InputGroup
-          name="address"
-          placeholder="Building 36, Rue de Montchoisy, Eaux-Vives, Geneva, 1027, Switzerland"
-          onChange={onChange}
-          labels={addressLabel}
-          value={address}
-        />
         {/* <label htmlFor="Address">Address *</label>
         <MapboxAutocomplete
           publicKey="pk.eyJ1Ijoic2VydmFsbGwiLCJhIjoiY2pndjRqejV2MWV1azMzcnRvYWVjazBrNCJ9.4FgwICwFPNnW58okWFoBww"
@@ -372,54 +298,13 @@ const PostAnAdForm = ({
           country="ch"
           placeholder="Rue de Montchoisy, Geneva, 1207"
           resetSearch={true}
-          onChange={onChange}
-          value={address}
-          name="address"
         /> */}
-
-        {/* <InputGroup
-          type="file"
-          name="cover_photo"
+        <InputGroup
+          name="address"
+          value={address}
           onChange={onChange}
-          labels={coverLabel}
+          labels={addressLabel}
         />
-        <div className="holder-img">
-          {cover_photo === null ? (
-            ""
-          ) : (
-            <div>
-              <img src={URL.createObjectURL(cover_photo)} alt="" />
-            </div>
-          )}
-        </div>
-        <p className="text-center">
-          <small className="tip">Add a cover photo</small>
-        </p>
-
-        <input
-          type="file"
-          name="photos"
-          onChange={onChange}
-          multiple
-          className="mb-1"
-        />
-
-        <div className="holder-gallery">
-          {photos === ""
-            ? ""
-            : Object.keys(photos).map(photo => (
-                <div key={photo}>
-                  <img src={URL.createObjectURL(photos[photo])} alt="" />
-                </div>
-              ))}
-        </div>
-
-        <p className="text-center">
-          <small className="tip">
-            The first picture will be displayed as the hand.
-          </small>
-        </p> */}
-
         <TextAreaGroup
           placeholder="21:00 - 05:00"
           name="hours"
@@ -469,7 +354,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  createProfile,
-  uploadCover,
-  uploadGallery
+  createProfile
 })(withRouter(PostAnAdForm));

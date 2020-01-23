@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { subscribePlan } from "../../../actions/profile";
 
-import StripeCheckout from "react-stripe-checkout";
+// import StripeCheckout from "react-stripe-checkout";
 
 const PricingCard = ({
   subscribePlan,
@@ -36,7 +36,7 @@ const PricingCard = ({
   // />
 
   return (
-    <div className="card mb-5">
+    <div className="card h-100">
       <div className="card-body text-center">
         <span className="badge badge-secondary mt-2 mb-3 p-2 ">{badge}</span>
         <h6 className="card-title pb-3 time">{days}</h6>
@@ -44,7 +44,7 @@ const PricingCard = ({
           {price} <sup>{currency}</sup>{" "}
         </h3>
         <p className="card-text description">Quick and easy registration</p>
-        <strong>{extra}</strong> <br />
+        {/* <strong>{extra}</strong> <br /> */}
         <strong>profile </strong> <span>custom</span>
         <br />
         <strong>visibility </strong> <span>total</span>
@@ -53,6 +53,8 @@ const PricingCard = ({
         <br />
         <strong>Support </strong> <span>free</span>
         <br />
+      </div>
+      <div className="card-footer text-center">
         <Link
           to="/postanadform"
           className={"btn " + (buttonStyle ? "full" : "empty")}

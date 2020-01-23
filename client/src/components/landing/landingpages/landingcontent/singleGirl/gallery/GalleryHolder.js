@@ -4,7 +4,7 @@ import ReactMapGl, { Marker } from "react-map-gl";
 // import Gallery from './galleryComponent/Gallery';
 
 const GalleryHolder = ({ profile }) => {
-  const { cover_photo, is_active, city, location } = profile;
+  const { cover_photo, is_active, location } = profile;
   const [viewPort, setViewPort] = useState({
     latitude: profile.location.coordinates[1],
     longitude: profile.location.coordinates[0],
@@ -24,7 +24,11 @@ const GalleryHolder = ({ profile }) => {
       </div>
       <div className="location mb-5">
         <h6>Job Activity</h6>
-        <p>{is_active ? "Active" : "Inactive"}</p>
+        <p
+          className={`activeProfile ${is_active ? "bg-success" : "bg-danger"}`}
+        >
+          {is_active ? "Active" : "Inactive"}
+        </p>
 
         <div className="map mb-4">
           <ReactMapGl

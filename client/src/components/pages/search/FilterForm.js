@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   categoryList,
   servicesList,
-  cantonsList
 } from "../../../constants/data.json";
 import { connect } from "react-redux";
 import { filterSearchPage } from "../../../actions/profile";
@@ -26,17 +25,17 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
     // filterSearchPage(e.target.value);
   };
 
-  const onCheckBoxServ = (e, service) => {
-    if (services.indexOf(e.target.value) < 1 && e.target.checked) {
-      services.push(service);
-    }
+  // const onCheckBoxServ = (e, service) => {
+  //   if (services.indexOf(e.target.value) < 1 && e.target.checked) {
+  //     services.push(service);
+  //   }
 
-    services.map((serv, i) => {
-      if (!e.target.checked) {
-        return e.target.value === serv ? services.splice(i, 1) : services;
-      }
-    });
-  };
+  //   services.map((serv, i) => {
+  //     if (!e.target.checked) {
+  //       return e.target.value === serv ? services.splice(i, 1) : services;
+  //     }
+  //   });
+  // };
 
   const { canton, category, services } = formData;
 
@@ -75,7 +74,30 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
           );
         })}
       </select>
-      <div className="dropdown">
+
+      <select
+        className="form-control"
+        name="services"
+        onChange={e => onChange(e)}
+        value={services}
+      >
+        <option value="0"> - Prestations - </option>
+        {servicesList.map((item, index) => {
+          return (
+            <option key={index} value={item}>
+              {item}
+            </option>
+          );
+        })}
+      </select>
+    </div>
+  );
+};
+
+export default connect(null, { filterSearchPage })(FilterForm);
+
+{
+  /* <div className="dropdown">
         <a
           className="nav-link dropdown-toggle form-control"
           href="#"
@@ -113,9 +135,5 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
             );
           })}
         </div>
-      </div>
-    </div>
-  );
-};
-
-export default connect(null, { filterSearchPage })(FilterForm);
+      </div> */
+}

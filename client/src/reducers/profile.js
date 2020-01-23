@@ -9,7 +9,8 @@ import {
   ACCOUNT_DELETED_ADMIN,
   GET_PROFILE_ADMIN,
   UPDATE_PROFILE_ADMIN,
-  BLOCK_ACCOUNT
+  BLOCK_ACCOUNT,
+  TOGGLE_ACTIVE
 } from "../actions/type";
 
 const initialState = {
@@ -31,6 +32,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         profile: payload,
+        loading: false
+      };
+    case TOGGLE_ACTIVE:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          is_active: payload
+        },
         loading: false
       };
     case GET_PROFILES:
@@ -91,13 +101,15 @@ export default function(state = initialState, action) {
           });
 
           if (
-            typeof profile.canton === "string" &&
-            profile.canton.toLowerCase().includes(payload.canton.toLowerCase())
+            typeof profile.location.canton === "string" &&
+            profile.location.canton
+              .toLowerCase()
+              .includes(payload.canton.toLowerCase())
           ) {
             return profile;
           } else if (
-            typeof profile.canton === "string" &&
-            profile.canton
+            typeof profile.location.canton === "string" &&
+            profile.location.canton
               .toLowerCase()
               .includes(payload.canton.toLowerCase()) &&
             profile.category

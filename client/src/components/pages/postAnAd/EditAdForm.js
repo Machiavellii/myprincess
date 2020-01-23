@@ -4,10 +4,9 @@ import "../../../styles/PostAnAdForm.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {
-  editProfile,
   getCurrentProfile,
-  uploadCover,
-  uploadGallery,
+  // uploadCover,
+  // uploadGallery,
   createProfile
 } from "../../../actions/profile";
 
@@ -17,8 +16,6 @@ import {
   servicesList,
   silhouetteList,
   originList,
-  cantonsList,
-  cityList,
   genderList,
   sexual_orientationList,
   typeList
@@ -38,9 +35,7 @@ import {
   silhouetteLabel,
   originLabel,
   descriptionLabel,
-  // cantonLabel,
-  // cityLabel,
-  // cityzipLabel,
+
   addressLabel,
   businesshoursLabel,
   rateLabel,
@@ -50,8 +45,8 @@ import {
 } from "../../common/consts";
 
 const EditAdForm = ({
-  uploadCover,
-  uploadGallery,
+  // uploadCover,
+  // uploadGallery,
   createProfile,
   history,
   getCurrentProfile,
@@ -512,7 +507,7 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   getCurrentProfile,
-  uploadCover,
-  uploadGallery,
+  // uploadCover,
+  // uploadGallery,
   createProfile
 })(withRouter(EditAdForm));

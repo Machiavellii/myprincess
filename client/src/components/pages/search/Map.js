@@ -1,8 +1,7 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import { connect } from "react-redux";
 import { getProfiles } from "../../../actions/profile";
-import Spinner from "../../layout/Spinner";
 
 const Map = ({ profile: { profiles }, getProfiles }) => {
   const [viewPort, setViewPort] = useState({

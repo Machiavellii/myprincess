@@ -10,8 +10,7 @@ import {
   servicesList,
   silhouetteList,
   originList,
-  cantonsList,
-  cityList,
+
   genderList,
   sexual_orientationList,
   typeList
@@ -22,7 +21,6 @@ import SelectListGroup from "../common/SelectListGroup";
 import TextAreaGroup from "../common/TextAreaGroup";
 
 import {
-  // nickname,
   typeLabel,
   sloganLabel,
   genderLabel,

@@ -8,7 +8,8 @@ import {
   FILTER_PROFILE,
   SEARCHPAGE_FILTER,
   CLEAR_PROFILE,
-  ACCOUNT_DELETED
+  ACCOUNT_DELETED,
+  TOGGLE_ACTIVE
 } from "./type";
 
 //Get Current User
@@ -117,6 +118,23 @@ export const subscribePlan = time => async dispatch => {
   }
 };
 
+export const typePlan = value => async dispatch => {
+  try {
+    const res = await axios.post("api/profile/type", value);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+  }
+};
+
 // UPLOAD COVER
 export const uploadCover = (formFile, history) => async dispatch => {
   try {
@@ -211,5 +229,22 @@ export const deleteAccount = () => async dispatch => {
         payload: { msg: err.reponse.statusText, status: err.reponse.status }
       });
     }
+  }
+};
+
+//Toggle Active hours
+export const toggleActive = () => async dispatch => {
+  try {
+    const res = await axios.put("/api/profile/me/isActive");
+
+    dispatch({
+      type: TOGGLE_ACTIVE,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
   }
 };

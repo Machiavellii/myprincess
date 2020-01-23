@@ -31,7 +31,7 @@ const Content = ({ profile }) => {
                 <div className="contentHolder">
                   <div className="top-holder">
                     <Link to="/" className="links">
-                      {profile.canton}
+                      {profile.location.canton}
                     </Link>
                   </div>
 

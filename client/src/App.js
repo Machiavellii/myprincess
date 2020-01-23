@@ -24,6 +24,7 @@ import Links from "./components/landing/landingpages/Links";
 import Faq from "./components/pages/Faq";
 import Contact from "./components/pages/Contact";
 import Postanad from "./components/pages/postAnAd/Postanad";
+import PricingPlan from "./components/pages/postAnAd/PricingPlan";
 import PostAnAdForm from "./components/pages/postAnAd/PostAnAdForm";
 import EditAdForm from "./components/pages/postAnAd/EditAdForm";
 import Search from "./components/pages/search/Search";
@@ -73,6 +74,7 @@ const App = () => {
             <Route exact path="/faq" component={Faq} />
             <Route exact path="/contact" component={Contact} />
             <PrivateRoute exact path="/postanad" component={Postanad} />
+            <PrivateRoute exact path="/pricingplan" component={PricingPlan} />
             <PrivateRoute exact path="/postanadform" component={PostAnAdForm} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/profile/user/:id" component={DescribeContent} />
