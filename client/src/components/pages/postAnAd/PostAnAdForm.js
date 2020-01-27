@@ -12,8 +12,7 @@ import {
   silhouetteList,
   originList,
   genderList,
-  sexual_orientationList,
-  typeList
+  sexual_orientationList
 } from "../../../constants/data.json";
 
 import InputGroup from "../../common/InputGroup";

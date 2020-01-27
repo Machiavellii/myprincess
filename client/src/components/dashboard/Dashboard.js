@@ -18,7 +18,6 @@ import {
 
 const Dashboard = ({
   getCurrentProfile,
-  auth: { user },
   profile: { profile, loading },
   deleteAccount,
   typePlan
@@ -47,9 +46,6 @@ const Dashboard = ({
       {profile !== null ? (
         <Fragment>
           <div className="container text-center px-1">
-            {/* <div>
-          <i className="fas fa-user" /> Welcome {user && user.nickname}
-        </div> */}
             <DashboardAction />
           </div>
           <Carousel photos={profile.photos} />
@@ -135,13 +131,11 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
-  auth: state.auth
+  profile: state.profile
 });
 export default connect(mapStateToProps, {
   getCurrentProfile,

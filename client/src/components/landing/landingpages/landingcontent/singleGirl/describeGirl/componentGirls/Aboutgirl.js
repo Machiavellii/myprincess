@@ -9,6 +9,7 @@ const Aboutgirl = ({ profile }) => {
           href={`https://wa.me/${profile.phone}`}
           target="_blank"
           className="a-rose"
+          rel="noopener noreferrer"
         >
           Contact me by whatsapp <img src={whatsapp} alt="Whatsapp" />
         </a>

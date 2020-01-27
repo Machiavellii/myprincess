@@ -14,9 +14,9 @@ class EscortsGirls extends React.Component {
     const canton = this.props.match.params.canton;
     return this.props.profiles
       .filter(profile => {
-       if(typeof profile.canton === 'string'){
-         return profile.canton.toLowerCase() === canton
-       }
+        if (typeof profile.location.canton === "string") {
+          return profile.location.canton.toLowerCase() === canton;
+        }
       })
       .map(girl => {
         return (
@@ -69,18 +69,17 @@ class EscortsGirls extends React.Component {
     }
     return (
       <div className="container">
-      <div className='row'>
-        <h4
-          className="text-center contact-form-heading mt-5"
-          style={{ textTransform: "uppercase" }}
-        >
-          escorts girls of the canton of {this.props.match.params.canton}
-        </h4>
-        {this.renderGirlsFromCanton()}
-        {message}
-        <LandingCanton />
-
-      </div>
+        <div className="row">
+          <h4
+            className="text-center contact-form-heading mt-5"
+            style={{ textTransform: "uppercase" }}
+          >
+            escorts girls of the canton of {this.props.match.params.canton}
+          </h4>
+          {this.renderGirlsFromCanton()}
+          {message}
+          <LandingCanton />
+        </div>
       </div>
     );
   }
@@ -90,7 +89,4 @@ const mapStateToProps = state => ({
   profiles: state.profile.profiles
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfiles }
-)(EscortsGirls);
+export default connect(mapStateToProps, { getProfiles })(EscortsGirls);

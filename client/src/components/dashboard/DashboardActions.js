@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -8,7 +8,7 @@ import Moment from "react-moment";
 const DashboardActions = ({ toggleActive, profile: { profile, loading } }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, [getCurrentProfile]);
+  }, []);
 
   const renderIsActiveButton = () => {
     return !profile.is_active ? (
@@ -20,13 +20,21 @@ const DashboardActions = ({ toggleActive, profile: { profile, loading } }) => {
         Active Hours
       </button>
     ) : (
-      <button
-        type="button"
-        className="btn btn-danger"
-        onClick={() => toggleActive()}
-      >
-        Deactivate Hours
-      </button>
+      <Fragment>
+        <small className="d-block mb-1">
+          Your profile is active until{" "}
+          <Moment format="DD/MM/YYYY" add={{ days: profile.subscription_plan }}>
+            {profile.date}
+          </Moment>
+        </small>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => toggleActive()}
+        >
+          Deactivate Hours
+        </button>
+      </Fragment>
     );
   };
 
@@ -42,12 +50,6 @@ const DashboardActions = ({ toggleActive, profile: { profile, loading } }) => {
         <i className="fas fa-user-circle" /> Upload Gallery
       </Link>
       <br />
-      <p className="lead">
-        Your subscription is active until{" "}
-        <Moment format="DD/MM/YYYY" add={{ days: profile.subscription_plan }}>
-          {profile.date}
-        </Moment>
-      </p>
 
       {renderIsActiveButton()}
     </div>

@@ -7,7 +7,6 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
-  BLOCK_ACCOUNT,
   GET_USERS
 } from "../actions/type";
 
