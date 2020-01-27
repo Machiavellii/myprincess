@@ -23,12 +23,14 @@ const GalleryHolder = ({ profile }) => {
         />
       </div>
       <div className="location mb-5">
-        <h6>Job Activity</h6>
-        <p
-          className={`activeProfile ${is_active ? "bg-success" : "bg-danger"}`}
+        <h6 className="mb-1">Job Activity</h6>
+        <span
+          className={` mb-3 ${
+            is_active ? "badge badge-success" : "badge badge-danger"
+          }`}
         >
           {is_active ? "Active" : "Inactive"}
-        </p>
+        </span>
 
         <div className="map mb-4">
           <ReactMapGl

@@ -322,13 +322,6 @@
   padding: 1rem;
 }
 
-.activeProfile {
-  width: 50%;
-  text-align: center;
-  border-radius: 10px;
-  color: #fff;
-}
-
 .location p {
   margin-bottom: 2rem;
 }
