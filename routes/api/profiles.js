@@ -444,6 +444,9 @@ router.put("/me/isActive", auth, async (req, res) => {
   }
 });
 
+// @route PUT api/profile/type
+// @desc Type: agency or escort
+// @access Private
 router.post("/type", auth, async (req, res) => {
   try {
     const { type } = req.body;
@@ -520,6 +523,23 @@ router.post("/favorites", [auth, []], async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
+  }
+});
+
+// @route    POST api/profile/reduceSubscription
+// @desc     Reduce subscription by 1 for all active users
+// @access   Public
+router.put("/reduceSubscription", async (req, res) => {
+  try {
+    await Profile.updateMany(
+      { is_active: true },
+      {
+        $inc: { subscription_plan: -1 }
+      }
+    );
+    res.json("Updated");
+  } catch (err) {
+    res.status(500).send({ msg: err.message });
   }
 });
 

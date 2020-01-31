@@ -1,14 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+// import { Link, Redirect } from 'react-router-dom';
 import "../../../styles/PricingCard.css";
 import { connect } from "react-redux";
+import StripeCheckout from "react-stripe-checkout";
 
-import { subscribePlan } from "../../../actions/profile";
+import {
+  subscribePlan,
+  getCurrentProfile,
+  payment
+} from "../../../actions/profile";
 
-// import StripeCheckout from "react-stripe-checkout";
+import Payment from "./Payment";
 
 const PricingCard = ({
   subscribePlan,
+  profile: { profile, loading },
+  payment,
   days,
   subscription_plan,
   price,
@@ -18,22 +26,15 @@ const PricingCard = ({
   buttonStyle,
   amount
 }) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, [getCurrentProfile]);
+
   const onClick = () => {
     const time = { subscription_plan };
 
     subscribePlan(time);
   };
-
-  // const Checkout = ({ name, description, amount }) =>
-  // <StripeCheckout
-
-  //   // description={description}
-  //   amount
-  //   label='Start'
-  //   // token={onToken(amount, description)}
-  //   currency
-  //   stripeKey={'pk_test_2QL8V6xKMDyfzQc87dCmfPXU'}
-  // />
 
   return (
     <div className="card h-100">
@@ -51,22 +52,48 @@ const PricingCard = ({
         <br />
         <strong>3000 visits / day </strong> <span>MyPrincess.ch</span>
         <br />
-        <strong>Support </strong> <span>free</span>
+        <div className="form-group">
+          <label htmlFor="value">
+            You agree with buying this subscription plan
+          </label>
+          <input
+            className="form-group mr-2"
+            type="checkbox"
+            id="value"
+            //value={agree}
+            onClick={() => onClick()}
+            name="value"
+            required
+          />
+        </div>
         <br />
       </div>
       <div className="card-footer text-center">
-        <Link
-          to="/postanadform"
-          className={"btn " + (buttonStyle ? "full" : "empty")}
-          onClick={() => onClick()}
-        >
-          {/* <Checkout /> */}
-          Start
-          <i className="fas fa-caret-right right-icon" />
-        </Link>
+        <StripeCheckout
+          stripeKey="pk_test_2QL8V6xKMDyfzQc87dCmfPXU"
+          // description={description}
+          name="MyPrincess.ch"
+          //image={Logo}
+          billingAddress
+          amount={amount * 100}
+          label="Start"
+          token={payment.bind(this, profile)}
+        />
       </div>
     </div>
   );
 };
 
-export default connect(null, { subscribePlan })(PricingCard);
+PricingCard.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps, {
+  payment,
+  subscribePlan,
+  getCurrentProfile
+})(PricingCard);

@@ -21,6 +21,7 @@ app.use("/api/users", require("./routes/api/users"));
 app.use("/api/profile", require("./routes/api/profiles"));
 app.use("/api/admin", require("./routes/api/admin"));
 app.use("/api/opinion", require("./routes/api/opinion"));
+app.use("/api/payment", require("./routes/api/payment"));
 
 app.use("/static/images", express.static("static/images"));
 

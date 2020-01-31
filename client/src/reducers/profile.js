@@ -10,7 +10,9 @@ import {
   GET_PROFILE_ADMIN,
   UPDATE_PROFILE_ADMIN,
   BLOCK_ACCOUNT,
-  TOGGLE_ACTIVE
+  TOGGLE_ACTIVE,
+  UPLOAD_COVER,
+  UPLOAD_GALLERY
 } from "../actions/type";
 
 const initialState = {
@@ -40,6 +42,24 @@ export default function(state = initialState, action) {
         profile: {
           ...state.profile,
           is_active: payload
+        },
+        loading: false
+      };
+    case UPLOAD_COVER:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          cover_photo: payload
+        },
+        loading: false
+      };
+    case UPLOAD_GALLERY:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          photos: [payload]
         },
         loading: false
       };

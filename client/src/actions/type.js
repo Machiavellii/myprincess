@@ -30,3 +30,6 @@ export const OPINION_ERROR = "OPINION_ERROR";
 export const BLOCK_ACCOUNT = "BLOCK_ACCOUNT";
 export const GET_USERS = "GET_USERS";
 export const USERS_ERROR = "USERS_ERROR";
+export const DECREASE_HOURS = "DECREASE_HOURS";
+export const UPLOAD_COVER = "UPLOAD_COVER";
+export const UPLOAD_GALLERY = "UPLOAD_GALLERY";

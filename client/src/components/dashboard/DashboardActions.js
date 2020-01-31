@@ -10,6 +10,18 @@ const DashboardActions = ({ toggleActive, profile: { profile, loading } }) => {
     getCurrentProfile();
   }, []);
 
+  Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  };
+  let remainingHours = new Date();
+  const dateOfExpiry = remainingHours.addDays(profile.subscription_plan);
+
+  let diffTime = Math.abs(dateOfExpiry - Date.now());
+
+  const hoursUntilExpiry = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) * 24;
+
   const renderIsActiveButton = () => {
     return !profile.is_active ? (
       <button
@@ -21,12 +33,6 @@ const DashboardActions = ({ toggleActive, profile: { profile, loading } }) => {
       </button>
     ) : (
       <Fragment>
-        <small className="d-block mb-1">
-          Your profile is active until{" "}
-          <Moment format="DD/MM/YYYY" add={{ days: profile.subscription_plan }}>
-            {profile.date}
-          </Moment>
-        </small>
         <button
           type="button"
           className="btn btn-danger"
@@ -50,8 +56,28 @@ const DashboardActions = ({ toggleActive, profile: { profile, loading } }) => {
         <i className="fas fa-user-circle" /> Upload Gallery
       </Link>
       <br />
+      {profile.subscription_plan > 2 ? (
+        <p className="font-weight-bold">
+          Your subscription is active until{" "}
+          <Moment format="DD/MM/YYYY">{dateOfExpiry}</Moment>
+        </p>
+      ) : (
+        <p className="font-weight-bold">
+          Your subscription will expire in {""}
+          <span className="bg-danger text-white p-1">
+            {hoursUntilExpiry}
+          </span>{" "}
+          hours
+        </p>
+      )}
 
       {renderIsActiveButton()}
+
+      {profile.subscription_plan < 2 ? (
+        <Link to="/pricingplan" className="btn btn-warning ml-2">
+          Buy more hours
+        </Link>
+      ) : null}
     </div>
   );
 };

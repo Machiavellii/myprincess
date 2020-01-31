@@ -39,7 +39,6 @@ import {
 const PostAnAdForm = ({
   createProfile,
   history,
-
   auth: isAuthenticated,
   profile: error
 }) => {
@@ -117,7 +116,6 @@ const PostAnAdForm = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(formData);
     createProfile(formData, history);
   };
 

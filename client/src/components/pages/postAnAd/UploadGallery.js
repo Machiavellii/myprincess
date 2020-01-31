@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import { uploadGallery, getCurrentProfile } from "../../../actions/profile";
+
+import Progress from "../../layout/Progress";
 
 const UploadGallery = ({
   uploadGallery,
@@ -10,6 +12,7 @@ const UploadGallery = ({
   profile: { profile, loading }
 }) => {
   const [photos, setGalleryphoto] = useState("");
+  const [uploadPercentage, setUploadPercentage] = useState(0);
 
   useEffect(() => {
     getCurrentProfile();
@@ -32,7 +35,7 @@ const UploadGallery = ({
       formGallery.append("photos", photos[key]);
     }
 
-    uploadGallery(formGallery, history, true);
+    uploadGallery(formGallery, history, setUploadPercentage);
   };
 
   const onClickImg = photo => {
@@ -40,33 +43,36 @@ const UploadGallery = ({
       img === photo ? profile.photos.splice(photo, 1) : photos
     );
     setGalleryphoto(imgs);
-
-    // console.log(profile.photos);
   };
 
   return (
     <div className="container">
-      <h4>Upload Gallery</h4>
+      <Link to="/dashboard" className="btn btn-light mt-3">
+        Back
+      </Link>
       <form onSubmit={onSubmit} className="p-5">
+        <h4 className="mb-3 text-center">Upload Gallery Photos</h4>
         <input
           type="file"
           name="photos"
           onChange={onChange}
           multiple
-          className="mb-1"
+          className="mb-3"
         />
+        <Progress percentage={uploadPercentage} />
+
         <div className="holder-gallery">
-          {profile.photos === undefined
+          {profile === null || profile.photos === undefined
             ? ""
             : profile.photos.map((photo, i) => (
                 <div key={i}>
-                  <button
+                  {/* <button
                     type="button"
                     className="close"
                     onClick={e => onClickImg(photo)}
                   >
                     <span aria-hidden="true">&times;</span>
-                  </button>
+                  </button> */}
                   <img src={photo} alt="" />
                 </div>
               ))}

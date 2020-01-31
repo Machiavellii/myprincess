@@ -1,6 +1,12 @@
 import axios from "axios";
 import { setAlert } from "./alert";
 
+import { toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
+import { createBrowserHistory } from "history";
+
 import {
   GET_PROFILES,
   PROFILE_ERROR,
@@ -9,8 +15,13 @@ import {
   SEARCHPAGE_FILTER,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
-  TOGGLE_ACTIVE
+  TOGGLE_ACTIVE,
+  DECREASE_HOURS,
+  UPLOAD_COVER,
+  UPLOAD_GALLERY
 } from "./type";
+
+toast.configure();
 
 //Get Current User
 export const getCurrentProfile = () => async dispatch => {
@@ -136,24 +147,39 @@ export const typePlan = value => async dispatch => {
 };
 
 // UPLOAD COVER
-export const uploadCover = (formFile, history) => async dispatch => {
+
+export const uploadCover = (
+  formFile,
+  history,
+  setUploadPercentage
+) => async dispatch => {
   try {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data"
+      },
+      onUploadProgress: progressEvent => {
+        setUploadPercentage(
+          parseInt(
+            Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          )
+        );
+
+        //Clear Progress bar
+        setTimeout(() => setUploadPercentage(0), 4000);
       }
     };
 
     const res = await axios.post("api/profile/upload-cover", formFile, config);
 
     dispatch({
-      type: GET_PROFILE,
+      type: UPLOAD_COVER,
       payload: res.data
     });
 
     dispatch(setAlert("Profile Photo Added", "success"));
 
-    history.push("/upload-gallery");
+    setTimeout(() => history.push("/upload-gallery"), 5000);
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -163,11 +189,25 @@ export const uploadCover = (formFile, history) => async dispatch => {
   }
 };
 
-export const uploadGallery = (formFile, history, edit) => async dispatch => {
+export const uploadGallery = (
+  formFile,
+  history,
+  setUploadPercentage
+) => async dispatch => {
   try {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data"
+      },
+      onUploadProgress: progressEvent => {
+        setUploadPercentage(
+          parseInt(
+            Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          )
+        );
+
+        //Clear Progress bar
+        setTimeout(() => setUploadPercentage(0), 4000);
       }
     };
     const res = await axios.post(
@@ -177,11 +217,11 @@ export const uploadGallery = (formFile, history, edit) => async dispatch => {
     );
 
     dispatch({
-      type: GET_PROFILE,
+      type: UPLOAD_GALLERY,
       payload: res.data
     });
 
-    history.push("/");
+    setTimeout(() => history.push("/dashboard"), 5000);
   } catch (err) {
     // const errors = err.response.data.errors;
     console.log(err);
@@ -246,5 +286,46 @@ export const toggleActive = () => async dispatch => {
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
+  }
+};
+
+export const decreaseHours = () => async dispatch => {
+  try {
+    const res = await axios.put("/api/profile/reduceSubscription");
+    dispatch({
+      type: DECREASE_HOURS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Stripe Payment Method
+export const payment = async (profile, token) => {
+  const history = createBrowserHistory();
+  try {
+    const res = await axios.post("/api/payment", { token, profile });
+
+    const { status } = res.data;
+
+    console.log(status);
+    status === "success"
+      ? toast(
+          "Success! Check email for details",
+          { type: "success" },
+          history.push(`/postanadform`),
+          window.location.reload()
+        )
+      : toast("Something went wrong", { type: "error" });
+  } catch (err) {
+    console.log(err);
+    // dispatch({
+    //   type: PROFILE_ERROR,
+    //   payload: { msg: err.response.statusText, status: err.response.status }
+    // });
   }
 };

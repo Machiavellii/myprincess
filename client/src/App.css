@@ -115,3 +115,13 @@ img {
 	width: 300px;
 	overflow-x: hidden;
 }
+
+.testing {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 50px;
+	margin-bottom: 10px;
+}
