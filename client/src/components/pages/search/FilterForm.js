@@ -43,6 +43,7 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
         onChange={e => onChange(e)}
         value={canton}
         name="canton"
+        multiple={false}
       >
         <option value="0"> - Canton - </option>
 
@@ -62,6 +63,7 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
         onChange={e => onChange(e)}
         value={category}
         name="category"
+        multiple={false}
       >
         <option value="0"> - Category - </option>
         {categoryList.map((item, index) => {
@@ -78,6 +80,7 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
         name="services"
         onChange={e => onChange(e)}
         value={services}
+        multiple={false}
       >
         <option value="0"> - Prestations - </option>
         {servicesList.map((item, index) => {
