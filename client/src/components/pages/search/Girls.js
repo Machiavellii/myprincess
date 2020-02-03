@@ -28,11 +28,12 @@ const Girls = ({ profiles }) => {
                 <div className="card-body">
                   <h5 className="card-title">{profile.user.nickname}</h5>
                   <p className="card-text">
-                    Student hot in {profile.location.city}
+                    Student hot in{" "}
+                    {profile.location ? profile.location.city : "No Cities"}
                   </p>
                   <Link to={`/profile/user/${profile.user._id}`}>
                     <i className="fas fa-map-marker-alt" />
-                    {profile.location.formattedAddress}
+                    {profile.location ? profile.location.formattedAddress : ""}
                   </Link>
                 </div>
               </Fragment>

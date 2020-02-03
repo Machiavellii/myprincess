@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  categoryList,
-  servicesList,
-} from "../../../constants/data.json";
+import { categoryList, servicesList } from "../../../constants/data.json";
 import { connect } from "react-redux";
 import { filterSearchPage } from "../../../actions/profile";
 
@@ -51,10 +48,11 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
 
         {profiles.map((profile, index) => {
           return (
-            <option key={index} value={profile.location.canton}>
-              {profile.location.canton === undefined
-                ? ""
-                : profile.location.canton}
+            <option
+              key={index}
+              value={profile.location ? profile.location.canton : "No canton"}
+            >
+              {profile.location ? profile.location.canton : "No canton"}
             </option>
           );
         })}

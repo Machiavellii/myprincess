@@ -31,6 +31,8 @@ const Map = ({ profile: { profiles }, getProfiles }) => {
   //   };
   // }, []);
 
+  const { latitude, longitude } = viewPort;
+
   return (
     <div>
       <ReactMapGl
@@ -45,8 +47,8 @@ const Map = ({ profile: { profiles }, getProfiles }) => {
         {profiles.map(girl => (
           <Marker
             key={girl._id}
-            latitude={girl.location.coordinates[1]}
-            longitude={girl.location.coordinates[0]}
+            latitude={girl.location ? girl.location.coordinates[1] : latitude}
+            longitude={girl.location ? girl.location.coordinates[0] : longitude}
           >
             <button
               className="girl-button-marker"
