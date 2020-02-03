@@ -11,8 +11,6 @@ import {
   payment
 } from "../../../actions/profile";
 
-import Payment from "./Payment";
-
 const PricingCard = ({
   subscribePlan,
   profile: { profile, loading },

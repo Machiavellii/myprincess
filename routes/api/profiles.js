@@ -5,7 +5,6 @@ const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 const auth = require("../../middleware/auth");
-const authAdmin = require("../../middleware/authAdmin");
 const { check, validationResult } = require("express-validator");
 
 const Profile = require("../../models/profile");
