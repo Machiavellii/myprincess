@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { toggleActive, getCurrentProfile } from "../../actions/profile";
 import Moment from "react-moment";
 
-const DashboardActions = ({ toggleActive, profile: { profile, loading } }) => {
+const DashboardActions = ({ toggleActive, profile: { profile } }) => {
   useEffect(() => {
     getCurrentProfile();
   }, []);
@@ -46,7 +46,14 @@ const DashboardActions = ({ toggleActive, profile: { profile, loading } }) => {
 
   return (
     <div>
-      <Link to="/edit-profile" className="btn btn-light">
+      <Link
+        to={`${
+          profile.subscription_plan === undefined
+            ? "/postanad"
+            : "/edit-profile"
+        }`}
+        className="btn btn-light"
+      >
         <i className="fas fa-user-circle" /> Edit Profile
       </Link>
       <Link to="/upload-cover" className="btn btn-light">
