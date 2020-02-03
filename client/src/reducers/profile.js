@@ -127,7 +127,6 @@ export default function(state = initialState, action) {
               .toLowerCase()
               .includes(payload.canton.toLowerCase())
           ) {
-            console.log(profile);
             return profile;
           } else if (
             typeof profile.location.canton === "string" &&
