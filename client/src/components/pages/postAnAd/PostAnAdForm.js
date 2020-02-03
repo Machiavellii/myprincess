@@ -312,7 +312,7 @@ const PostAnAdForm = ({
         />
 
         <TextAreaGroup
-          placeholder="200CHF"
+          placeholder="200"
           name="rate"
           value={rate}
           onChange={onChange}

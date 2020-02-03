@@ -21,8 +21,6 @@ const Content = ({ profile }) => {
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
-  console.log(filter);
-
   return (
     <Fragment>
       <div className="row">

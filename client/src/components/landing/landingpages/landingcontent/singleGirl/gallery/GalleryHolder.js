@@ -6,13 +6,14 @@ import ReactMapGl, { Marker } from "react-map-gl";
 const GalleryHolder = ({ profile }) => {
   const { cover_photo, is_active, location } = profile;
   const [viewPort, setViewPort] = useState({
-    latitude: profile.location.coordinates[1],
-    longitude: profile.location.coordinates[0],
+    latitude: 46.204391,
+    longitude: 6.143158,
     width: "100%",
     height: "100%",
     zoom: 12
   });
 
+  const { latitude, longitude } = viewPort;
   return (
     <div className="gallery-holder">
       <div className="img-holder mb-4">
@@ -46,8 +47,14 @@ const GalleryHolder = ({ profile }) => {
               <Fragment>Loading...</Fragment>
             ) : (
               <Marker
-                latitude={profile.location.coordinates[1]}
-                longitude={profile.location.coordinates[0]}
+                latitude={latitude}
+                longitude={longitude}
+                latitude={
+                  profile.location ? profile.location.coordinates[1] : latitude
+                }
+                longitude={
+                  profile.location ? profile.location.coordinates[0] : longitude
+                }
               >
                 <button className="girl-button-marker">
                   <i className="fas fa-map-marker-alt girl-button-marker-icon"></i>
@@ -56,7 +63,7 @@ const GalleryHolder = ({ profile }) => {
             )}
           </ReactMapGl>
         </div>
-        <p>{location.formattedAddress}</p>
+        <p>{profile.location ? location.formattedAddress : ""}</p>
         <a href="!#">Get directions</a>
       </div>
       <Describe profile={profile} />

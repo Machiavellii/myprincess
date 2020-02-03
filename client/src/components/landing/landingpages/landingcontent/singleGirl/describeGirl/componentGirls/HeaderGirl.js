@@ -11,7 +11,9 @@ const HeaderGirl = ({ profile }) => {
     <div className="headerGirl">
       <div className="container">
         <h1>{nickname}</h1>
-        <p className="subheading">slut waiting for you in {location.city}</p>
+        <p className="subheading">
+          slut waiting for you in {location ? location.city : ""}
+        </p>
         <a href={`tel:${phone}`}>
           <i className="fas fa-phone rotate" /> {phone}
         </a>

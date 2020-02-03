@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 // import { Link, Redirect } from 'react-router-dom';
 import "../../../styles/PricingCard.css";
 import { connect } from "react-redux";
-import StripeCheckout from "react-stripe-checkout";
+import { Link } from "react-router-dom";
 
 import {
   subscribePlan,
@@ -13,24 +13,22 @@ import {
 
 const PricingCard = ({
   subscribePlan,
-  profile: { profile },
+  profile: { profile, loading },
   payment,
   days,
   subscription_plan,
   price,
   badge,
   currency,
+  extra,
+  buttonStyle,
   amount
 }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  const [checked, setDisabled] = useState(false);
-
   const onClick = () => {
-    setDisabled(!checked);
-
     const time = { subscription_plan };
 
     subscribePlan(time);
@@ -52,38 +50,17 @@ const PricingCard = ({
         <br />
         <strong>3000 visits / day </strong> <span>MyPrincess.ch</span>
         <br />
-        <div className="form-group">
-          <label htmlFor="value">
-            You agree with buying this subscription plan
-          </label>
-          <input
-            className="form-group mr-2"
-            type="checkbox"
-            id="value"
-            // value={true}
-            onClick={() => onClick()}
-            name="value"
-            defaultChecked={checked}
-          />
-        </div>
-        <br />
       </div>
-      {checked ? (
-        <div className="card-footer text-center">
-          <StripeCheckout
-            stripeKey="pk_test_2QL8V6xKMDyfzQc87dCmfPXU"
-            // description={description}
-            name="MyPrincess.ch"
-            //image={Logo}
-            billingAddress
-            amount={amount * 100}
-            label="Start"
-            token={payment.bind(this, profile)}
-          />
-        </div>
-      ) : (
-        <small className="text-center">First checked agree buying</small>
-      )}
+      <div className="card-footer text-center">
+        <Link
+          to="/postanadform"
+          className={"btn " + (buttonStyle ? "full" : "empty")}
+          onClick={() => onClick()}
+        >
+          Start
+          <i className="fas fa-caret-right right-icon" />
+        </Link>
+      </div>
     </div>
   );
 };

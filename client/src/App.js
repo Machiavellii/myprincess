@@ -29,7 +29,6 @@ import PostAnAdForm from "./components/pages/postAnAd/PostAnAdForm";
 import EditAdForm from "./components/pages/postAnAd/EditAdForm";
 import Search from "./components/pages/search/Search";
 import EscortsGirls from "./components/pages/EscortsGirls";
-// import MyProfiles from './components/pages/my-profiles/MyProfiles';
 import Alert from "./components/layout/Alert";
 import Dashboard from "./components/dashboard/Dashboard";
 import Admin from "./components/admin/admin";
@@ -79,7 +78,6 @@ const App = () => {
             <Route exact path="/search" component={Search} />
             <Route exact path="/profile/user/:id" component={DescribeContent} />
             <Route exact path="/links" component={Links} />
-            {/* <Route exact path="/my-profile" component={MyProfiles} /> */}
             <Route
               exact
               path="/escorts-girls/:canton"

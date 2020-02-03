@@ -179,7 +179,7 @@ export const uploadCover = (
 
     dispatch(setAlert("Profile Photo Added", "success"));
 
-    setTimeout(() => history.push("/upload-gallery"), 5000);
+    setTimeout(() => history.push("/dashboard"), 5000);
   } catch (err) {
     const errors = err.response.data.errors;
 
