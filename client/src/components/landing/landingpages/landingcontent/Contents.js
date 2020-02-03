@@ -21,7 +21,6 @@ const Contents = ({ profiles: { profile } }) => {
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
-  console.log(filter);
   return (
     <Fragment>
       <div className="row">
@@ -31,7 +30,7 @@ const Contents = ({ profiles: { profile } }) => {
               <div className="contentHolder">
                 <div className="top-holder">
                   <Link to="/" className="links">
-                    {profile.location.city}
+                    {profile ? profile.location.city : ""}
                   </Link>
                 </div>
                 <Link to={`/profile/user/${profile.user._id}`}>

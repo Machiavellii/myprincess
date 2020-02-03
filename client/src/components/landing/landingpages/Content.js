@@ -21,6 +21,8 @@ const Content = ({ profile }) => {
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
+  console.log(filter);
+
   return (
     <Fragment>
       <div className="row">
@@ -31,7 +33,7 @@ const Content = ({ profile }) => {
                 <div className="contentHolder">
                   <div className="top-holder">
                     <Link to="/" className="links">
-                      {profile.location.canton}
+                      {profile.location ? profile.location.canton : "No canton"}
                     </Link>
                   </div>
 
