@@ -58,17 +58,50 @@ form .holder-img > div {
   width: unset;
 }
 
-form .holder-gallery {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
+.close {
+  top: -20px;
+  position: absolute;
+  right: 0px;
 }
-form .holder-gallery > div {
+.holder-img-btn img {
   width: 7rem;
-  height: 7rem;
+  height: 10rem;
 }
-form .holder-gallery > div > img {
-  height: 100%;
+
+/* INPUT GALLERY */
+.inputfile {
+  z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  position: absolute;
+}
+.inputfile + label {
+  width: 7rem;
+  height: 10rem;
+  color: white;
+  background-color: #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.inputfile + label i {
+  font-size: 3rem;
+  padding: 2rem;
+}
+
+.inputfile + label img {
+  height: inherit;
+  width: 100%;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #ab9f9f;
+  outline: 1px dotted #000;
+  /* outline: -webkit-focus-ring-color auto 5px; */
+  color: #d2e4e3;
 }
 
 @media only screen and (max-width: 576px) {

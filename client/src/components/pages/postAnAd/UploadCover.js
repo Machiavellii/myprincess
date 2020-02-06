@@ -9,6 +9,7 @@ import Progress from "../../layout/Progress";
 const UploadCover = ({
   uploadCover,
   history,
+  getCurrentProfile,
   profile: { profile, loading }
 }) => {
   const [cover_photo, setCoverphoto] = useState(null);

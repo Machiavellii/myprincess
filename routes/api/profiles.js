@@ -140,10 +140,6 @@ router.post(
     if (address) profileFields.address = address;
 
     if (subscription_plan) profileFields.subscription_plan = subscription_plan;
-    // if (start_of_subscription)
-    //   profileFields.start_of_subscription = start_of_subscription;
-    // if (end_of_subscription)
-    //   profileFields.end_of_subscription = end_of_subscription;
     if (is_active) profileFields.is_active = is_active;
     if (slogan) profileFields.slogan = slogan;
     if (category) profileFields.category = category;
@@ -161,9 +157,6 @@ router.post(
     // Array items
     if (photos) profileFields.photos = photos;
 
-    // if (opinions) {
-    //   profileFields.opinions = opinions;
-    // }
     if (favorites) {
       profileFields.favorites = favorites;
     }
@@ -184,8 +177,6 @@ router.post(
         //Update
 
         const locat = await geocoder.geocode(address);
-
-        // console.log(locat);
 
         profileFields.location = {
           type: "Point",
