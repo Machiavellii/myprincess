@@ -10,16 +10,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client \"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Machiavellii/myprincess.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Machiavellii/myprincess/issues"
-  },
-  "homepage": "https://github.com/Machiavellii/myprincess#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.1",
