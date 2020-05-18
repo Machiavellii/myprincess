@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Machiavellii/myprincess1.git"
+    "url": "git+https://github.com/Machiavellii/myprincess.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Machiavellii/myprincess1/issues"
+    "url": "https://github.com/Machiavellii/myprincess/issues"
   },
-  "homepage": "https://github.com/Machiavellii/myprincess1#readme",
+  "homepage": "https://github.com/Machiavellii/myprincess#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.1",
