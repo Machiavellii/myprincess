@@ -22,7 +22,7 @@ const Carousel = ({ photos }) => {
             {photos.map((photo, i) => (
               <a
                 key={i}
-                href={`https://myprincess.jcloud.ik-server.com/${photo}`}
+                href={photo}
                 data-toggle="lightbox"
                 data-gallery="img-gallery"
                 data-height="564"

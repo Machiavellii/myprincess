@@ -21,8 +21,7 @@ const HeaderGirl = ({ profile }) => {
           <a
             href={webcamlink}
             target="_blank rel="
-            noopener
-            noreferrer
+            rel="noopener noreferrer"
             style={{ cursor: "pointer" }}
           >
             <i className="fas fa-video"></i> Webcam link

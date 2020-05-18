@@ -1,4 +1,3 @@
-// import axios from "../axios";
 import axios from "axios";
 import { setAlert } from "./alert";
 
@@ -308,7 +307,7 @@ export const payment = async (profile, token) => {
 
     const { status } = res.data;
 
-    console.log(status);
+    console.log(status, "profile/payment function");
     status === "success"
       ? toast(
           "Success! Check email for details",

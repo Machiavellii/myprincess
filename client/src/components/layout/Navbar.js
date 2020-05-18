@@ -113,14 +113,7 @@ const Navbar = ({
                             </li>
                           </div>
                         </div>
-                        {/* <li className="nav-item">
-                          <NavLink
-                            to="/postanad"
-                            className="nav-link rose-border"
-                          >
-                            Post an ad
-                          </NavLink>
-                        </li> */}
+
                         <div className="dropdown">
                           <a
                             className="nav-link"

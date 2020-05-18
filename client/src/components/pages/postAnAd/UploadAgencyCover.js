@@ -71,10 +71,7 @@ const UploadAgencyCover = ({
               >
                 <span aria-hidden="true">&times;</span>
               </button> */}
-              <img
-                src={`https://myprincess.jcloud.ik-server.com/${agency.cover_photo}`}
-                alt=""
-              />
+              <img src={agency.cover_photo} alt="" />
             </div>
           </div>
         )}

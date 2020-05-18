@@ -16,7 +16,6 @@ const geocoder = require("../../utills/geocoder");
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const folder_id = req.user.id;
-    // dirPath = `https://myprincess.jcloud.ik-server.com/static/images/${folder_id}`;
     dirPath = `./static/images/${folder_id}`;
     if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath);
@@ -29,7 +28,19 @@ let storage = multer.diskStorage({
 });
 
 const uploadGallery = multer({
-  storage: storage,
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      const folder_id = req.user.id;
+      dirPath = `./static/gallery/${folder_id}`;
+      if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath);
+      }
+      cb(null, dirPath);
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + file.originalname);
+    },
+  }),
   fileFilter: (req, file, cb) => {
     if (
       file.mimetype == "image/png" ||
@@ -284,7 +295,7 @@ router.delete("/", auth, async (req, res) => {
 // @route    POST api/profile/upload-cover
 // @desc     Upload cover photo
 // @access   Private
-router.post("/upload-cover", async (req, res) => {
+router.post("/upload-cover", auth, async (req, res) => {
   try {
     uploadCover(req, res, async function (err) {
       if (err instanceof multer.MulterError) {

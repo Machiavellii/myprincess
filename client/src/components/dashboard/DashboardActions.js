@@ -20,10 +20,16 @@ const DashboardActions = ({
   }, []);
 
   Date.prototype.addDays = function (days) {
-    var date = new Date(this.valueOf());
+    let date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
   };
+
+  // const addDays = (days) => {
+  //   var date = new Date(this.valueOf());
+  //   date.setDate(date.getDate() + days);
+  //   return date;
+  // };
 
   let remainingHours = new Date();
   const dateOfExpiry = remainingHours.addDays(profile.subscription_plan);

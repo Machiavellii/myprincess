@@ -69,10 +69,7 @@ const UploadCover = ({
               >
                 <span aria-hidden="true">&times;</span>
               </button> */}
-              <img
-                src={`https://myprincess.jcloud.ik-server.com/${profile.cover_photo}`}
-                alt=""
-              />
+              <img src={profile.cover_photo} alt="" />
             </div>
           </div>
         )}

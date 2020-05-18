@@ -14,7 +14,7 @@ import { getCurrentProfile, deleteAccount } from "../../actions/profile";
 const EscortDashboard = ({
   getCurrentProfile,
   profile: { profile, loading },
-  deleteAccount
+  deleteAccount,
 }) => {
   useEffect(() => {
     getCurrentProfile();
@@ -39,7 +39,10 @@ const EscortDashboard = ({
               <GalleryHolder profile={profile} />
             </div>
           </div>
-          <button className="btn btn-danger" onClick={() => deleteAccount()}>
+          <button
+            className="btn btn-danger mt-2"
+            onClick={() => deleteAccount()}
+          >
             <i className="fas fa-user-minus"> Delete My Account</i>
           </button>
         </div>
@@ -50,13 +53,13 @@ const EscortDashboard = ({
 
 EscortDashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 });
 export default connect(mapStateToProps, {
   getCurrentProfile,
-  deleteAccount
+  deleteAccount,
 })(EscortDashboard);

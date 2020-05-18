@@ -126,23 +126,6 @@ img {
   margin-bottom: 10px;
 }
 
-.notification-dropdown {
-  margin-top: 0.9em;
-}
-
-.notification-item .alert {
-  margin: 0;
-}
-
-.notification-dropdown {
-  background-color: transparent !important;
-  border: none;
-}
-
-.notification-button {
-  margin: 5px;
-}
-
 .counter.counter-lg {
   position: absolute;
   top: 2px !important;
