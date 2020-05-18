@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 
-const Profile = require("../../models/profile");
+const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
 const geocoder = require("../../utills/geocoder");
@@ -16,6 +16,7 @@ const geocoder = require("../../utills/geocoder");
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const folder_id = req.user.id;
+    // dirPath = `https://myprincess.jcloud.ik-server.com/static/images/${folder_id}`;
     dirPath = `./static/images/${folder_id}`;
     if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath);
@@ -24,7 +25,7 @@ let storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname);
-  }
+  },
 });
 
 const uploadGallery = multer({
@@ -40,7 +41,7 @@ const uploadGallery = multer({
       cb(null, false);
       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
     }
-  }
+  },
 });
 
 const fileFilter = (req, file, cb) => {
@@ -60,36 +61,20 @@ router.post(
   "/",
   auth,
   [
-    check("gender", "Gender is required")
-      .not()
-      .isEmpty(),
+    check("gender", "Gender is required").not().isEmpty(),
     check("sexual_orientation", "Sexual orientation is required")
       .not()
       .isEmpty(),
     // check("type", "Account type is required")
     //   .not()
     //   .isEmpty(),
-    check("address", "Address is required")
-      .not()
-      .isEmpty(),
-    check("languages", "Spoken languages are required")
-      .not()
-      .isEmpty(),
-    check("category", "Category is required")
-      .not()
-      .isEmpty(),
-    check("services", "Services are required")
-      .not()
-      .isEmpty(),
-    check("age", "Age is required")
-      .not()
-      .isEmpty(),
-    check("silhouette", "Category is required")
-      .not()
-      .isEmpty(),
-    check("origin", "Origin is required")
-      .not()
-      .isEmpty()
+    check("address", "Address is required").not().isEmpty(),
+    check("languages", "Spoken languages are required").not().isEmpty(),
+    check("category", "Category is required").not().isEmpty(),
+    check("services", "Services are required").not().isEmpty(),
+    check("age", "Age is required").not().isEmpty(),
+    check("silhouette", "Category is required").not().isEmpty(),
+    check("origin", "Origin is required").not().isEmpty(),
     // check("cover_photo", "Profile Picture is required")
     //   .not()
     //   .isEmpty()
@@ -111,6 +96,7 @@ router.post(
       end_of_subscription,
       favorites, // array
       is_active,
+      in_agency,
       languages, // array
       slogan,
       category,
@@ -123,7 +109,8 @@ router.post(
       hours,
       rate,
       website,
-      ratings // array
+      webcamlink,
+      ratings, // array
       // opinions
     } = req.body;
 
@@ -138,9 +125,11 @@ router.post(
     if (phone) profileFields.phone = phone;
     if (type) profileFields.type = type;
     if (address) profileFields.address = address;
+    if (webcamlink) profileFields.webcamlink = webcamlink;
 
     if (subscription_plan) profileFields.subscription_plan = subscription_plan;
     if (is_active) profileFields.is_active = is_active;
+    if (in_agency) profileFields.in_agency = in_agency;
     if (slogan) profileFields.slogan = slogan;
     if (category) profileFields.category = category;
     if (age) profileFields.age = age;
@@ -178,18 +167,20 @@ router.post(
 
         const locat = await geocoder.geocode(address);
 
-        profileFields.location = {
-          type: "Point",
-          coordinates: [locat[0].longitude, locat[0].latitude],
-          formattedAddress: locat[0].formattedAddress,
-          city: locat[0].city,
-          zipcode: locat[0].zipcode,
-          canton: locat[0].state,
-          country: locat[0].country,
-          streetName: locat[0].streetName,
-          streetNumber: locat[0].streetNumber,
-          countryCode: locat[0].countryCode
-        };
+        if (locat.length > 0) {
+          profileFields.location = {
+            type: "Point",
+            coordinates: [locat[0].longitude, locat[0].latitude],
+            formattedAddress: locat[0].formattedAddress,
+            city: locat[0].city,
+            zipcode: locat[0].zipcode,
+            canton: locat[0].state,
+            country: locat[0].country,
+            streetName: locat[0].streetName,
+            streetNumber: locat[0].streetNumber,
+            countryCode: locat[0].countryCode,
+          };
+        }
 
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
@@ -221,7 +212,7 @@ router.get("/", async (req, res) => {
     const profiles = await Profile.find().populate("user", [
       "nickname",
       "email",
-      "block"
+      "block",
     ]);
     res.json(profiles);
   } catch (err) {
@@ -236,7 +227,7 @@ router.get("/", async (req, res) => {
 router.get("/user/:user_id", async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.params.user_id
+      user: req.params.user_id,
     }).populate("user", ["nickname"]);
 
     if (!profile) {
@@ -259,7 +250,7 @@ router.get("/user/:user_id", async (req, res) => {
 router.get("/me", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.user.id
+      user: req.user.id,
     }).populate("user", ["nickname"]);
 
     if (!profile) {
@@ -293,9 +284,9 @@ router.delete("/", auth, async (req, res) => {
 // @route    POST api/profile/upload-cover
 // @desc     Upload cover photo
 // @access   Private
-router.post("/upload-cover", auth, async (req, res) => {
+router.post("/upload-cover", async (req, res) => {
   try {
-    uploadCover(req, res, async function(err) {
+    uploadCover(req, res, async function (err) {
       if (err instanceof multer.MulterError) {
         return res.status(500).json(err);
       } else if (err) {
@@ -303,26 +294,28 @@ router.post("/upload-cover", auth, async (req, res) => {
       }
       let file = req.file;
 
+      console.log(file);
+
       const coverUrl = path.join(file.destination, file.filename);
 
       const profile = await Profile.findOne({
-        user: mongoose.Types.ObjectId(req.user._id)
+        user: mongoose.Types.ObjectId(req.user._id),
       });
 
       if (profile) {
         const coverUrl = profile.coverUrl;
-        fs.unlink(coverUrl, err => {
+        fs.unlink(coverUrl, (err) => {
           console.log("error", err);
         });
       }
       await Profile.findOneAndUpdate(
         { user: req.user.id },
         {
-          cover_photo: coverUrl
+          cover_photo: coverUrl,
         },
         {
           new: true,
-          upsert: true
+          upsert: true,
         }
       );
       return res.status(200).json({ cover_photo: coverUrl });
@@ -341,7 +334,7 @@ router.post("/subscription", auth, async (req, res) => {
     const { subscription_plan } = req.body;
 
     const profile = await Profile.findOne({
-      user: mongoose.Types.ObjectId(req.user._id)
+      user: mongoose.Types.ObjectId(req.user._id),
     });
 
     if (profile) {
@@ -351,11 +344,11 @@ router.post("/subscription", auth, async (req, res) => {
     await Profile.findOneAndUpdate(
       { user: req.user.id },
       {
-        subscription_plan
+        subscription_plan,
       },
       {
         new: true,
-        upsert: true
+        upsert: true,
       }
     );
     return res.status(200).json({ subscription_plan });
@@ -385,32 +378,32 @@ router.post(
       });
 
       const profile = await Profile.findOne({
-        user: mongoose.Types.ObjectId(req.user._id)
+        user: mongoose.Types.ObjectId(req.user._id),
       });
       if (profile) {
         const photoUrls = profile.photoUrls;
-        fs.unlink(photoUrls, err => {
+        fs.unlink(photoUrls, (err) => {
           console.log("error", err);
         });
       }
 
       const photo = await Profile.findOne({
-        user: req.user.id
+        user: req.user.id,
       });
       if (photo) {
         photo.photos.map((item, index) => {
-          fs.unlink(item, err => {});
+          fs.unlink(item, (err) => {});
         });
       }
 
       await Profile.findOneAndUpdate(
         { user: req.user.id },
         {
-          photos: photoUrls
+          photos: photoUrls,
         },
         {
           new: true,
-          upsert: true
+          upsert: true,
         }
       );
       res.status(200).json({ photos: photoUrls });
@@ -434,7 +427,21 @@ router.put("/me/isActive", auth, async (req, res) => {
   }
 });
 
-// @route PUT api/profile/type
+// @route PUT api/profile/inagency
+// @desc In Agency route
+// @access Private
+router.put("/me/inagency", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    profile.in_agency = !profile.in_agency;
+    profile.save();
+    return res.json(profile.in_agency);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route POST api/profile/type
 // @desc Type: agency or escort
 // @access Private
 router.post("/type", auth, async (req, res) => {
@@ -442,7 +449,7 @@ router.post("/type", auth, async (req, res) => {
     const { type } = req.body;
 
     const profile = await Profile.findOne({
-      user: mongoose.Types.ObjectId(req.user._id)
+      user: mongoose.Types.ObjectId(req.user._id),
     });
 
     if (profile) {
@@ -452,11 +459,11 @@ router.post("/type", auth, async (req, res) => {
     await Profile.findOneAndUpdate(
       { user: req.user.id },
       {
-        type
+        type,
       },
       {
         new: true,
-        upsert: true
+        upsert: true,
       }
     );
     return res.status(200).json({ type });
@@ -524,10 +531,28 @@ router.put("/reduceSubscription", async (req, res) => {
     await Profile.updateMany(
       { is_active: true },
       {
-        $inc: { subscription_plan: -1 }
+        $inc: { subscription_plan: -1 },
       }
     );
     res.json("Updated");
+  } catch (err) {
+    res.status(500).send({ msg: err.message });
+  }
+});
+
+// @route    POST api/profile/boost
+// @desc     Boost profile to the start of array
+// @access   Private
+
+router.put("/boost", auth, async (req, res) => {
+  let { date, user } = req.body;
+
+  try {
+    let profile = await Profile.findOneAndUpdate({ profile });
+
+    date = Date.now();
+
+    res.json(profile);
   } catch (err) {
     res.status(500).send({ msg: err.message });
   }

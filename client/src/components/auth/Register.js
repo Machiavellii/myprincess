@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { setAlert } from "../../actions/alert";
-import { Redirect, Link } from "react-router-dom";
-import { register } from "../../actions/auth";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import { Redirect, Link } from 'react-router-dom';
+import { register } from '../../actions/auth';
 
 import {
   emailLabel,
   passwordLabel,
   nicknameRegister,
   passwordConfirmLabel
-} from "../common/consts";
-import InputGroup from "../common/InputGroup";
+} from '../common/consts';
+import InputGroup from '../common/InputGroup';
 
 const Register = ({ setAlert, isAuthenticated, register }) => {
-  let [block, setBlock] = useState("");
+  let [block, setBlock] = useState('');
   const [formData, setFormData] = useState({
-    nickname: "",
-    email: "",
-    password: "",
-    password2: ""
+    nickname: '',
+    email: '',
+    password: '',
+    password2: ''
   });
 
   const { nickname, email, password, password2 } = formData;
@@ -35,7 +35,7 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
     e.preventDefault();
 
     if (password !== password2) {
-      setAlert("Passwords do not match", "danger");
+      setAlert('Passwords do not match', 'danger');
     } else {
       register({ nickname, email, password, block });
     }
@@ -47,10 +47,12 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
 
   return (
     <div className="container">
-      <form className="px-3" onSubmit={e => onSubmit(e)}>
+      <h2 className="title">I do not have a account</h2>
+      <span>Sign up with your email and password</span>
+      <form className="mt-3" onSubmit={e => onSubmit(e)}>
         <InputGroup
           name="nickname"
-          placeholder={"Enter Nickname"}
+          placeholder={'Enter Nickname'}
           onChange={onChange}
           labels={nicknameRegister}
           value={nickname}
@@ -59,7 +61,7 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
         <InputGroup
           type="email"
           name="email"
-          placeholder={"Enter Email"}
+          placeholder={'Enter Email'}
           onChange={onChange}
           labels={emailLabel}
           value={email}
@@ -67,7 +69,7 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
         <InputGroup
           type="password"
           name="password"
-          placeholder={"Enter Password"}
+          placeholder={'Enter Password'}
           onChange={onChange}
           labels={passwordLabel}
           minLength="6"
@@ -76,7 +78,7 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
         <InputGroup
           type="password"
           name="password2"
-          placeholder={"Confirm Password"}
+          placeholder={'Confirm Password'}
           onChange={onChange}
           labels={passwordConfirmLabel}
           minLength="6"
@@ -93,20 +95,17 @@ const Register = ({ setAlert, isAuthenticated, register }) => {
             required
           />
           <label htmlFor="terms">
-            I agree with{" "}
+            I agree with{' '}
             <Link to="/terms" target="_blank">
               Terms
             </Link>
           </label>
         </div>
         <button type="submit" className="btn btn-form">
-          {" "}
+          {' '}
           Register
         </button>
       </form>
-      <p>
-        Already have an account? <Link to="/login">Sign In</Link>
-      </p>
     </div>
   );
 };

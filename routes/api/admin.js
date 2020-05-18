@@ -10,7 +10,7 @@ const authAdmin = require("../../middleware/authAdmin");
 // Admin Model
 const Admin = require("../../models/Admin");
 const User = require("../../models/User");
-const Profile = require("../../models/profile");
+const Profile = require("../../models/Profile");
 
 // @route    GET api/admin
 // @desc     GET Admin
@@ -125,7 +125,7 @@ router.get("/profile/:id", authAdmin, async (req, res) => {
   }
 });
 
-// @route    POST api/admin/edit/:id
+// @route    POST api/admin/edit
 // @desc     Update user profile
 // @access   Private
 router.post("/edit", authAdmin, async (req, res) => {
@@ -157,8 +157,6 @@ router.post("/edit", authAdmin, async (req, res) => {
     opinions
   } = req.body;
 
-  // const cover_photo = req.file;
-
   /* Profile Object */
   const profileFields = {};
   profileFields.user = req.body.user._id;
@@ -166,11 +164,9 @@ router.post("/edit", authAdmin, async (req, res) => {
   if (sexual_orientation) profileFields.sexual_orientation = sexual_orientation;
   if (phone) profileFields.phone = phone;
   if (type) profileFields.type = type;
-  // if (country) profileFields.country = country;
   if (canton) profileFields.canton = canton;
   if (city) profileFields.city = city;
   if (zip) profileFields.zip = zip;
-  // if (subscription_plan) profileFields.subscription_plan = subscription_plan;
   if (start_of_subscription)
     profileFields.start_of_subscription = start_of_subscription;
   if (end_of_subscription)
@@ -185,12 +181,6 @@ router.post("/edit", authAdmin, async (req, res) => {
   if (hours) profileFields.hours = hours;
   if (rate) profileFields.rate = rate;
   if (website) profileFields.website = website;
-
-  //photo
-  // if (cover_photo) profileFields.cover_photo = cover_photo;
-
-  // Array items
-  // if (photos) profileFields.photos = photos;
 
   if (opinions) {
     profileFields.opinions = opinions;
@@ -214,17 +204,6 @@ router.post("/edit", authAdmin, async (req, res) => {
       { $set: profileFields },
       { new: true }
     );
-
-    // if (profile) {
-    //   //Update
-    //   profile = await Profile.findOneAndUpdate(
-    //     { user: req.body.user },
-    //     { $set: profileFields },
-    //     { new: true }
-    //   );
-
-    //   return res.json(profile);
-    // }
 
     await profile.save();
 

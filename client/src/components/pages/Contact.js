@@ -15,8 +15,8 @@ const Contact = () => {
       </div>
       <div className="container my-5">
         <p className="mb-4">
-          MyPrincess.ch is a directory site for escort and erotic massage parlor
-          in Switzerland.
+          Xanibis.ch is a directory site for escort and erotic massage parlor in
+          Switzerland.
         </p>
         <p className="mb-4">
           For us, quality, professionalism and user-friendliness are our highest

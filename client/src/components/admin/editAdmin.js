@@ -10,7 +10,6 @@ import {
   servicesList,
   silhouetteList,
   originList,
-
   genderList,
   sexual_orientationList,
   typeList
@@ -34,7 +33,8 @@ import {
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
-  websiteLabel
+  websiteLabel,
+  webcamlinkLabel
   // coverLabel
 } from "../common/consts";
 
@@ -57,6 +57,7 @@ const EditAdmin = ({ editProfile, history, profile: { profile, loading } }) => {
     slogan: "",
     hours: "",
     website: "",
+    webcamlink: "",
     type: ""
   });
 
@@ -83,6 +84,7 @@ const EditAdmin = ({ editProfile, history, profile: { profile, loading } }) => {
     slogan,
     hours,
     website,
+    webcamlink,
     type
     // is_active
   } = formData;
@@ -416,6 +418,13 @@ const EditAdmin = ({ editProfile, history, profile: { profile, loading } }) => {
               onChange={onChange}
               labels={phonenumberLabel}
               value={phone}
+            />
+            <InputGroup
+              name="webcamlink"
+              placeholder={"Webcam Link"}
+              onChange={onChange}
+              labels={webcamlinkLabel}
+              value={webcamlink}
             />
             <InputGroup
               name="website"

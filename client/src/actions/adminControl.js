@@ -6,31 +6,31 @@ import {
   ACCOUNT_DELETED_ADMIN,
   GET_PROFILE_ADMIN,
   UPDATE_PROFILE_ADMIN,
-  BLOCK_ACCOUNT
+  BLOCK_ACCOUNT,
 } from "./type";
 
 //Get Current User
-export const getCurrentProfileAdmin = profile => async dispatch => {
+export const getCurrentProfileAdmin = (profile) => async (dispatch) => {
   dispatch({
     type: GET_PROFILE_ADMIN,
-    payload: profile
+    payload: profile,
   });
 };
 
 // EDIT PROFIL
-export const editProfile = (formData, history) => async dispatch => {
+export const editProfile = (formData, history) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const res = await axios.post("/api/admin/edit", formData, config);
 
     dispatch({
       type: UPDATE_PROFILE_ADMIN,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert("Profile Updated", "success"));
@@ -39,45 +39,45 @@ export const editProfile = (formData, history) => async dispatch => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Block Account
-export const blockAccount = (id, block, history) => async dispatch => {
+export const blockAccount = (id, block, history) => async (dispatch) => {
   // if (window.confirm("Not finish yet!")) {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const res = await axios.post(`/api/users/${id}`, block, config);
     const { data } = res;
     dispatch({
       type: BLOCK_ACCOUNT,
-      payload: data
+      payload: data,
     });
 
     history.push("/superadminlogin");
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
   }
   // }
 };
 
 // Delete account & profile
-export const deleteAccountAdmin = id => async dispatch => {
+export const deleteAccountAdmin = (id) => async (dispatch) => {
   if (window.confirm("Are you sure? This can not be undone!")) {
     try {
       await axios.delete(`/api/admin/${id}`);
@@ -89,7 +89,7 @@ export const deleteAccountAdmin = id => async dispatch => {
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.reponse.statusText, status: err.reponse.status }
+        payload: { msg: err.reponse.statusText, status: err.reponse.status },
       });
     }
   }

@@ -3,73 +3,78 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import DashboardAction from "./DashboardActions";
-
-import Carousel from "../landing/landingpages/landingcontent/singleGirl/carousel/Carousel";
-import Header from "../landing/landingpages/landingcontent/singleGirl/describeGirl/componentGirls/HeaderGirl";
-import DescribeGirl from "../landing/landingpages/landingcontent/singleGirl/describeGirl/Girl";
-import GalleryHolder from "../landing/landingpages/landingcontent/singleGirl/gallery/GalleryHolder";
 
 import {
   getCurrentProfile,
   deleteAccount,
-  typePlan
+  typePlan,
 } from "../../actions/profile";
+
+import { getCurrentAgency, typePlanAgency } from "../../actions/agencyProfile";
+import EscortDashboard from "./EscortDashboard";
+import AgencyDashboard from "./AgencyDashboard";
 
 const Dashboard = ({
   getCurrentProfile,
   profile: { profile, loading },
+  getCurrentAgency,
+  agency: { agency },
   deleteAccount,
-  typePlan
+  typePlan,
+  typePlanAgency,
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, [getCurrentProfile]);
+    getCurrentAgency();
+  }, [getCurrentProfile, getCurrentAgency]);
 
   const [kindtype, setType] = useState(false);
 
   const [type, setFormData] = useState("");
 
-  const onChange = e => {
+  const onChange = (e) => {
     setType(!kindtype);
     setFormData({ type: e.target.value });
   };
 
-  const onClick = e => {
-    typePlan(type);
+  // const onClick = e => {
+  //   typePlan(type);
+  //   typePlanAgency(type);
+  // };
+
+  const renderPostAnAdButton = () => {
+    return type.type === "agency" ? (
+      <Fragment>
+        <Link
+          to="/agencypostanad"
+          className="btn my-3 rose-border"
+          style={{ backgroundColor: "#2b2b2b", color: "#fff" }}
+          onClick={(e) => typePlanAgency(type)}
+        >
+          Post an Ad
+        </Link>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <Link
+          to="/postanad"
+          className="btn my-3 rose-border"
+          style={{ backgroundColor: "#2b2b2b", color: "#fff" }}
+          onClick={(e) => typePlan(type)}
+        >
+          Post an Ad
+        </Link>
+      </Fragment>
+    );
   };
 
-  return loading && profile === null ? (
-    <Spinner />
-  ) : (
-    <Fragment>
-      {profile !== null ? (
-        <Fragment>
-          <div className="container text-center px-1">
-            <DashboardAction />
-          </div>
-          <Carousel photos={profile.photos} />
-          <div className="holder dashboard-content">
-            <Header profile={profile} />
-            <div className="container">
-              <div className="row">
-                <div className="col-sm-12 col-md-8">
-                  <DescribeGirl profile={profile} />
-                </div>
-                <div className="col-sm-12 col-md-4 gallery">
-                  <GalleryHolder profile={profile} />
-                </div>
-              </div>
-              <button
-                className="btn btn-danger"
-                onClick={() => deleteAccount()}
-              >
-                <i className="fas fa-user-minus"> Delete My Account</i>
-              </button>
-            </div>
-          </div>
-        </Fragment>
-      ) : (
+  const renderDashboard = () => {
+    if (profile) {
+      return <EscortDashboard />;
+    } else if (agency) {
+      return <AgencyDashboard />;
+    } else {
+      return (
         <Fragment>
           <div className="container m-5 dashboard-create">
             <p>You have not yet setup a profile, please add some info</p>
@@ -113,32 +118,32 @@ const Dashboard = ({
                 Post an Ad
               </Link>
             ) : (
-              <Link
-                to="/postanad"
-                className="btn  my-3 rose-border"
-                style={{ backgroundColor: "#2b2b2b", color: "#fff" }}
-                onClick={onClick}
-              >
-                Post an Ad
-              </Link>
+              renderPostAnAdButton()
             )}
           </div>
         </Fragment>
-      )}
-    </Fragment>
-  );
+      );
+    }
+  };
+
+  return loading && profile === null ? <Spinner /> : renderDashboard();
 };
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  getCurrentAgency: PropTypes.func.isRequired,
+  agency: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+  agency: state.agencyProfile,
 });
 export default connect(mapStateToProps, {
   getCurrentProfile,
+  getCurrentAgency,
   deleteAccount,
-  typePlan
+  typePlan,
+  typePlanAgency,
 })(Dashboard);

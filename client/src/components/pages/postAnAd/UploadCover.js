@@ -10,7 +10,7 @@ const UploadCover = ({
   uploadCover,
   history,
   getCurrentProfile,
-  profile: { profile, loading }
+  profile: { profile, loading },
 }) => {
   const [cover_photo, setCoverphoto] = useState(null);
   const [uploadPercentage, setUploadPercentage] = useState(0);
@@ -19,17 +19,18 @@ const UploadCover = ({
     getCurrentProfile();
 
     setCoverphoto({
-      cover_photo: loading || !profile.cover_photo ? null : profile.cover_photo
+      cover_photo: loading || !profile.cover_photo ? null : profile.cover_photo,
     });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, getCurrentProfile]);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setCoverphoto(e.target.files[0]);
 
     // console.log(e.target.files[0]);
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     let formCover = new FormData();
@@ -68,7 +69,10 @@ const UploadCover = ({
               >
                 <span aria-hidden="true">&times;</span>
               </button> */}
-              <img src={profile.cover_photo} alt="" />
+              <img
+                src={`https://myprincess.jcloud.ik-server.com/${profile.cover_photo}`}
+                alt=""
+              />
             </div>
           </div>
         )}
@@ -84,8 +88,8 @@ const UploadCover = ({
   );
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { uploadCover, getCurrentProfile })(

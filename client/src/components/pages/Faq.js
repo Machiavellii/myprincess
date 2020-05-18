@@ -7,7 +7,9 @@ const Faq = () => {
       <div className="jumbotron jumbotron-fluid">
         <div className="container">
           <h1 className="display-4 text-center jumbotron-heading">FAQ</h1>
-          <p className="lead text-center sub-title">Frequently Asked Questions</p>
+          <p className="lead text-center sub-title">
+            Frequently Asked Questions
+          </p>
         </div>
       </div>
       <div className="container my-5">
@@ -25,12 +27,12 @@ const Faq = () => {
         </p>
         <h6>HOW HAVE CHECKED THE LABEL ON MY AD?</h6>
         <p>
-          - Send us a photo selfie mentioning MYPRINCESS.CH (paper or otherwise)
-          by mail to
+          - Send us a photo selfie mentioning Xanibis.CH (paper or otherwise) by
+          mail to
           <span>
-            <a href={`mailto:contact@myprincess.ch.`} className="email-link">
+            <a href={`mailto:contact@Xanibis.ch.`} className="email-link">
               {' '}
-              contact@myprincess.ch.
+              contact@Xanibis.ch.
             </a>
           </span>
         </p>
@@ -38,9 +40,9 @@ const Faq = () => {
         <p>
           - To delete your account, send us a request by mail to
           <span>
-            <a href={`mailto:contact@myprincess.ch.`} className="email-link">
+            <a href={`mailto:contact@Xanibis.ch.`} className="email-link">
               {' '}
-              contact@myprincess.ch.
+              contact@Xanibis.ch.
             </a>
           </span>
         </p>
@@ -49,9 +51,9 @@ const Faq = () => {
           - Our customer service is available Monday to Friday from 09h to 18h
           by mail to
           <span>
-            <a href={`mailto:contact@myprincess.ch.`} className="email-link">
+            <a href={`mailto:contact@Xanibis.ch.`} className="email-link">
               {' '}
-              contact@myprincess.ch.
+              contact@Xanibis.ch.
             </a>
           </span>
         </p>

@@ -1,9 +1,9 @@
-import React from "react";
-import "../../styles/escortsgirls.css";
-import { connect } from "react-redux";
-import LandingCanton from "../landing/landingpages/LandingCanton";
-import { getProfiles } from "../../actions/profile";
-import { Link } from "react-router-dom";
+import React from 'react';
+import '../../styles/escortsgirls.css';
+import { connect } from 'react-redux';
+import LandingCanton from '../landing/landingpages/LandingCanton';
+import { getProfiles } from '../../actions/profile';
+import { Link } from 'react-router-dom';
 
 class EscortsGirls extends React.Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ class EscortsGirls extends React.Component {
     const canton = this.props.match.params.canton;
     return this.props.profiles
       .filter(profile => {
-        if (typeof profile.location.canton === "string") {
+        if (typeof profile.location.canton === 'string') {
           return profile.location.canton.toLowerCase() === canton;
         }
       })
@@ -25,12 +25,12 @@ class EscortsGirls extends React.Component {
               <div className="contentHolder">
                 <div className="top-holder">
                   <Link to="/" className="links">
-                    {girl.canton}
+                    {girl.location.canton}
                   </Link>
                 </div>
                 <Link to={`/profile/user/${girl.user._id}`}>
                   <img
-                    src={`${window.location.origin}/${girl.cover_photo}`}
+                    src={`https://myprincess.jcloud.ik-server.com/${girl.cover_photo}`}
                     alt=""
                     className="img-fluid"
                   />
@@ -45,7 +45,7 @@ class EscortsGirls extends React.Component {
                 <div className="bottom-holder">
                   <h5>
                     <Link to="/" className="links link-name">
-                      {" "}
+                      {' '}
                       {girl.user.nickname}
                     </Link>
                   </h5>
@@ -72,7 +72,7 @@ class EscortsGirls extends React.Component {
         <div className="row">
           <h4
             className="text-center contact-form-heading mt-5"
-            style={{ textTransform: "uppercase" }}
+            style={{ textTransform: 'uppercase' }}
           >
             escorts girls of the canton of {this.props.match.params.canton}
           </h4>

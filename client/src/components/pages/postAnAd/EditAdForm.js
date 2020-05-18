@@ -3,12 +3,7 @@ import "../../../styles/PostAnAdForm.css";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {
-  getCurrentProfile,
-  // uploadCover,
-  // uploadGallery,
-  createProfile
-} from "../../../actions/profile";
+import { getCurrentProfile, createProfile } from "../../../actions/profile";
 
 import {
   spokenLanguageList,
@@ -18,7 +13,7 @@ import {
   originList,
   genderList,
   sexual_orientationList,
-  typeList
+  typeList,
 } from "../../../constants/data.json";
 
 import InputGroup from "../../common/InputGroup";
@@ -35,22 +30,19 @@ import {
   silhouetteLabel,
   originLabel,
   descriptionLabel,
-
   addressLabel,
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
   websiteLabel,
-  coverLabel
+  webcamlinkLabel,
 } from "../../common/consts";
 
 const EditAdForm = ({
-  // uploadCover,
-  // uploadGallery,
   createProfile,
   history,
   getCurrentProfile,
-  profile: { profile, loading }
+  profile: { profile, loading },
 }) => {
   const [formData, setFormData] = useState({
     gender: "",
@@ -62,19 +54,16 @@ const EditAdForm = ({
     origin: "",
     description: "",
     address: "",
-
     languages: [],
     silhouette: "",
     rate: "",
     slogan: "",
     hours: "",
     website: "",
+    webcamlink: "",
     type: "",
-    errors: ""
+    errors: "",
   });
-
-  const [cover_photo, setCoverphoto] = useState(null);
-  const [photos, setGalleryphoto] = useState("");
 
   useEffect(() => {
     getCurrentProfile();
@@ -100,14 +89,11 @@ const EditAdForm = ({
       slogan: loading || !profile.slogan ? " " : profile.slogan,
       hours: loading || !profile.hours ? " " : profile.hours,
       website: loading || !profile.website ? " " : profile.website,
-      is_active: loading || !profile.is_active ? " " : profile.is_active
+      webcamlink: loading || !profile.webcamlink ? " " : profile.webcamlink,
+      is_active: loading || !profile.is_active ? " " : profile.is_active,
     });
-    setCoverphoto({
-      cover_photo: loading || !profile.cover_photo ? " " : profile.cover_photo
-    });
-    setGalleryphoto({
-      photos: loading || !profile.photos ? " " : profile.photos
-    });
+
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, getCurrentProfile]);
 
   const {
@@ -127,24 +113,17 @@ const EditAdForm = ({
     slogan,
     hours,
     website,
+    webcamlink,
     type,
     is_active,
-    errors
+    errors,
   } = formData;
 
-  const onChange = e => {
-    if (e.target.name === "cover_photo") {
-      setCoverphoto(e.target.files[0]);
-    }
-    if (e.target.name === "photos") {
-      setGalleryphoto(e.target.files);
-    }
-
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onCheckBox = (e, item) => {
-    console.log(e.target.checked);
     if (e.target.checked) {
       languages.push(item);
     }
@@ -192,29 +171,9 @@ const EditAdForm = ({
     });
   };
 
-  const onClickImg = photo => {
-    const imgs = profile.photos.map(img =>
-      img === photo ? profile.photos.splice(photo, 1) : photos
-    );
-    setGalleryphoto(imgs);
-
-    // console.log(profile.photos);
-  };
-
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
-    let formCover = new FormData();
-    formCover.append("cover_photo", cover_photo);
-
-    let formGallery = new FormData();
-
-    for (const key of Object.keys(photos)) {
-      formGallery.append("photos", photos[key]);
-    }
-
-    // uploadGallery(formGallery);
-    // uploadCover(formCover);
     createProfile(formData, history, true);
   };
 
@@ -235,7 +194,7 @@ const EditAdForm = ({
               name="is_active"
               id="active"
               value={true}
-              onChange={e => onChange(e)}
+              onChange={(e) => onChange(e)}
               checked={getCheckStatus(true)}
             />
             <label className="form-check-label" htmlFor="active">
@@ -249,7 +208,7 @@ const EditAdForm = ({
               name="is_active"
               id="inactive"
               value={false}
-              onChange={e => onChange(e)}
+              onChange={(e) => onChange(e)}
               checked={getCheckStatus(false)}
             />
             <label className="form-check-label" htmlFor="inactive">
@@ -257,8 +216,6 @@ const EditAdForm = ({
             </label>
           </div>
         </div>
-
-        {/* <InputGroup placeholder={'Nickname'} labels={nickname} required /> */}
 
         <SelectListGroup
           name="type"
@@ -286,7 +243,7 @@ const EditAdForm = ({
                   id={item}
                   value={item}
                   name="languages"
-                  onChange={e => onCheckBox(e, item)}
+                  onChange={(e) => onCheckBox(e, item)}
                   checked={getCheckStatus(item, "languages")}
                 />
                 <label
@@ -335,9 +292,10 @@ const EditAdForm = ({
                 <input
                   className="form-check-input"
                   type="checkbox"
+                  id={service}
                   value={service}
                   name="services"
-                  onChange={e => onCheckBoxServ(e, service)}
+                  onChange={(e) => onCheckBoxServ(e, service)}
                   checked={getCheckStatus(service, "services")}
                 />
                 <label
@@ -409,54 +367,6 @@ const EditAdForm = ({
           value={address}
         />
 
-        {/* <InputGroup
-          type="file"
-          name="cover_photo"
-          onChange={onChange}
-          labels={coverLabel}
-        />
-        <div className="holder-img">
-          {cover_photo === null ? (
-            ""
-          ) : (
-            <div>
-              <img src={profile.cover_photo} alt="" />
-            </div>
-          )}
-        </div>
-        <p className="text-center">
-          <small className="tip">Add a cover photo</small>
-        </p>
-
-        <input
-          type="file"
-          name="photos"
-          onChange={onChange}
-          multiple
-          className="mb-1"
-        />
-        <div className="holder-gallery">
-          {photos.length < 1 || undefined
-            ? ""
-            : profile.photos.map((photo, i) => (
-                <div key={i}>
-                  <button
-                    type="button"
-                    className="close"
-                    onClick={e => onClickImg(photo)}
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <img src={photo} alt="" />
-                </div>
-              ))}
-        </div>
-        <p className="text-center">
-          <small className="tip">
-            You need upload new gallery before finish editing profile!
-          </small>
-        </p> */}
-
         <TextAreaGroup
           placeholder="21:00 - 05:00"
           name="hours"
@@ -483,6 +393,13 @@ const EditAdForm = ({
           error={errors}
         />
         <InputGroup
+          name="webcamlink"
+          placeholder={"Webcam Link"}
+          onChange={onChange}
+          labels={webcamlinkLabel}
+          value={webcamlink}
+        />
+        <InputGroup
           name="website"
           placeholder={"https://www.site.com"}
           onChange={onChange}
@@ -501,13 +418,11 @@ const EditAdForm = ({
   );
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, {
   getCurrentProfile,
-  // uploadCover,
-  // uploadGallery,
-  createProfile
+  createProfile,
 })(withRouter(EditAdForm));

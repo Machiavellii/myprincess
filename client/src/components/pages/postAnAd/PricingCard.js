@@ -8,7 +8,7 @@ import StripeCheckout from "react-stripe-checkout";
 import {
   subscribePlan,
   getCurrentProfile,
-  payment
+  payment,
 } from "../../../actions/profile";
 
 const PricingCard = ({
@@ -20,10 +20,11 @@ const PricingCard = ({
   price,
   badge,
   currency,
-  amount
+  amount,
 }) => {
   useEffect(() => {
     getCurrentProfile();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getCurrentProfile]);
 
   const [checked, setDisabled] = useState(false);
@@ -50,7 +51,7 @@ const PricingCard = ({
         <br />
         <strong>visibility </strong> <span>total</span>
         <br />
-        <strong>3000 visits / day </strong> <span>MyPrincess.ch</span>
+        <strong>3000 visits / day </strong> <span>Xanibis.ch</span>
         <br />
         <div className="form-group">
           <label htmlFor="value">
@@ -73,7 +74,7 @@ const PricingCard = ({
           <StripeCheckout
             stripeKey="pk_test_2QL8V6xKMDyfzQc87dCmfPXU"
             // description={description}
-            name="MyPrincess.ch"
+            name="Xanibis.ch"
             //image={Logo}
             billingAddress
             amount={amount * 100}
@@ -89,15 +90,15 @@ const PricingCard = ({
 };
 
 PricingCard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, {
   payment,
   subscribePlan,
-  getCurrentProfile
+  getCurrentProfile,
 })(PricingCard);

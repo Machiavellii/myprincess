@@ -5,7 +5,7 @@ const LandingDescribe = () => {
   return (
     <div className="landingDescribe">
       <p>
-        <strong>MyPrincess.ch</strong> offers a{' '}
+        <strong>Xanibis.ch</strong> offers a{' '}
         <strong>large selection of escort ad</strong> you are looking for{' '}
         <strong>nightlife in Switzerland .</strong> If you are looking for a{' '}
         <strong> companion escort glamorous in Switzerland . </strong> Surfing{' '}
@@ -14,7 +14,7 @@ const LandingDescribe = () => {
         <strong>nightlife of the cities of Switzerland .</strong>
       </p>
       <p>
-        The <strong>ads on MyPrincess.ch</strong> are available only for
+        The <strong>ads on Xanibis.ch</strong> are available only for
         Switzerland. To give you a memorable experience to fulfill your{' '}
         <strong>erotic fantasies .</strong> The <strong>ads charms</strong>
         of this <strong>erotic book</strong> are broadcast by{' '}
@@ -28,7 +28,7 @@ const LandingDescribe = () => {
         </strong>
       </p>
       <p>
-        <strong> MyPrincess.ch</strong> is an <strong>erotic book</strong> is to
+        <strong> Xanibis.ch</strong> is an <strong>erotic book</strong> is to
         provide a platform for <strong>independent escorts online ads</strong>{' '}
         in Switzerland. In this <strong>directory attendants</strong> , surfers
         can view <strong>photos, videos, coordinates</strong> a variety of{' '}

@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { categoryList, servicesList } from "../../../constants/data.json";
-import { connect } from "react-redux";
-import { filterSearchPage } from "../../../actions/profile";
+import React, { useState, useEffect } from 'react';
+import { categoryList, servicesList } from '../../../constants/data.json';
+import { connect } from 'react-redux';
+import { filterSearchPage } from '../../../actions/profile';
 
 const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
   const [formData, setFormData] = useState({
-    canton: "",
+    canton: '',
     services: [],
-    category: ""
+    category: ''
   });
 
   useEffect(() => {
     filterSearchPage(formData);
   }, [formData, filterSearchPage]);
-
-  // console.log(profiles);
 
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,6 +34,25 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
 
   const { canton, category, services } = formData;
 
+  const cantons = [
+    ...new Set(profiles.map(profile => profile.location.canton))
+  ];
+
+  console.log(profiles);
+
+  const getNumbOfGirls = canton => {
+    var numbOfGirls = 0;
+
+    for (var i = 0; i < profiles.length; i++) {
+      if ('location' in profiles[i] && profiles[i].location.canton === canton)
+        numbOfGirls++;
+    }
+
+    return numbOfGirls;
+  };
+
+  // console.log(profiles);
+
   return (
     <div className="form-select">
       <select
@@ -45,15 +62,11 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
         name="canton"
         multiple={false}
       >
-        <option value="0"> - Canton - </option>
-
-        {profiles.map((profile, index) => {
+        <option value="0"> - Canton - </option>{' '}
+        {cantons.map((canton, index) => {
           return (
-            <option
-              key={index}
-              value={profile.location ? profile.location.canton : "No canton"}
-            >
-              {profile.location ? profile.location.canton : "No canton"}
+            <option key={index} value={canton ? canton : 'No canton'}>
+              {canton ? canton + ` (${getNumbOfGirls(canton)})` : 'No canton'}
             </option>
           );
         })}
@@ -96,45 +109,3 @@ const FilterForm = ({ filterSearchPage, profiles: { profiles } }) => {
 };
 
 export default connect(null, { filterSearchPage })(FilterForm);
-
-{
-  /* <div className="dropdown">
-        <a
-          className="nav-link dropdown-toggle form-control"
-          href="#"
-          role="button"
-          id="dropdownMenuLink"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          - Chooce wanted services -
-        </a>
-        <div
-          className="dropdown-menu scrollable-menu"
-          aria-labelledby="dropdownMenuButton"
-          style={{ backgroundColor: "white" }}
-        >
-          {servicesList.map((service, index) => {
-            return (
-              <li className="nav-item" key={index}>
-                <input
-                  className="form-check-input ml-1"
-                  type="checkbox"
-                  id={service}
-                  value={service}
-                  name="services"
-                  onChange={e => onCheckBoxServ(e, service)}
-                />
-                <label
-                  className="form-check-label dynamic-checkbox-label ml-4"
-                  htmlFor={service}
-                >
-                  {service}
-                </label>
-              </li>
-            );
-          })}
-        </div>
-      </div> */
-}

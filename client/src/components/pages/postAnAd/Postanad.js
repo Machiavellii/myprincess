@@ -1,8 +1,6 @@
-import React from 'react';
-import FreePlanCard from './FreePlanCard';
-import { Link } from 'react-router-dom';
-
-// import {CardElement, injectStripe} from 'react-stripe-elements';
+import React from "react";
+import FreePlanCard from "./FreePlanCard";
+import { Link } from "react-router-dom";
 
 const Postanad = () => {
   return (

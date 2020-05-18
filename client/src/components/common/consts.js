@@ -117,6 +117,12 @@ export const addressLabel = [
     text: "Address  *"
   }
 ];
+export const numberOfGirlsLabel = [
+  {
+    htmlFor: "numberOfGirls ",
+    text: "Number of Girls in your Agency"
+  }
+];
 export const businesshoursLabel = [
   {
     htmlFor: "business_hours ",
@@ -140,5 +146,11 @@ export const websiteLabel = [
   {
     htmlFor: "website ",
     text: "Personal Website"
+  }
+];
+export const webcamlinkLabel = [
+  {
+    htmlFor: "webcamlink ",
+    text: "Personal Webcam Link"
   }
 ];

@@ -116,7 +116,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         searchPage: state.profiles.filter(profile => {
-          // console.log(profile.location.canton);
           const service = profile.services.map(service => {
             return service.toLowerCase();
           });

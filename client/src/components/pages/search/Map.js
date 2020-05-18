@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactMapGl, { Marker, Popup } from "react-map-gl";
+import ReactMapGl, { Marker } from "react-map-gl";
 import { connect } from "react-redux";
 import { getProfiles } from "../../../actions/profile";
 
@@ -9,27 +9,14 @@ const Map = ({ profile: { profiles }, getProfiles }) => {
     longitude: 6.15367,
     width: "40vw",
     height: "75vh",
-    zoom: 12
+    zoom: 12,
   });
 
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
 
-  const [selectedGirl, setSelectedGirl] = useState(null);
-
-  // useEffect(() => {
-  //   const listener = e => {
-  //     if (e.key === "Escape") {
-  //       setSelectedGirl(null);
-  //     }
-  //   };
-  //   window.addEventListener("keydown", listener);
-
-  //   return () => {
-  //     window.removeEventListener("keydown", listener);
-  //   };
-  // }, []);
+  // const [selectedGirl, setSelectedGirl] = useState(true);
 
   const { latitude, longitude } = viewPort;
 
@@ -40,11 +27,11 @@ const Map = ({ profile: { profiles }, getProfiles }) => {
         mapboxApiAccessToken={
           "pk.eyJ1IjoibWF0ZWpnZWxqaSIsImEiOiJjazU4MjFubTEwNnB1M2xwZnBmb3F3aDI2In0.Q3ao_KXEg2Hr6ziv1Ddo3g"
         }
-        onViewportChange={viewPort => {
+        onViewportChange={(viewPort) => {
           setViewPort(viewPort);
         }}
       >
-        {profiles.map(girl => (
+        {profiles.map((girl) => (
           <Marker
             key={girl._id}
             latitude={girl.location ? girl.location.coordinates[1] : latitude}
@@ -52,10 +39,9 @@ const Map = ({ profile: { profiles }, getProfiles }) => {
           >
             <button
               className="girl-button-marker"
-              onClick={e => {
-                e.preventDefault();
-                setSelectedGirl(girl);
-              }}
+              // onClick={e => {
+              //   setSelectedGirl(girl);
+              // }}
             >
               <i className="fas fa-map-marker-alt girl-button-marker-icon"></i>
             </button>
@@ -83,8 +69,8 @@ const Map = ({ profile: { profiles }, getProfiles }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { getProfiles })(Map);

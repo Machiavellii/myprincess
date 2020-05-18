@@ -2,19 +2,29 @@ import React, { useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { toggleActive, getCurrentProfile } from "../../actions/profile";
+import {
+  toggleActive,
+  getCurrentProfile,
+  boostProfile,
+} from "../../actions/profile";
 import Moment from "react-moment";
 
-const DashboardActions = ({ toggleActive, profile: { profile } }) => {
+const DashboardActions = ({
+  toggleActive,
+  boostProfile,
+  profile: { profile },
+}) => {
   useEffect(() => {
     getCurrentProfile();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  Date.prototype.addDays = function(days) {
+  Date.prototype.addDays = function (days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
   };
+
   let remainingHours = new Date();
   const dateOfExpiry = remainingHours.addDays(profile.subscription_plan);
 
@@ -80,6 +90,14 @@ const DashboardActions = ({ toggleActive, profile: { profile } }) => {
 
       {renderIsActiveButton()}
 
+      <button
+        type="button"
+        className="btn btn-warning ml-2"
+        onClick={() => boostProfile()}
+      >
+        Boost me
+      </button>
+
       {profile.subscription_plan < 2 ? (
         <Link to="/pricingplan" className="btn btn-warning ml-2">
           Buy more hours
@@ -91,13 +109,16 @@ const DashboardActions = ({ toggleActive, profile: { profile } }) => {
 
 DashboardActions.propTypes = {
   toggleActive: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  boostProfile: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 });
 
-export default connect(mapStateToProps, { toggleActive, getCurrentProfile })(
-  DashboardActions
-);
+export default connect(mapStateToProps, {
+  toggleActive,
+  boostProfile,
+  getCurrentProfile,
+})(DashboardActions);

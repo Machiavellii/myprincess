@@ -1,3 +1,4 @@
+// import axios from '../axios';
 import axios from "axios";
 import { setAlert } from "./alert";
 import {
@@ -6,17 +7,17 @@ import {
   LOGIN_ADMIN_SUCCESS,
   LOGIN_ADMIN_FAIL,
   LOGOUT,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
 } from "./type";
 
 import setAdminToken from "../utills/setAdminToken";
 
 // LOGIN ADMIN
-export const loginAdmin = (username, password) => async dispatch => {
+export const loginAdmin = (username, password) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
 
   const body = JSON.stringify({ username, password });
@@ -26,7 +27,7 @@ export const loginAdmin = (username, password) => async dispatch => {
 
     dispatch({
       type: LOGIN_ADMIN_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(loadAdmin());
@@ -34,17 +35,17 @@ export const loginAdmin = (username, password) => async dispatch => {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
-      type: LOGIN_ADMIN_FAIL
+      type: LOGIN_ADMIN_FAIL,
     });
   }
 };
 
 // LOAD ADMIN
-export const loadAdmin = () => async dispatch => {
+export const loadAdmin = () => async (dispatch) => {
   if (localStorage.tokenAdmin) {
     setAdminToken(localStorage.tokenAdmin);
   }
@@ -54,17 +55,17 @@ export const loadAdmin = () => async dispatch => {
 
     dispatch({
       type: ADMIN_LOADED,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: AUTH_ADMIN_ERROR
+      type: AUTH_ADMIN_ERROR,
     });
   }
 };
 
 // LOG OUT ADMIN
-export const logout = () => dispatch => {
+export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };

@@ -1,31 +1,24 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-// import { Link, Redirect } from 'react-router-dom';
 import "../../../styles/PricingCard.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import {
-  subscribePlan,
-  getCurrentProfile,
-  payment
-} from "../../../actions/profile";
+import { subscribePlan, getCurrentProfile } from "../../../actions/profile";
 
 const PricingCard = ({
   subscribePlan,
   profile: { profile, loading },
-  payment,
   days,
   subscription_plan,
   price,
   badge,
   currency,
-  extra,
   buttonStyle,
-  amount
 }) => {
   useEffect(() => {
     getCurrentProfile();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getCurrentProfile]);
 
   const onClick = () => {
@@ -48,7 +41,7 @@ const PricingCard = ({
         <br />
         <strong>visibility </strong> <span>total</span>
         <br />
-        <strong>3000 visits / day </strong> <span>MyPrincess.ch</span>
+        <strong>3000 visits / day </strong> <span>Xanibis.ch</span>
         <br />
       </div>
       <div className="card-footer text-center">
@@ -66,15 +59,14 @@ const PricingCard = ({
 };
 
 PricingCard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile
+const mapStateToProps = (state) => ({
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, {
-  payment,
   subscribePlan,
-  getCurrentProfile
+  getCurrentProfile,
 })(PricingCard);

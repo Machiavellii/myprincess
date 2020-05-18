@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { login, logout } from "../../actions/auth";
 import { emailLabel, passwordLabel } from "../common/consts";
 
@@ -11,15 +11,15 @@ import InputGroup from "../common/InputGroup";
 const Login = ({ isAuthenticated, login, auth, logout }) => {
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const { email, password } = formData;
 
-  const onChange = e =>
+  const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     login(email, password);
   };
@@ -35,7 +35,9 @@ const Login = ({ isAuthenticated, login, auth, logout }) => {
 
   return (
     <div className="container">
-      <form className="px-3" onSubmit={e => onSubmit(e)}>
+      <h2>I already have an account</h2>
+      <span>Sign In with your email and password</span>
+      <form className="mt-3" onSubmit={(e) => onSubmit(e)}>
         <InputGroup
           type="email"
           name="email"
@@ -58,21 +60,18 @@ const Login = ({ isAuthenticated, login, auth, logout }) => {
           Log in
         </button>
       </form>
-      <p>
-        Don't have an account? <Link to="/register">Sign Up</Link>
-      </p>
     </div>
   );
 };
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { login, logout })(Login);

@@ -6,7 +6,6 @@ const Describe = ({ profile }) => {
     <div className="simple-describe mb-5">
       <h6>Category:</h6>
       <p className="mb-1">{category}</p>
-      <p>VIP</p>
       <h6>Age:</h6>
       <p>{age}</p>
       <h6 className="mt-4">Silhouette:</h6>

@@ -41,7 +41,7 @@ const Footer = () => {
       </div>
       <div className="facebook">
         <a
-          href="https://m.facebook.com/myprincess.ch"
+          href="https://m.facebook.com/Xanibis.ch"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -54,7 +54,7 @@ const Footer = () => {
         <span>
           {' '}
           <strong>
-            MyPrincess.ch - directory for escort and erotic massage parlor in
+            Xanibis.ch - directory for escort and erotic massage parlor in
             Switzerland
           </strong>{' '}
         </span>

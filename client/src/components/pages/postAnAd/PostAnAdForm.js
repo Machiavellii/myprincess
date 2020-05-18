@@ -12,7 +12,7 @@ import {
   silhouetteList,
   originList,
   genderList,
-  sexual_orientationList
+  sexual_orientationList,
 } from "../../../constants/data.json";
 
 import InputGroup from "../../common/InputGroup";
@@ -31,7 +31,8 @@ import {
   businesshoursLabel,
   rateLabel,
   phonenumberLabel,
-  websiteLabel
+  websiteLabel,
+  webcamlinkLabel,
 } from "../../common/consts";
 
 // import MapboxAutocomplete from "react-mapbox-autocomplete";
@@ -40,7 +41,7 @@ const PostAnAdForm = ({
   createProfile,
   history,
   auth: isAuthenticated,
-  profile: error
+  profile: error,
 }) => {
   const [formData, setFormData] = useState({
     gender: "",
@@ -58,7 +59,8 @@ const PostAnAdForm = ({
     rate: "",
     slogan: "",
     hours: "",
-    website: ""
+    website: "",
+    webcamlink: "",
   });
 
   const {
@@ -76,7 +78,8 @@ const PostAnAdForm = ({
     rate,
     slogan,
     hours,
-    website
+    website,
+    webcamlink,
   } = formData;
 
   useEffect(() => {
@@ -84,9 +87,11 @@ const PostAnAdForm = ({
       setFormData({ ...formData });
       setTimeout(() => setFormData({ ...formData }), 5000);
     }
+
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -114,8 +119,11 @@ const PostAnAdForm = ({
     });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
+
+    console.log(formData);
+
     createProfile(formData, history);
   };
 
@@ -179,7 +187,7 @@ const PostAnAdForm = ({
                   type="checkbox"
                   id={item}
                   value={item}
-                  onChange={e => onCheckBox(e, item)}
+                  onChange={(e) => onCheckBox(e, item)}
                   name="languages"
                 />
                 <label
@@ -229,7 +237,7 @@ const PostAnAdForm = ({
                   id={service}
                   value={service}
                   name="services"
-                  onChange={e => onCheckBoxServ(e, service)}
+                  onChange={(e) => onCheckBoxServ(e, service)}
                 />
                 <label
                   className="form-check-label dynamic-checkbox-label ml-2"
@@ -328,6 +336,13 @@ const PostAnAdForm = ({
           value={phone}
         />
         <InputGroup
+          name="webcamlink"
+          placeholder={"Webcam Link"}
+          onChange={onChange}
+          labels={webcamlinkLabel}
+          value={webcamlink}
+        />
+        <InputGroup
           name="website"
           placeholder={"https://www.site.com"}
           onChange={onChange}
@@ -345,11 +360,11 @@ const PostAnAdForm = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, {
-  createProfile
+  createProfile,
 })(withRouter(PostAnAdForm));

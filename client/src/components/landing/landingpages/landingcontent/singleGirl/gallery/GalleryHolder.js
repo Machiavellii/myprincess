@@ -6,11 +6,11 @@ import ReactMapGl, { Marker } from "react-map-gl";
 const GalleryHolder = ({ profile }) => {
   const { cover_photo, is_active, location } = profile;
   const [viewPort, setViewPort] = useState({
-    latitude: 46.204391,
-    longitude: 6.143158,
+    latitude: 46.20433,
+    longitude: 6.15367,
     width: "100%",
     height: "100%",
-    zoom: 12
+    zoom: 15,
   });
 
   const { latitude, longitude } = viewPort;
@@ -18,7 +18,7 @@ const GalleryHolder = ({ profile }) => {
     <div className="gallery-holder">
       <div className="img-holder mb-4">
         <img
-          src={`${window.location.origin}/${cover_photo}`}
+          src={`https://myprincess.jcloud.ik-server.com/${cover_photo}`}
           alt=""
           className="img-fluid"
         />
@@ -39,7 +39,7 @@ const GalleryHolder = ({ profile }) => {
             mapboxApiAccessToken={
               "pk.eyJ1IjoibWF0ZWpnZWxqaSIsImEiOiJjazU4MjFubTEwNnB1M2xwZnBmb3F3aDI2In0.Q3ao_KXEg2Hr6ziv1Ddo3g"
             }
-            onViewportChange={viewPort => {
+            onViewportChange={(viewPort) => {
               setViewPort(viewPort);
             }}
           >
@@ -47,8 +47,6 @@ const GalleryHolder = ({ profile }) => {
               <Fragment>Loading...</Fragment>
             ) : (
               <Marker
-                latitude={latitude}
-                longitude={longitude}
                 latitude={
                   profile.location ? profile.location.coordinates[1] : latitude
                 }

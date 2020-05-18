@@ -1,15 +1,15 @@
-import React, { Fragment, useEffect } from "react";
-import { connect } from "react-redux";
-import { getProfileById } from "../../../../../actions/profile";
-import { Link } from "react-router-dom";
-import Spinner from "../../../../layout/Spinner";
+import React, { Fragment, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getProfileById } from '../../../../../actions/profile';
+import { Link } from 'react-router-dom';
+import Spinner from '../../../../layout/Spinner';
 
-import "../../../../../styles/singleGirl.css";
+import '../../../../../styles/singleGirl.css';
 
-import Carousel from "./carousel/Carousel";
-import Header from "./describeGirl/componentGirls/HeaderGirl";
-import DescribeGirl from "./describeGirl/Girl";
-import GalleryHolder from "./gallery/GalleryHolder";
+import Carousel from './carousel/Carousel';
+import Header from './describeGirl/componentGirls/HeaderGirl';
+import DescribeGirl from './describeGirl/Girl';
+import GalleryHolder from './gallery/GalleryHolder';
 
 const DescribeContent = ({
   getProfileById,
@@ -55,4 +55,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getProfileById })(DescribeContent);
+export default connect(mapStateToProps, {
+  getProfileById
+})(DescribeContent);

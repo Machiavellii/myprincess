@@ -1,3 +1,4 @@
+// import axios from "../axios";
 import axios from "axios";
 import { setAlert } from "./alert";
 
@@ -18,147 +19,142 @@ import {
   TOGGLE_ACTIVE,
   DECREASE_HOURS,
   UPLOAD_COVER,
-  UPLOAD_GALLERY
+  UPLOAD_GALLERY,
 } from "./type";
 
 toast.configure();
 
 //Get Current User
-export const getCurrentProfile = () => async dispatch => {
+export const getCurrentProfile = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/profile/me");
 
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // GET All Profiles
-export const getProfiles = () => async dispatch => {
+export const getProfiles = () => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await axios.get("/api/profile");
 
     dispatch({
       type: GET_PROFILES,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
-export const getProfileById = userId => async dispatch => {
+export const getProfileById = (userId) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
 
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // CREATE PROFIL
-export const createProfile = (
-  formData,
-  history,
-  edit = false
-) => async dispatch => {
+export const createProfile = (formData, history, edit = false) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     const res = await axios.post("/api/profile", formData, config);
 
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", "success"));
 
     history.push("/dashboard");
-    // window.location.reload();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // SUBSCRIPTION PLAN
-export const subscribePlan = time => async dispatch => {
+export const subscribePlan = (time) => async (dispatch) => {
   try {
     const res = await axios.post("api/profile/subscription", time);
 
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
   }
 };
 
-export const typePlan = value => async dispatch => {
+export const typePlan = (value) => async (dispatch) => {
   try {
     const res = await axios.post("api/profile/type", value);
 
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
   }
 };
 
 // UPLOAD COVER
 
-export const uploadCover = (
-  formFile,
-  history,
-  setUploadPercentage
-) => async dispatch => {
+export const uploadCover = (formFile, history, setUploadPercentage) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
       },
-      onUploadProgress: progressEvent => {
+      onUploadProgress: (progressEvent) => {
         setUploadPercentage(
           parseInt(
             Math.round((progressEvent.loaded * 100) / progressEvent.total)
@@ -167,14 +163,14 @@ export const uploadCover = (
 
         //Clear Progress bar
         setTimeout(() => setUploadPercentage(0), 4000);
-      }
+      },
     };
 
     const res = await axios.post("api/profile/upload-cover", formFile, config);
 
     dispatch({
       type: UPLOAD_COVER,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert("Profile Photo Added", "success"));
@@ -184,22 +180,20 @@ export const uploadCover = (
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
   }
 };
 
-export const uploadGallery = (
-  formFile,
-  history,
-  setUploadPercentage
-) => async dispatch => {
+export const uploadGallery = (formFile, history, setUploadPercentage) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
       },
-      onUploadProgress: progressEvent => {
+      onUploadProgress: (progressEvent) => {
         setUploadPercentage(
           parseInt(
             Math.round((progressEvent.loaded * 100) / progressEvent.total)
@@ -208,8 +202,9 @@ export const uploadGallery = (
 
         //Clear Progress bar
         setTimeout(() => setUploadPercentage(0), 4000);
-      }
+      },
     };
+
     const res = await axios.post(
       "api/profile/upload-gallery",
       formFile,
@@ -218,7 +213,7 @@ export const uploadGallery = (
 
     dispatch({
       type: UPLOAD_GALLERY,
-      payload: res.data
+      payload: res.data,
     });
 
     setTimeout(() => history.push("/dashboard"), 5000);
@@ -231,30 +226,31 @@ export const uploadGallery = (
   }
 };
 
-export const filterFunc = value => dispatch => {
+export const filterFunc = (value) => (dispatch) => {
   const valueV = value.toLowerCase();
 
   if (value.length >= 3) {
     dispatch({
       type: FILTER_PROFILE,
-      payload: valueV
+      payload: valueV,
     });
   } else {
     dispatch({
       type: FILTER_PROFILE,
-      payload: ""
+      payload: "",
     });
   }
 };
-export const filterSearchPage = value => dispatch => {
+
+export const filterSearchPage = (value) => (dispatch) => {
   dispatch({
     type: SEARCHPAGE_FILTER,
-    payload: value
+    payload: value,
   });
 };
 
 // Delete account & profile
-export const deleteAccount = () => async dispatch => {
+export const deleteAccount = () => async (dispatch) => {
   if (window.confirm("Are you sure? This can not be undone!")) {
     try {
       await axios.delete("/api/profile");
@@ -266,40 +262,40 @@ export const deleteAccount = () => async dispatch => {
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.reponse.statusText, status: err.reponse.status }
+        payload: { msg: err.reponse.statusText, status: err.reponse.status },
       });
     }
   }
 };
 
 //Toggle Active hours
-export const toggleActive = () => async dispatch => {
+export const toggleActive = () => async (dispatch) => {
   try {
     const res = await axios.put("/api/profile/me/isActive");
 
     dispatch({
       type: TOGGLE_ACTIVE,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
-export const decreaseHours = () => async dispatch => {
+export const decreaseHours = () => async (dispatch) => {
   try {
     const res = await axios.put("/api/profile/reduceSubscription");
     dispatch({
       type: DECREASE_HOURS,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
@@ -327,5 +323,19 @@ export const payment = async (profile, token) => {
     //   type: PROFILE_ERROR,
     //   payload: { msg: err.response.statusText, status: err.response.status }
     // });
+  }
+};
+
+//Boost profile
+export const boostProfile = () => async (dispatch) => {
+  try {
+    await axios.put("/api/profile/boost");
+
+    dispatch(setAlert("Your Profile has been boosted", "success"));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
   }
 };
