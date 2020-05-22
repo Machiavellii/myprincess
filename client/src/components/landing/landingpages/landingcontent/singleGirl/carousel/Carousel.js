@@ -22,13 +22,13 @@ const Carousel = ({ photos }) => {
             {photos.map((photo, i) => (
               <a
                 key={i}
-                href={photo}
+                href={`/${photo}`}
                 data-toggle="lightbox"
                 data-gallery="img-gallery"
                 data-height="564"
                 data-width="564"
               >
-                <img src={photo} alt="" className="img-fluid" />
+                <img src={`/${photo}`} alt="" className="img-fluid" />
               </a>
             ))}
           </div>

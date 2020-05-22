@@ -14,10 +14,11 @@ const GalleryHolder = ({ profile }) => {
   });
 
   const { latitude, longitude } = viewPort;
+
   return (
     <div className="gallery-holder">
       <div className="img-holder mb-4">
-        <img src={cover_photo} alt="" className="img-fluid" />
+        <img src={`/${cover_photo}`} alt="" className="img-fluid" />
       </div>
       <div className="location mb-5">
         <h6 className="mb-1">Job Activity</h6>
