@@ -28,19 +28,7 @@ let storage = multer.diskStorage({
 });
 
 const uploadGallery = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      const folder_id = req.user.id;
-      dirPath = `./static/gallery/${folder_id}`;
-      if (!fs.existsSync(dirPath)) {
-        fs.mkdirSync(dirPath);
-      }
-      cb(null, dirPath);
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + file.originalname);
-    },
-  }),
+  storage: storage,
   fileFilter: (req, file, cb) => {
     if (
       file.mimetype == "image/png" ||
