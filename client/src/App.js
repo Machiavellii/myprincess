@@ -53,8 +53,6 @@ import DescribeAgency from "./components/landing/landingpages/landingcontent/sin
 import { loadUser, getUsers } from "./actions/auth";
 import { loadAdmin } from "./actions/adminAuth";
 
-//import GA from './utills/GoogleAnalytics';
-
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -78,7 +76,6 @@ const App = () => {
       <Router>
         <div className="overlay-container">
           {!confirm ? <Confirm /> : null}
-          {/* {GA.init() && <GA.RouteTracker />} */}
           <div className="App">
             <MiniHeader />
             <Navbar />

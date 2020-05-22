@@ -36,7 +36,9 @@ const WebcamGirls = ({ profiles: { profiles }, getProfiles }) => {
                       <div className="contentHolder">
                         <div className="top-holder">
                           <Link to="/" className="links">
-                            {profile.location ? profile.location.canton : ""}
+                            {profile.location
+                              ? profile.location.canton
+                              : "No Canton"}
                           </Link>
                         </div>
                         <Link to={`/profile/user/${profile.user._id}`}>
