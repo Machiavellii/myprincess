@@ -28,11 +28,7 @@ const Carousel = ({ photos }) => {
                 data-height="564"
                 data-width="564"
               >
-                <img
-                  src={`https://myprincess.jcloud.ik-server.com/${photo}`}
-                  alt=""
-                  className="img-fluid"
-                />
+                <img src={`/${photo}`} alt="" className="img-fluid" />
               </a>
             ))}
           </div>

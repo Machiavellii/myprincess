@@ -15,23 +15,18 @@ const WebcamGirls = ({ profiles: { profiles }, getProfiles }) => {
     }
   });
 
-  console.log(webcamGirls);
-
   return (
     <div className="container">
       {webcamGirls ? (
         <div className="container">
-          <div className="row">
-            {webcamGirls.length > 0 ? (
-              webcamGirls.map((profile) => (
-                <Fragment>
-                  <h4 className="text-center contact-form-heading mt-5">
-                    Best Webcam girls available
-                  </h4>
-                  <div
-                    className="col-sm-6 col-md-4 col-lg-3 mt-5"
-                    key={profile._id}
-                  >
+          {webcamGirls.length > 0 ? (
+            <div className="row">
+              <h4 className="text-center contact-form-heading mt-5">
+                Best Webcam girls available
+              </h4>
+              {webcamGirls.map((profile) => (
+                <Fragment key={profile._id}>
+                  <div className="col-sm-6 col-md-4 col-lg-3 mt-5">
                     <article className="content">
                       <div className="contentHolder">
                         <div className="top-holder">
@@ -67,13 +62,13 @@ const WebcamGirls = ({ profiles: { profiles }, getProfiles }) => {
                     </article>
                   </div>
                 </Fragment>
-              ))
-            ) : (
-              <h4 className="text-center contact-form-heading mt-5">
-                No Webcam girls available
-              </h4>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <h4 className="text-center contact-form-heading mt-5">
+              No Webcam girls available
+            </h4>
+          )}
         </div>
       ) : null}
     </div>

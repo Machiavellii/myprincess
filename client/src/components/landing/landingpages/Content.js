@@ -92,7 +92,7 @@ const Content = ({ profile, agency }) => {
 
                   <Link to={`/agency/user/${profile.user._id}`}>
                     <img
-                      src={`https://myprincess.jcloud.ik-server.com/${profile.cover_photo}`}
+                      src={`/${profile.cover_photo}`}
                       alt=""
                       className="img-fluid"
                     />
