@@ -12,7 +12,7 @@ import {
   BLOCK_ACCOUNT,
   TOGGLE_ACTIVE,
   UPLOAD_COVER,
-  UPLOAD_GALLERY
+  UPLOAD_GALLERY,
 } from "../actions/type";
 
 const initialState = {
@@ -22,10 +22,10 @@ const initialState = {
   error: {},
   profileFilter: [],
   searchPage: [],
-  block: {}
+  block: {},
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -34,75 +34,77 @@ export default function(state = initialState, action) {
       return {
         ...state,
         profile: payload,
-        loading: false
+        loading: false,
       };
     case TOGGLE_ACTIVE:
       return {
         ...state,
         profile: {
           ...state.profile,
-          is_active: payload
+          is_active: payload,
         },
-        loading: false
+        loading: false,
       };
     case UPLOAD_COVER:
       return {
         ...state,
         profile: {
           ...state.profile,
-          cover_photo: payload
+          cover_photo: payload,
         },
-        loading: false
+        loading: false,
       };
     case UPLOAD_GALLERY:
       return {
         ...state,
         profile: {
           ...state.profile,
-          photos: [payload]
+          photos: [payload],
         },
-        loading: false
+        loading: false,
       };
     case GET_PROFILES:
       return {
         ...state,
         profiles: payload,
-        loading: false
+        loading: false,
       };
     case PROFILE_ERROR:
       return {
         ...state,
         error: payload,
-        loading: false
+        loading: false,
       };
     case CLEAR_PROFILE:
       return {
         ...state,
         profile: null,
-        loading: false
+        loading: false,
       };
     case ACCOUNT_DELETED_ADMIN:
       return {
         ...state,
-        profiles: state.profiles.filter(profile => profile.user._id !== payload)
+        profiles: state.profiles.filter(
+          (profile) => profile.user._id !== payload
+        ),
       };
     case BLOCK_ACCOUNT:
       return {
         ...state,
-        block: state.profiles.map(profile => profile.user.block.payload)
+        block: state.profiles.map((profile) => profile.user.block.payload),
       };
     case GET_PROFILE_ADMIN:
     case UPDATE_PROFILE_ADMIN:
       return {
         ...state,
         profile: payload,
-        loading: false
+        loading: false,
       };
     case FILTER_PROFILE:
       console.log(payload);
       return {
         ...state,
-        profileFilter: state.profiles.filter(profile => {
+        profileFilter: state.profiles.filter((profile) => {
           if (
             profile.user.nickname.toLowerCase().includes(payload) ||
             profile.location.city.toLowerCase().includes(payload)
@@ -110,17 +112,19 @@ export default function(state = initialState, action) {
             return profile;
           }
         }),
-        loading: false
+        loading: false,
       };
     case SEARCHPAGE_FILTER:
       return {
         ...state,
-        searchPage: state.profiles.filter(profile => {
-          const service = profile.services.map(service => {
+        searchPage: state.profiles.filter((profile) => {
+          const service = profile.services.map((service) => {
             return service.toLowerCase();
           });
 
-          if (
+          if (profile.location === undefined) {
+            return "";
+          } else if (
             typeof profile.location.canton === "string" &&
             profile.location.canton
               .toLowerCase()
@@ -138,8 +142,8 @@ export default function(state = initialState, action) {
           ) {
             return profile;
           } else if (
-            typeof profile.canton === "string" &&
-            profile.canton
+            typeof profile.location.canton === "string" &&
+            profile.location.canton
               .toLowerCase()
               .includes(payload.canton.toLowerCase()) &&
             profile.category
@@ -149,7 +153,7 @@ export default function(state = initialState, action) {
           ) {
             return profile;
           }
-        })
+        }),
       };
 
     default:

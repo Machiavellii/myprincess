@@ -293,8 +293,6 @@ router.post("/upload-cover", auth, async (req, res) => {
       }
       let file = req.file;
 
-      console.log(file);
-
       const coverUrl = path.join(file.destination, file.filename);
 
       const profile = await Profile.findOne({

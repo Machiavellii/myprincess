@@ -51,10 +51,11 @@ export const getProfiles = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    console.log(err.reponse);
+    // dispatch({
+    //   type: PROFILE_ERROR,
+    //   payload: { msg: err.response.statusText, status: err.response.status },
+    // });
   }
 };
 
@@ -67,10 +68,11 @@ export const getProfileById = (userId) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
   }
 };
 
@@ -100,11 +102,6 @@ export const createProfile = (formData, history, edit = false) => async (
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
-
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
   }
 };
 
@@ -217,12 +214,11 @@ export const uploadGallery = (formFile, history, setUploadPercentage) => async (
 
     setTimeout(() => history.push("/dashboard"), 5000);
   } catch (err) {
-    // const errors = err.response.data.errors;
-    console.log(err.response);
+    const errors = err.response.data.errors;
 
-    // if (errors) {
-    //   errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
-    // }
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
   }
 };
 
